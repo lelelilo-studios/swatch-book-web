@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <defs>
+    <pattern id="sea" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="#e9e3d2"/>
+      <rect x="0" y="0" width="1" height="1" fill="#18171c"/>
+      <rect x="2" y="2" width="1" height="1" fill="#18171c"/>
+      <rect x="2" y="0" width="1" height="1" fill="#18171c"/>
+    </pattern>
+    <pattern id="sky" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="#e9e3d2"/>
+      <rect x="0" y="3" width="3" height="1" fill="#18171c"/>
+    </pattern>
+  </defs>
+  <rect width="64" height="64" fill="#e9e3d2"/>
+  <rect x="2" y="2" width="60" height="38" fill="url(#sky)"/>
+  <rect x="2" y="40" width="60" height="22" fill="url(#sea)"/>
+  <!-- masts and sails -->
+  <rect x="25" y="10" width="2" height="30" fill="#18171c"/>
+  <rect x="39" y="13" width="2" height="27" fill="#18171c"/>
+  <path d="M17 15h18v8h-18z M18 25h16v9h-16z" fill="#e9e3d2" stroke="#18171c" stroke-width="1.5"/>
+  <path d="M32 18h16v7h-16z M33 27h14v8h-14z" fill="#e9e3d2" stroke="#18171c" stroke-width="1.5"/>
+  <path d="M11 37 L25 12" stroke="#18171c" stroke-width="1"/>
+  <!-- hull with its pale band and black ports -->
+  <path d="M9 37h47l-4 8h-39z" fill="#18171c"/>
+  <rect x="13" y="38" width="38" height="3" fill="#e9e3d2"/>
+  <rect x="16" y="38" width="3" height="3" fill="#18171c"/><rect x="23" y="38" width="3" height="3" fill="#18171c"/>
+  <rect x="30" y="38" width="3" height="3" fill="#18171c"/><rect x="37" y="38" width="3" height="3" fill="#18171c"/>
+  <rect x="44" y="38" width="3" height="3" fill="#18171c"/>
+  <!-- the ensign -->
+  <rect x="54" y="30" width="6" height="4" fill="#18171c"/>
+  <rect x="1" y="1" width="62" height="62" fill="none" stroke="#18171c" stroke-width="2"/>
+  <rect x="4" y="4" width="56" height="56" fill="none" stroke="#18171c" stroke-width="1"/>
+</svg>

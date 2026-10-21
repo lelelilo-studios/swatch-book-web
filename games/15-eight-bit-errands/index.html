@@ -24,7 +24,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
-<link rel="preload" href="pkg/game_bg.wasm?v=bde2111-6ad90052" as="fetch" type="application/wasm" crossorigin>
+<link rel="preload" href="pkg/game_bg.wasm?v=c894a4f-6ad94301" as="fetch" type="application/wasm" crossorigin>
 <style>
   /* The kit's page. The game's own look comes from its theme (below), which sets these. */
   :root { --bg: #111; --ink: #f2efe6; --muted: #a9a49a; --accent: #f0bd52; --danger: #e0624f; --panel: rgba(255,255,255,.06);
@@ -148,7 +148,7 @@ a#swatch-tag { font-weight: 400; letter-spacing: 0; font-size: 11px; }
 </div>
 
 <script type="module">
-  const BUILD = 'bde2111-6ad90052';
+  const BUILD = 'c894a4f-6ad94301';
   window.__lelelilo_build = BUILD;
   const $ = id => document.getElementById(id);
   const show = id => { for (const s of ['loading', 'unsupported', 'failed']) $(s).classList.toggle('hidden', s !== id); };
@@ -158,7 +158,13 @@ a#swatch-tag { font-weight: 400; letter-spacing: 0; font-size: 11px; }
   $('again').addEventListener('click', e => { e.preventDefault(); location.reload(); });
   // Inside the collection's preview frames, the tag is the index's job
   if (window.self !== window.top) $('swatch-tag').style.display = 'none';
-  window.__kitTag = on => $('swatch-tag').classList.toggle('off', !on);
+  // A tap that reveals the tag (a pause button, say) must not also click it: it wakes up a moment later
+  let tagTimer = 0;
+  window.__kitTag = on => {
+    const t = $('swatch-tag'), was = !t.classList.contains('off');
+    t.classList.toggle('off', !on);
+    if (on && !was) { t.style.pointerEvents = 'none'; clearTimeout(tagTimer); tagTimer = setTimeout(() => { t.style.pointerEvents = ''; }, 450); }
+  };
   const LINUX = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
   const linuxHelp = `<b>On Linux</b>, WebGPU is still switched off by default. In Chrome, Chromium, Brave or Edge:
     <ol><li>open <code>chrome://flags</code>, set <b>Unsafe WebGPU Support</b> to Enabled,</li>

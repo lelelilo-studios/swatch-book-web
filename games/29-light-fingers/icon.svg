@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="d" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2550"/>
+      <stop offset=".62" stop-color="#4a2c3a"/>
+      <stop offset="1" stop-color="#1e1814"/>
+    </linearGradient>
+    <radialGradient id="g" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffd47a" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffd47a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#d)"/>
+  <circle cx="42" cy="34" r="18" fill="url(#g)"/>
+  <!-- the purse: a gathered pouch -->
+  <path d="M36 27 C 29 31, 27 39, 31 44 C 35 48, 45 48, 49 44 C 53 39, 51 31, 44 27 Z" fill="#b8862e"/>
+  <path d="M34 34 C 33 38, 34 42, 38 44" stroke="#e8b85a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M35 27 C 38 25, 42 25, 45 27" stroke="#6a4a1e" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M37 25 C 35 21, 38 19, 40 22 C 42 19, 45 21, 43 25" fill="#c89838"/>
+  <!-- the glint -->
+  <path d="M51 15 C 51.6 19, 52 19.4, 56 20 C 52 20.6, 51.6 21, 51 25 C 50.4 21, 50 20.6, 46 20 C 50 19.4, 50.4 19, 51 15 Z" fill="#fff3c4"/>
+  <!-- the hand, reaching in from below -->
+  <path d="M8 58 C 14 50, 20 46, 27 44" stroke="#c4402a" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M24 47 C 27 43, 30 41, 33 41" stroke="#e8c8a0" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+  <path d="M26 44 C 29 40, 33 37, 37 36" stroke="#f0d4b0" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M25 47 C 29 46, 33 46, 36 44" stroke="#dcb890" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+</svg>

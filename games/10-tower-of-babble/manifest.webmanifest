@@ -1,0 +1,16 @@
+{
+  "name": "Tower of Babble · The Swatch Book",
+  "short_name": "Tower of Babble",
+  "description": "Drop cut-out saints, sinners and cows from a cherub's string; stack them up to heaven.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#1a120c",
+  "theme_color": "#1a120c",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

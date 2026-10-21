@@ -238,10 +238,10 @@ window.SWATCHES = {
    ],
    "rendering": "The simulation runs as compute passes over ping-pong rgba32float storage textures; one full-screen fragment pass draws the desk, the spiral-bound page, cold-press grain lit from its own slope, transparent pigment, wet sheen and the masking film, and one instanced 2D batch with a custom fragment shader draws graphite strokes, watercolour dabs, deckled cards and the wash that sweeps between screens.",
    "brief": "# 03 · Wet on Wet\n\n*Swatch 03 of The Swatch Book. Style: **Watercolor washes** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nTransparent layers, pooled pigment edges and open paper-like space give environments a fluid, breathable quality. Watercolor can shape flat illustration or be carried into a three-dimensional scene.\n\n**What to look for**\n- Translucent layers and soft transitions\n- Pigment blooms, paper grain or uneven washes\n- Negative space as part of the composition\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/watercolor-wash/):\n\n> Use translucent color layers, softly pooled pigment edges, selective blooms and subtle paper grain. Reserve generous light paper-like negative space; separate depth with overlapping washes and atmospheric softness rather than heavy outlines. Keep playable characters and interactive props more clearly defined than distant scenery, without making them look pasted in. Use light, legible UI cards with minimal watercolor accents, not noisy painted text. Effects should diffuse, bloom or flow, with gentle transitions that preserve action timing. Use watercolor treatment coherently even if the scene is built in 3D. Avoid opaque oil-paint buildup, plastic gloss, uniformly blurred edges and heavy comic inking.\n\n\n## The game: Wet on Wet\n\n**Hook:** *Paint before the paper dries.*\n\nA watercolour sketchbook of thirty unfinished paintings: a heron in reeds, a lighthouse at dusk, a fox under a\nbirch, a harbour in rain. Each page is a pencil line drawing on wet paper. You finish it by dropping pigment and\nletting it **bleed**: colour spreads through the wet paper, pools at edges, mixes where two washes meet, and stops\nwhere the paper is dry. The paper dries as you work.\n\n**Why this style:** watercolour is translucent layers, pigment blooms, paper grain and negative space. Its whole\ncharacter is the fight between control and the water. That fight is the game.\n\n### Core loop\n- **Regions:** each drawing is split into regions (sky, water, the heron's body…) with a **target colour**\n  (a small swatch) and some regions marked **keep white** (masking: the highlight on the water, the moon).\n- **Drop pigment:** pick one of three pigments in the palette (the page gives you a limited set, e.g. ultramarine,\n  gamboge, burnt sienna) and touch the paper: pigment flows from the brush where you touch and drag. It spreads\n  through wet paper by a GPU simulation (diffusion + flow along the paper's wetness gradient + granulation),\n  mixing **subtractively** with what is there (blue + yellow → green).\n- **Water:** a water brush re-wets dry paper (to keep a wash going) or drops into drying pigment to make a\n  **cauliflower bloom** (the backrun watercolourists know), which is required in some pages (the target shows it).\n- **Drying:** wetness evaporates over time (faster in some pages: \"sunny day\"). Dry paper stops pigment dead with a\n  hard edge (the darker rim watercolour leaves when a wash dries).\n- **Score:** when you press \"Done\" (or the page dries completely), each region is scored by how close its average\n  colour is to the target, how evenly it is filled, and whether white areas stayed white. Up to three stars per\n  page. Pages unlock in a sketchbook; later pages add wind (tilt the sheet: drag on the page's corner) and gravity\n  runs (tilted easels where washes run down).\n\n### Hooks to come back\n- Stars per page, a finished-gallery view of your own paintings (each saved as a thumbnail in the sketchbook), a\n  daily \"sketch\" page from the seed with a random palette.\n\n### Look\n- The simulation runs on the GPU in compute shaders over a paper-sized grid (e.g. 512×768 cells on phones):\n  fields for water, three pigment concentrations and deposited pigment; rendered with paper grain (a cold-press\n  texture from noise), pigment granulation in the grain's valleys, edge darkening where washes dried, and the\n  pencil line drawing on top. Keep a fallback lower grid size for slow devices (`cx.view.scale`).\n- UI is the sketchbook itself: a spiral-bound pad, a porcelain palette with three wells, a jar of water, a brush.\n  Calm serif type. No hard UI boxes: everything looks painted or penciled.\n\n### Sound\n- Brush on paper (soft filtered noise following stroke speed), a drop of water, the jar clinking, a soft piano and\n  string pad loop that blooms when a page gets three stars.\n\n### Technical notes\n- wgpu compute pipelines work on WebGPU: run a few sim steps per tick in a compute pass (ping-pong storage textures\n  or buffers, `rgba16float` or `r32float`), then render with a fragment pass. Keep it deterministic (fixed steps per\n  tick) so the test snapshot of region scores is reproducible.\n\n### Test hooks\n- `state()`: \"title\", \"book\", \"painting\", \"scoring\", \"result\" (and \"paused\").\n- `snapshot()`: page, stars, per-region scores, wetness average, time.\n- `test_input`: `{\"auto_paint\": true}` (fills each region with its target, for a 3-star test), `{\"page\": 7}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/03-wet-on-wet.jpg",
+   "thumb": "thumbs/03-wet-on-wet.jpg",
+   "clip": "clips/03-wet-on-wet.mp4",
+   "ready": true
   },
   {
    "no": "04",
@@ -275,7 +275,7 @@ window.SWATCHES = {
    "no": "05",
    "slug": "05-rubber-rafters",
    "title": "Rubber Rafters",
-   "tagline": "Stretch, grab, fling. The whole theatre is your trapeze.",
+   "tagline": "Stretch, grab, fling up a cartoon theatre before the curtain rises on you.",
    "style": "Rubber-hose animation",
    "style_slug": "rubber-hose-animation",
    "family": "paint",
@@ -285,25 +285,91 @@ window.SWATCHES = {
     "Exaggerated squash, stretch and flowing curves",
     "Vintage contours with broad flat fills"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#2e2219",
+   "summary": "Opening night at the Grand Palais of Wobbleton: Eddie Elastic, a pie-eyed stagehand with rubber-hose arms, has to climb from the orchestra pit to the gods before the curtain goes up on him. Touch a peg and his arm shoots out like a hose and grabs it; hold to hang, drag back to wind him up like a rubber band, let go to fling, and catch the next thing in mid-air. Rubber-hose animation is squash, stretch and springy tube limbs, so here the limb is the controller: the arm is a real spring, and every motion in the theatre bounces, wobbles and grins.",
+   "how_to_play": [
+    "Tap a peg: Eddie's arm shoots out and grabs it. A quick tap zips him up past it.",
+    "Hold on to hang, let go to fly. Drag back to wind him up: the dots show the fling.",
+    "Catch the next peg, rope or trapeze in mid-air. Miss, and he drops to the sandbags below.",
+    "The curtain is rising under you. Stay above it, or you're the opening act.",
+    "Mind the grumbling sandbags, Cuffs the cat, the spotlights and Splinters the puppet."
+   ],
+   "controls": [
+    {
+     "action": "Grab (zip up)",
+     "touch": "tap a peg, rope, hook or trapeze",
+     "keys": "click it, or Space grabs the lit one (Left/Right choose)"
+    },
+    {
+     "action": "Hang",
+     "touch": "keep the finger down",
+     "keys": "hold the button or Space"
+    },
+    {
+     "action": "Wind up and fling",
+     "touch": "drag back while holding, let go",
+     "keys": "drag the mouse, or hold Space and an arrow; let go"
+    },
+    {
+     "action": "Skip a curtain call",
+     "touch": "tap",
+     "keys": "Space or Enter"
+    },
+    {
+     "action": "Pause",
+     "touch": "the round button, top right",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Play / how to play / matinee / dressing room",
+     "touch": "tap on the title",
+     "keys": "Enter, H, D, C"
+    },
+    {
+     "action": "Sound",
+     "touch": "the speaker on the title, settings or pause",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Limelight",
+    "Rammetto One",
+    "Coustard"
+   ],
+   "palette": [
+    "#f2e4c4",
+    "#f7eedb",
+    "#16110d",
+    "#b8322a",
+    "#7c1f1b",
+    "#d6a548",
+    "#f2d488",
+    "#8a6340",
+    "#b99467",
+    "#2e2219"
+   ],
+   "features": [
+    "A real rubber arm: Eddie hangs on a damped spring that only pulls; a drag winds him back along a stiff follow-spring, and letting go switches to a quicker snap spring and releases the hand as he passes the grip, so short tugs zip and long wind-ups sling; a speed band keeps every fling lively but controllable, and the dots trace exactly what the release will do (walls and landings included)",
+    "Forgiving on a phone: a 66 CSS px pick radius, a fallback that takes the grip best lined up with the touch, a held finger that catches whatever swings under it, ropes and trapezes on pendulum physics Eddie's arm pushes, a lit target and a nudge glove when standing about",
+    "Six themed acts built from seeded pieces around a reachable spine (orchestra pit, fly loft, prop shelves, lighting rig, chandelier, the gods) and endless encores, each faster and sparser, with a curtain call and ticket count between acts and a rising curtain that speeds up if it falls far behind",
+    "Hazards with tells: sandbags whose rope wobbles before they drop (only when nothing is between them and Eddie), Cuffs the cat who crouches then swats, sweeping spotlights whose core whites the screen out, and Splinters, a marionette who walks to his peg, tugs it and yanks it away (bonk him in flight for a ticket)",
+    "Eddie in ink: pie-cut eyes that follow what he reaches for, eight moods, a hose arm that thins as it stretches and wobbles after a grab, lagging feet and free hand, squash on landing and stretch along the flight, white four-fingered gloves, and six costumes unlocked by tickets in the dressing room",
+    "A first run that is a four-step rehearsal (tap, hang, wind up, catch), a daily 'Today's Matinee', best height and lifetime tickets saved, a best-height pennant on the rail, and a caught-on-stage finale: the curtain lifts, a spotlight finds him, the audience laughs and the iris closes",
+    "A pit band synthesized live: a swung stride piano (oom-pah bass and chords) through a sixteen-bar ragtime round, brushes from act II, a muted trumpet on the tune from act III, a bass drum from act IV, a woodblock when the curtain is close, tempo rising each act; plus a slide whistle that follows the wind-up, boings, zips, thuds, cymbals, applause and a wah-wah",
+    "The period look as a whole frame: line boil at 12 fps while everything moves at 60, gate weave by whole pixels, 24 fps grain, flicker, scratches, dust and hairs, a sepia unify and projector vignette, iris transitions, title cards in a deco frame, and on wide screens the proscenium, side drapes and boxes full of audience"
+   ],
+   "rendering": "One instanced 2D batch with a custom fragment shader (ink.wgsl) draws everything into an Rgba8 scene target as signed-distance shapes with flat fills and one contour weight whose edge is pushed by noise keyed to the boil frame (12 fps), plus painted gouache backdrops, velvet folds, light cones, sunbursts and irises; one full-screen pass (film.wgsl) then adds gate weave, grain, flicker, scratches, dust, sepia and the vignette.",
    "brief": "# 05 · Rubber Rafters\n\n*Swatch 05 of The Swatch Book. Style: **Rubber-hose animation** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nRounded forms, flexible limbs and exaggerated faces recall early theatrical animation. The palette may be colorful or monochrome: character construction and motion, rather than a period setting, define this look.\n\n**What to look for**\n- Rounded heads and flexible tube-like limbs\n- Exaggerated squash, stretch and flowing curves\n- Vintage contours with broad flat fills\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/rubber-hose-animation/):\n\n> Construct characters from rounded heads, simple expressive faces and flexible tube-like limbs. Establish one consistent contour weight, flat-fill palette and vintage shape vocabulary; choose monochrome or a restrained color scheme and keep that choice stable. Animate with clear anticipation, squash and stretch, elastic arcs and strongly readable poses. Use painted stage-like backgrounds with lower contrast than the action, plus rounded props and cartoon impact effects. UI and icons should echo the period's playful lettering and shapes while remaining easy to read. Avoid rigid realistic anatomy, detailed modern materials, inconsistent frame pacing and grain that obscures gameplay.\n\n\n## The game: Rubber Rafters\n\n**Hook:** *Stretch, grab, fling. The whole theatre is your trapeze.*\n\nOpening night at the Grand Palais of Wobbleton, a 1930s cartoon vaudeville theatre. Eddie Elastic, a pie-eyed\nstagehand with rubber-hose arms, has to climb from the orchestra pit to the gods, up through curtains, sandbags,\nspotlight rigs and swinging trapezes, before the curtain rises on him. Everything in the theatre wobbles,\nbounces and grins.\n\n**Why this style:** rubber-hose animation is round heads, tube limbs, squash and stretch, vintage contours with flat\nfills. A character whose arms stretch like hoses, flinging itself through a bouncing world, is the style's physics.\n\n### Core loop\n- **Grab:** touch a peg, hook, rope or ledge on screen: Eddie's arm stretches to it (a hose that overshoots and\n  wobbles) and grabs. Hold to keep holding.\n- **Fling:** release, and the stored stretch flings Eddie (spring physics: the farther the grab point, the harder the\n  pull). Grab the next thing in mid-air to chain. Missing means falling to the last landing (a sandbag pile).\n- **Swing:** ropes and trapezes swing with real pendulum physics; release at the right moment to launch.\n- **Hazards:** a stage cat that swats, falling sandbags (tell: a wobbling rope), spotlights that blind (a white-out\n  if you pass through their beam's core), a rival puppet pulling pegs out.\n- **Collect:** golden show tickets; each section of the climb is a \"act\" with a curtain call that counts them.\n- The climb is endless-ish: hand-authored chunks of theatre (fly loft, prop shelves, the catwalk, the chandelier)\n  stitched by the seed, faster and sparser as you climb. Height is score.\n\n### Hooks to come back\n- Best height, tickets, a daily climb, costumes for Eddie (a bowtie, a bellhop cap, a bow-legged suit) unlocked by\n  ticket totals.\n\n### Look\n- Black-and-ink contour lines that **boil** (redraw with tiny jitter at 12 fps), flat fills, round shapes,\n  everything with a face (pegs smile, sandbags grumble). A sepia-cream palette with a few period colours (stage red,\n  brass, cream). Film grain, gate weave (the whole frame drifts by a pixel), vignette, scratches and dust specks;\n  an iris-out circle on a fall and an iris-in on start. Title cards in a period display face, inside a deco frame.\n- Every motion has squash and stretch: Eddie squashes on landing, stretches on fling; his arms are drawn as tapered\n  tubes with white gloved hands.\n\n### Sound\n- Stride piano and a muted-trumpet lead, synthesized, tempo rising with height; slide-whistle on stretches, a\n  cartoon boing on bounces, a cymbal on curtain calls, a wah-wah on falls.\n\n### Test hooks\n- `state()`: \"title\", \"climbing\", \"falling\", \"curtain\", \"over\" (and \"paused\").\n- `snapshot()`: height, tickets, act, Eddie's position and velocity, what he holds.\n- `test_input`: `{\"grab\": [x, y]}` (world units), `{\"release\": true}`, `{\"height\": 300}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/05-rubber-rafters.jpg",
+   "thumb": "thumbs/05-rubber-rafters.jpg",
+   "clip": "clips/05-rubber-rafters.mp4",
+   "ready": true
   },
   {
    "no": "06",
    "slug": "06-rub-out",
    "title": "Rub Out",
-   "tagline": "Something is drawing monsters on the mountain. You have an eraser.",
+   "tagline": "Scribble out the graphite beasts the night draws, before the village's lamps go dark.",
    "style": "Pencil and hatched drawing",
    "style_slug": "pencil-hatching",
    "family": "paint",
@@ -313,19 +379,82 @@ window.SWATCHES = {
     "Paper grain and irregular marks",
     "Restricted grayscale or sepia values"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#cfd2da",
+   "summary": "An alpine village at night, drawn in graphite on toothy paper. An unseen hand's black pencil sketches beasts of hatching on the ridge, stroke by stroke, and they come down the snow for the six lit windows; you are the eraser, and you scribble them off the page. Pencil art builds darkness out of layers of graphite, so darkness here is literally layers: the more hatching a beast carries the more rubbing it takes, the Crosshatch must be rubbed out one direction at a time, and every rub leaves a smudge the beasts can grow back on.",
+   "how_to_play": [
+    "Scribble over a beast to rub its graphite off. Faster rubbing lifts more.",
+    "Keep your finger down: two beasts in one stroke is a combo.",
+    "Your eraser wears down. When the church bell rings, rub the fresh block by the church.",
+    "Every rub leaves a smudge, and beasts that cross a smudge grow back.",
+    "Keep one lamp lit till dawn."
+   ],
+   "controls": [
+    {
+     "action": "Rub out",
+     "touch": "scribble over a beast with one finger",
+     "keys": "drag the mouse, or move with arrows / WASD while holding Space"
+    },
+    {
+     "action": "Combo",
+     "touch": "keep the finger down from one beast to the next",
+     "keys": "keep the button (or Space) held"
+    },
+    {
+     "action": "Take a fresh block or a spare pencil",
+     "touch": "rub or tap it",
+     "keys": "rub or click it"
+    },
+    {
+     "action": "Pause",
+     "touch": "the round button, top right",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Play / confirm",
+     "touch": "tap",
+     "keys": "Enter"
+    },
+    {
+     "action": "How to play, tonight's sketch, sketchbook",
+     "touch": "tap on the title page",
+     "keys": "H, D, B"
+    },
+    {
+     "action": "Sound",
+     "touch": "the bell on the title page, settings or pause",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Cabin Sketch",
+    "Architects Daughter"
+   ],
+   "palette": [
+    "#efe9dc",
+    "#cfd2da",
+    "#26262e",
+    "#4d4d54",
+    "#b5332a",
+    "#f4f0ea",
+    "#f3dcd2",
+    "#343230"
+   ],
+   "features": [
+    "Graphite that behaves like graphite: every pull of the pencil is an instanced, bowed, tapered stroke whose pressure decides how much of a procedural paper tooth it catches (light pulls only touch the peaks), darks are built from crosshatched layers that multiply, and the same tooth function shades the paper, the smudges and the hand-lettered type",
+    "Erasing as the mechanic: each beast keeps a 64 × 64, four-layer graphite grid in its rest pose (what the pencil has drawn, what is left); the eraser lifts it pass by pass along every coalesced point the finger passed through, faster strokes lift more, denser hatching takes more passes, and graphite comes off the tooth's peaks first so a half-rubbed beast keeps grey in the valleys; the holes walk with the beast",
+    "Every rub writes into a page record (smudge streaked along the stroke, scenery lifted, paper burnished) and a coarse smudge grid the game reads: beasts that cross a smudge grow back, and the hand likes to draw over old smudges",
+    "The unseen hand: a black pencil hovers over the ridge and draws each beast stroke by stroke (outline, hatch layers, then two red-pencil eyes); rub a beast out while it is being drawn for a bonus, or shove the pencil away with the eraser",
+    "Four beasts built procedurally from silhouettes: scribble wolves, crosshatched bears, loop crows over the roofs, and the Crosshatch, four layers in four directions where only the top layer (tinted with red pencil) comes off, best rubbed along its lines",
+    "A ladder of three-minute nights with rising pressure, a first night that teaches one idea at a time, a daily 'Tonight's sketch', bells that drop fresh erasers, spare pencils whose rubber caps refill yours, and a sketchbook of studies of every beast met",
+    "Real tools above the drawing: a shaded rubber block that leans with the stroke, grubs up as it lifts graphite and shrinks as it wears, rolled crumbs that flick off and get swept along, and on wide screens a drawing board with tape, a pinned sheet of studies and a loose pencil",
+    "Synthesised sound: rubber noise that brightens with stroke speed and squeaks when it turns, pencil scratches, crumbs, a church bell, wind over the snow, and a sparse music box that warms from A minor at midnight to C major at dawn"
+   ],
+   "rendering": "One full-screen pass (paper.wgsl) composes toothy paper tinted by the hour, the scenery (about 9,000 pencil pulls drawn once into an R8 world-space texture) and the page record (an RGBA8 texture the eraser stamps into each frame); one instanced batch with a custom fragment shader (graphite.wgsl) then multiplies the beasts' pulls, masked per pull from a 512² atlas of erase grids, red pencil and graphite dust over it, and draws the rubber, crumbs, the hand's pencil and the hand-lettered interface.",
    "brief": "# 06 · Rub Out\n\n*Swatch 06 of The Swatch Book. Style: **Pencil and hatched drawing** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nLine density, hatch direction and paper-like gray values build volume without smooth digital gradients. This surface treatment can appear in flat drawings or wrap three-dimensional models.\n\n**What to look for**\n- Dense hatching builds shadow\n- Paper grain and irregular marks\n- Restricted grayscale or sepia values\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/pencil-hatching/):\n\n> Build light and volume from deliberate line density, hatch direction and crosshatching rather than smooth digital gradients. Use restrained graphite grays or a coherent sepia range on lightly textured paper. Allow small irregularities in the marks while maintaining decisive character and object silhouettes. If using 3D, stabilize the drawing texture against distracting shimmer and make the scene feel drawn rather than merely desaturated. Give UI frames and icons the same pencil vocabulary, reserving clean regions for text. Effects may use rubbed marks, dust or brisk sketch lines. Avoid glossy surfaces, indiscriminate scribble noise and a simple grayscale filter standing in for drawing.\n\n\n## The game: Rub Out\n\n**Hook:** *Something is drawing monsters on the mountain. You have an eraser.*\n\nAn alpine village at night, drawn in graphite on toothy paper: chalets, a church spire, pines, a frozen waterfall.\nDown the slope creep shadow-beasts made of hatching: scribbled wolves, a cross-hatched bear, a looming thing of dense\ncrosshatch. An unseen hand keeps drawing more. You are the eraser.\n\n**Why this style:** pencil art builds shadow with dense hatching and lives on paper grain in a restricted greyscale.\nDarkness here is literally layers of graphite, and erasing it is how you fight. The more hatch layers a beast has,\nthe more rubbing it takes.\n\n### Core loop\n- **Scribble to erase:** rub your finger back and forth over a beast. The graphite comes off where you rub (an erase\n  mask on the GPU), revealing the paper; each beast has HP equal to its graphite. Rubbing fast and hard works\n  better; long continuous strokes chain into a **combo** (erase two beasts in one stroke for a multiplier).\n- **The eraser wears down:** a bar that shortens as you rub; it leaves crumbs (little rolled bits of eraser that\n  spill on the page). Pick up **new erasers** dropped by the village (a fresh block when the bell rings) or erase a\n  \"glint\" (a sharpened pencil the hand dropped) for a refill.\n- **Smears:** erasing never fully cleans: grey smudges remain, and the hand can redraw over smudged areas faster.\n  Big beasts leave big smears: strategy about where you fight.\n- **Beasts:** scribble wolves (fast, light), the hatched bear (slow, dense), crows of loose loops that fly over the\n  roofs, the \"Crosshatch\" (a boss of four hatching directions: erase them in order). Each that reaches a chalet\n  darkens it (lights go out). Lose all lights, lose the night.\n- **Survive till dawn:** the night is ~3 minutes; the paper slowly warms from blue-grey to dawn pink.\n\n### Hooks to come back\n- Nights survived, best combo, a \"sketchbook\" of beasts you've erased (each drawn as a study), a daily night.\n\n### Look\n- Real-feeling graphite: hatching drawn as many thin strokes with pressure variation, cross-hatching for darker\n  values, paper grain modulating the graphite (grain shows through light strokes), smudges as soft grey. Restricted\n  palette: paper cream, graphite greys, a single sepia or red-pencil accent for UI and lit windows. UI drawn with\n  pencil lines (wobbly boxes, hand-lettered numbers in a handwriting-like OFL face).\n- The eraser has a physical presence: a white rubber block under your finger (on desktop the cursor), tilting with\n  stroke direction, with crumbs flicking off.\n\n### Sound\n- Pencil scratch (filtered noise bursts) for the unseen hand, eraser squeak and rub (pitch from stroke speed),\n  crumbs pattering, a church bell, wind. A sparse music-box melody that gets warmer toward dawn.\n\n### Test hooks\n- `state()`: \"title\", \"night\", \"dawn\", \"over\" (and \"paused\").\n- `snapshot()`: time of night, lights left, beasts alive with their graphite, eraser left, combo.\n- `test_input`: `{\"rub\": [x, y, ms]}` (rub at a point in world units for ms), `{\"dawn\": true}`, `{\"lights\": 0}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/06-rub-out.jpg",
+   "thumb": "thumbs/06-rub-out.jpg",
+   "clip": "clips/06-rub-out.mp4",
+   "ready": true
   },
   {
    "no": "07",
@@ -387,7 +516,7 @@ window.SWATCHES = {
    "no": "09",
    "slug": "09-hedge-remedies",
    "title": "Hedge Remedies",
-   "tagline": "A week of patients. A basket of herbs. Brew what ails them.",
+   "tagline": "Brew cures from a hand of herb cards for the folk of the wood: no more marks, no less.",
    "style": "Decorative storybook illustration",
    "style_slug": "decorative-storybook",
    "family": "paint",
@@ -397,25 +526,94 @@ window.SWATCHES = {
     "Decorative plants and objects",
     "Overlapping planes suggest space"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#efe4c8",
+   "summary": "You mind a hedge-witch's shop for a week. The folk of the wood come in with their troubles drawn as marks in a speech bubble (Ember, Frost, Thorn, Moon, Tide, Wing), and you drag illustrated ingredient cards into the cauldron so their marks cover the need exactly: leftover marks play out as comic side effects, missing ones crack a heart. Decorative storybook illustration is gentle contours, patterned plants and overlapping painted planes, so every card is a botanical plate in an embroidered border, every patient a patterned animal in Sunday clothes, and the shop a stack of picture-book layers.",
+   "how_to_play": [
+    "Each patient's bubble shows the marks they need. Drag cards into the cauldron (or tap them in) until the marks match.",
+    "An exact match is a perfect cure; perfect cures in a row multiply your Good Word.",
+    "Leftover marks cause side effects (−2 Good Word each, but a coin's tip). Missing marks crack one of three hearts.",
+    "Stir (1 coin) for a fresh hand. Evenings, buy new ingredients from the pedlar and compost one you'd rather not draw.",
+    "On Sunday a great visitor needs three brews. Your score is your Good Word plus 5 for every heart kept."
+   ],
+   "controls": [
+    {
+     "action": "Put a card in the pot",
+     "touch": "drag it into the cauldron, or tap it",
+     "keys": "1–5 (or drag with the mouse)"
+    },
+    {
+     "action": "Take a card back out",
+     "touch": "tap it in the pot",
+     "keys": "Backspace"
+    },
+    {
+     "action": "Brew",
+     "touch": "Brew button",
+     "keys": "Enter or Space"
+    },
+    {
+     "action": "Stir for a fresh hand",
+     "touch": "Stir button",
+     "keys": "S"
+    },
+    {
+     "action": "Read a card",
+     "touch": "hold it",
+     "keys": "hold the mouse on it (hover shows its name and power)"
+    },
+    {
+     "action": "Market: buy, compost, close up",
+     "touch": "tap a card, Compost, Close up",
+     "keys": "1–5, C, Enter (H buys honey, D shows the satchel)"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "sound button on the title or pause page",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Cherry Swash",
+    "Vollkorn",
+    "Vollkorn SC"
+   ],
+   "palette": [
+    "#efe4c8",
+    "#f4ead3",
+    "#3a2c24",
+    "#6b7d3a",
+    "#a8344a",
+    "#d39b36",
+    "#4a4654",
+    "#2a8a82"
+   ],
+   "features": [
+    "28 ingredients, each a procedural botanical plate (stems as tapered strokes, toothed and veined leaves, petals, umbels of florets, berries, roots, bulbs, a seed clock, a shrieking mandrake, a bottle of moonwater) painted once into a card atlas at two sizes, framed by embroidered borders whose motif shows the rarity (vine, diamond, rosette)",
+    "Cards that feel good in the hand: a fanned hand that lifts under the finger or mouse, follows the drag with a tilt toward its speed, grows a deeper shadow when lifted, squashes and bounces into the brew with a splash of leaves and drops, flips face-up as it is dealt from the satchel, and opens full-size when held",
+    "Fifteen folk drawn from simple shapes with fine brown ink: goose, hare, badger, mouse, hedgehog, fox, frog, owl, mole, squirrel, otter and wren in patterned waistcoats, shawls, smocks and scarves (stripes, gingham, sprigs, scales, cross-stitch, plaid), with bonnets, hats, spectacles and flowers; plus three Sunday visitors (the Old Stag with ivied antlers that blossom, the Bear who woke in January, the Heron who forgot the way)",
+    "Faces that act: blinking, glancing at the card you hold, worried brows that ease when the brew looks right, talking while the bubble types, and six side effects (steaming ears, an icicle nose and frost, a numb lolling tongue, snoring with Zs and a bubble, happy tears, floating up out of the frame with kicking feet), each with its own caption and sound",
+    "A deck-builder week: 2–4 patients a day whose needs are built from the hand (sometimes nudged, later sometimes beyond it so a stir matters), wild, doubling, mending, lucky, warding and drawing cards, a streak multiplier, an evening pedlar's cart (a Saturday market with a guaranteed rare), composting, honey that mends a heart, and a three-brew Sunday visitor",
+    "Screens as picture-book pages: the hedge's round door with a swinging sign, a turning page with a cauldron between screens, a first Monday that teaches one idea at a time with a pinned note and a drawn pointing hand, a how-to page with a worked example, the Herbarium of pressed plates (faded sepia until brewed), and a storybook ending that tells the week back (\"someone is still on the ceiling\") under a counting score and a wax-seal new best",
+    "Synthesized sound: a 6/8 folk loop (a plucked harp under a breathy recorder every other time round), fire crackle and cauldron blups that rise with the heat, paper swishes, a plop and rising notes for each mark covered, a harp run for a perfect cure, a crack for a heart, coin chimes, the door bell, and a kettle whistle, ice tinkle, numb blblbl, snore, sniffle and slide whistle for the side effects",
+    "Phone-first layouts for portrait, a two-column layout for phones on their side, and a centred stage on desktop with the shop's drawers, shelves and herbs running to the edges"
+   ],
+   "rendering": "Everything is one 2D batch with its own fragment shader (Batch::with_fragment): signed-distance shapes (ellipses, rounded boxes, leaves with midribs, petals, stars, hearts, tapered strokes) filled with gouache colour and paper grain, sixteen procedural folk patterns inside them (in shape or screen space), a fine ink contour, deckled paper, embroidered border bands with six motifs, soft shadows, noise-edged steam and a swirling three-colour brew; the cards are painted once into an Rgba8 atlas with the same shader and drawn as premultiplied sprites with a moving sheen. No post pass.",
    "brief": "# 09 · Hedge Remedies\n\n*Swatch 09 of The Swatch Book. Style: **Decorative storybook illustration** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nDelicate contours, patterned vegetation and gentle color shapes form explorable picture-book worlds. Flat illustration stays readable while overlap and ornamental detail enrich the surroundings.\n\n**What to look for**\n- Gentle contours and patterned details\n- Decorative plants and objects\n- Overlapping planes suggest space\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/decorative-storybook/):\n\n> Use delicate contours, gentle color shapes, patterned plants and charmingly specific everyday objects. Build space by overlapping illustrated planes and selective value contrast rather than heavy realistic shading. Establish recurring ornamental motifs across characters, clothing, props, environments and UI. Keep small interactive objects individually recognizable within dense scenery. Animate with smooth, expressive drawing and modest secondary motion; effects should feel like illustrated ribbons, leaves or small drawn accents. Use quiet page-like UI areas for readable text. Avoid generic plastic toy rendering, heavy black shadow masses and a different illustration style for portraits and environments.\n\n\n## The game: Hedge Remedies\n\n**Hook:** *A week of patients. A basket of herbs. Brew what ails them.*\n\nAt the edge of Brambleholt, inside a hollow hedge, an old hedge-witch has left her shop to you for a week. Her\npatients are the folk of the wood, painted like a picture book: a goose with a toothache, a hare who can't sleep, a\nbadger with a broken heart, a mouse who swallowed a star. Each comes with an ailment. You cure them with cards.\n\n**Why this style:** decorative storybook illustration is gentle contours, patterned details, decorative plants and\noverlapping planes. Cards are perfect canvases for that: botanical illustrations, folk-pattern borders, painted\npatients, all on paper.\n\n### Core loop\n- **Ailments** are shown as symbols in the patient's speech bubble: Ember (fever), Frost (chills), Thorn (pain),\n  Moon (sleep), Tide (sorrow), Wing (lightness). A patient needs, e.g., \"2 Frost, 1 Moon\".\n- **Your hand:** five ingredient cards drawn from your deck: Feverfew (Frost Frost), Lavender (Moon), Honeycomb\n  (Tide Ember), Nettle (Thorn Thorn, a Thorn side effect), Willow bark (Thorn → cancels Thorn)… Play 1–3 cards into\n  the cauldron so their symbols cover the ailment exactly.\n- **Leftover symbols** cause comic **side effects** (too much Wing: the patient floats out of the door; too much\n  Ember: their ears steam) which cost reputation but also give coins sometimes, so near-misses are interesting.\n- **Coins** buy new ingredients at the Saturday market (deck-building: choose 1 of 3 cards; rare ones combine, e.g.\n  Mandrake doubles another card's symbols, Moonwater turns a symbol into any other). Thin the deck by composting.\n- **A week** is seven days of 4–6 patients each, rising difficulty, and a **Sunday visitor** (a boss patient like\n  \"The Old Stag of the Wood\" needing a long complex cure over several turns).\n- End of the week: a storybook ending page, the reputation earned, and the week's score.\n\n### Hooks to come back\n- Best week, patients cured, a **herbarium** that fills with every ingredient you've used (painted plates with\n  folk names), a daily week from the seed.\n\n### Look\n- Cards with patterned borders (folk embroidery-like repeats, generated procedurally), botanical drawings of each\n  ingredient (procedural plant drawings: stems, leaves, flowers from parametric shapes), gentle contours and a soft\n  palette (moss, berry red, cream, ochre). Patients are painted animals built from simple shapes with patterned\n  waistcoats and shawls. The shop interior is layered planes: shelves of jars, hanging herbs, the cauldron's steam.\n- Cards fan in the hand at the bottom of the portrait screen; drag to the cauldron or tap to select and tap the\n  cauldron. Satisfying card motion: lift, tilt toward the drag direction, a little bounce.\n\n### Sound\n- A gentle folk loop (plucked harp-like synth, recorder lead), bubbling cauldron, card swishes, a little jingle for\n  coins, a comedic sound for each side effect.\n\n### Test hooks\n- `state()`: \"title\", \"day\", \"patient\", \"brewing\", \"market\", \"week_end\" (and \"paused\").\n- `snapshot()`: day, patient, ailment, hand (card names), coins, reputation, deck size.\n- `test_input`: `{\"play\": [0, 2]}` (hand indices into the cauldron), `{\"buy\": 1}`, `{\"skip_day\": true}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/09-hedge-remedies.jpg",
+   "thumb": "thumbs/09-hedge-remedies.jpg",
+   "clip": "clips/09-hedge-remedies.mp4",
+   "ready": true
   },
   {
    "no": "10",
    "slug": "10-tower-of-babble",
    "title": "Tower of Babble",
-   "tagline": "Stack the saints, the sinners and the cows. Heaven is up there somewhere.",
+   "tagline": "Drop cut-out saints, sinners and cows from a cherub's string; stack them up to heaven.",
    "style": "Old-master painting collage",
    "style_slug": "classical-painting-collage",
    "family": "paint",
@@ -425,19 +623,71 @@ window.SWATCHES = {
     "Cut-and-paste elements from different paintings",
     "Cutout-style articulated animation"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#1a120c",
+   "summary": "A winged cherub's head swings a figure on a string held in its teeth: a bishop, a cow, a friar, Holbein's stretched skull, Crivelli's cucumber. You let go and the figure falls with rapier2d physics onto a heap growing on an ancient column capital, up through Bruegel's harvest and Babel, Constable's clouds and Botticini's heavenly host to a gilded gate 60 cubits up. It is the old-master collage style made literal: real public-domain paintings cut out with scissors, stiff hinged jaws that drop open when something lands on them, paper shadows, gold leaf and a coat of old varnish, played as deadpan slapstick.",
+   "how_to_play": [
+    "A cherub swings a figure on a string. Tap anywhere to let go (Space, Enter or a click on a keyboard).",
+    "Swipe left or right (arrow keys) to turn it a quarter before you let go. Its shadow shows where it will land.",
+    "Anything that falls off the capital costs a halo, one per collapse. Lose all three and the tower is finished.",
+    "Land a person upright on another person's head for a miracle: it gives a halo back, and so does each new painting.",
+    "Mind puffed cheeks (a gust is coming) and a shadow from above (the Foot). Saints hold what they land on; small devils glue."
+   ],
+   "controls": [
+    {
+     "action": "Let go",
+     "touch": "tap anywhere",
+     "keys": "Space / Enter / Down / click"
+    },
+    {
+     "action": "Turn a quarter",
+     "touch": "swipe left or right",
+     "keys": "Left / Right (or A D, Q E)"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc / P"
+    },
+    {
+     "action": "Menus",
+     "touch": "tap",
+     "keys": "arrows + Enter"
+    },
+    {
+     "action": "Mute",
+     "touch": "Sound button",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "UnifrakturMaguntia",
+    "IM Fell DW Pica"
+   ],
+   "palette": [
+    "#1a120c",
+    "#efe4cc",
+    "#ede0bd",
+    "#2b1c12",
+    "#9e2a1c",
+    "#d2a64c",
+    "#8a8a85"
+   ],
+   "features": [
+    "29 cut-outs from 18 public-domain paintings (Bruegel, Holbein, Zurbarán, Crivelli, Fra Angelico, Potter, d'Hondecoeter, Asselijn, Bosch, Reynolds, Mantegna, Dürer): each outline traced by hand as a polygon, cut with a rough scissor edge, packed into one 2048×1024 atlas, and simplified and convex-decomposed into the figure's rapier2d colliders",
+    "Stiff cut-out animation: hinged jaws on 12 of the 22 figures drop open over a dark mouth when something lands on them (the cow moos, the bishop grunts, the swan hisses); the cherub is a winged head holding the string in its teeth and opens its mouth to let go; its wings flap faster and it sweats as the tower grows",
+    "Deterministic physics in the fixed tick: a pendulum the cherub drives, figures that keep 30 % of their swing, paper that falls a little slow, fresh paste that grips, and lower figures that 'dry' into the picture (varnish and craquelure) a few turns after they settle",
+    "Specials and weather: a saint freezes what she lands on for 5 s under a golden halo timer; a small Bosch devil glues itself to everything it touches; cloud-faces puff their cheeks in three held steps before a gust; Dürer's giant foot descends on the tower top after its shadow and a rumble, presses, and lifts away",
+    "Five paintings as you climb, pasted down over each other as torn sheets (meadow, Babel, clouds, heavenly host) and a gold-leaf heaven with gates that swing open when the tower reaches 60 cubits",
+    "A first-run lesson that teaches one idea at a time, first-sighting notes for every figure (with its painting and painter), miracles with a trumpet angel, one halo lost per collapse and halos regained by miracles and new paintings",
+    "Daily stack (a seeded order of figures), best height and glory, and the Hall of Miracles: your best six towers kept as small framed paintings with museum titles ('Tower with a Cow and Regret')",
+    "Sound all synthesized: an organ drone and a Dorian plainchant that gains parallel organum and an octave voice as the tower rises, wooden knocks, grunts, a moo, a bleat, clucks and hisses, a cherub's snip, sacred slide whistles for the fallen, wind, the Foot's stomp, halo bells and a brass fanfare"
+   ],
+   "rendering": "One 2D batch with its own fragment shader draws the scene into an offscreen target: the backdrop paintings as torn sheets sampled from a softer mip and hazed back, cut-outs from a premultiplied, mipmapped atlas with paper shadows and hinged flaps, varnish and craquelure on dried figures, a fluted stone shaft, and gold leaf (laid squares, seams, burnish sweep, punchwork) for halos, gates, frames and type; one varnish post pass (warm grade, vignette, canvas weave, parchment fades); then the interface (parchment, wax seals, gilt blackletter) in a second batch on top.",
    "brief": "# 10 · Tower of Babble\n\n*Swatch 10 of The Swatch Book. Style: **Old-master painting collage** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nFigures, landscapes and objects from classical paintings are recomposed into moving scenes. Oil-paint surfaces coexist with collage seams; image sourcing and recombination define the look more than a historical setting.\n\n**What to look for**\n- Brushwork and texture from classical paintings\n- Cut-and-paste elements from different paintings\n- Cutout-style articulated animation\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/classical-painting-collage/):\n\n> Create original or appropriately licensed painterly fragments with classical brush texture, coherent light and period-inspired fabric and landscape treatment. Assemble them as deliberately cut-out figures, props and layered scenery, allowing visible seams to be part of the language. Unify fragments through scale, palette, edge quality and shadow direction rather than a blanket painting filter. Animate articulated cutouts with carefully placed pivots and expressive held compositions. Use collage-like UI framing while keeping functional text clean. Effects should share the painted-fragment vocabulary. Avoid unauthorized reuse of paintings or game art, photographic cutouts, rubbery mesh distortion and mismatched source lighting.\n\n\n## The game: Tower of Babble\n\n**Hook:** *Stack the saints, the sinners and the cows. Heaven is up there somewhere.*\n\nAn old-master painting collage come to life. Cut-out figures from Renaissance and Northern paintings (peasants,\nmonks, merchants, angels, a cow, a goose, a bishop) dangle from a cherub's string at the top of the screen, swaying.\nTap to drop them onto the tower. The tower must rise to the gates of heaven, painted in gold leaf high above. It\nsways. Things fall off. Nobody is dignified about it.\n\n**Why this style:** old-master collage is classical painting texture, cut-and-paste elements and stiff cut-out\nanimation, played for absurd comedy. A physics stacking game made of cut-out paintings is that, literally.\n\n### Art: public-domain paintings\n- This is the **only game in the collection with downloaded art**, and it must be strictly public domain: paintings\n  by artists who died more than 100 years ago, from Wikimedia Commons, in their PD-Art / public-domain category\n  (Bruegel the Elder, Bosch, Dürer, Cranach, van Eyck, Memling, Holbein, Botticelli…). Download a curated set\n  (~20–30 figures and props, a sky and gold background), cut each figure out yourself (an alpha mask: define a\n  polygon outline by looking at the image, then cut with a slightly rough \"scissor\" edge), and save them as small\n  PNG/WebP atlases in `web/assets/`. Record every source (title, artist, date, Commons file page URL, licence) in\n  `web/assets/SOURCES.txt` and in `meta.json`. Keep the total under ~1.5 MB.\n- Figures keep their painterly texture; their outline polygon (simplified, convex-decomposed) is their physics shape.\n\n### Core loop\n- The cherub swings a figure from a string; tap to let go (desktop: Space or click). It falls with rapier2d physics\n  (`rapier2d` is in your Cargo.toml, with enhanced determinism) onto the growing tower.\n- **The tower sways**: wind gusts from puffing cloud-faces at the edges (they inflate before blowing: a tell). If a\n  piece falls off the ground platform, you lose one of three halos; lose all three and it's over.\n- **Height** is score; every 10 m the camera pans up and the painting behind changes (meadow → town → clouds → the\n  heavenly host). Bonus for \"a miracle\" (a figure landing exactly upright on another's head).\n- Special pieces: a cow (heavy, stable), a monk (narrow, wobbly), a saint (glows; freezes the piece below her in\n  place for 5 s), a tree (tall), a little devil (sticky: glues to what it touches), and a **giant foot** that comes\n  down from the sky now and then and has to be survived (it presses the top of the tower: a gag that tests the\n  structure). Original jokes only.\n\n### Hooks to come back\n- Best height, the \"Hall of Miracles\" (a gallery of your best towers, saved as snapshots of their piece layout),\n  a daily stack (the seed fixes the order of pieces).\n\n### Look\n- A painted landscape background (also public domain), cut-outs with a slight paper shadow and rough edges, stiff\n  cut-out animation (pieces rotate around pins, mouths open as hinged flaps when they land), gold-leaf typography\n  (an OFL blackletter or humanist roman), a parchment frame. Absurd little touches: pieces react when stacked (an eye\n  roll flap), the cherub sweats as the tower grows.\n\n### Sound\n- A sacred choir pad and organ drone that swells with height, comic cartoon falls (slide whistles transposed to\n  \"sacred\" timbres), wooden knocks on landing, a cow moo synthesized, a trumpet fanfare on miracles.\n\n### Test hooks\n- `state()`: \"title\", \"swinging\", \"falling\", \"settling\", \"over\" (and \"paused\").\n- `snapshot()`: height, pieces placed, halos, current piece, the tower's top position, number of bodies.\n- `test_input`: `{\"drop_at\": x}` (drop when the swinging piece is at x), `{\"halos\": 0}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/10-tower-of-babble.jpg",
+   "thumb": "thumbs/10-tower-of-babble.jpg",
+   "clip": "clips/10-tower-of-babble.mp4",
+   "ready": true
   },
   {
    "no": "11",
@@ -527,7 +777,7 @@ window.SWATCHES = {
    "no": "14",
    "slug": "14-turnstone-company",
    "title": "Turnstone Company",
-   "tagline": "Four heroes, one turntable. Turn to face the danger.",
+   "tagline": "Four heroes, one turntable. Turn the right hero to face each blow.",
    "style": "Pixel sprites in 3D worlds",
    "style_slug": "pixel-3d-hybrid",
    "family": "pixel",
@@ -537,19 +787,80 @@ window.SWATCHES = {
     "Depth of field, shadows and reflections",
     "Spatial lighting that preserves pixel contours"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#15111c",
+   "summary": "Four pixel heroes stand back to back on a wooden turntable cart crossing the diorama kingdom of Mossmere. Foes come from every side and wind up typed blows; you never move the heroes, you turn the wheel so the Knight meets the blade, the Archer the wing, the Mage the ward and the Cleric the healing lantern-moth, and a turn that arrives in the very last beat is a Break. Pixel sprites on a rotating 3D stage, lit by lamps and the moon and framed by a tilt-shift lens, are exactly what the hybrid style is for: the turntable is the camera's stage.",
+   "how_to_play": [
+    "Swipe or drag sideways to turn the wheel (or tap the arrow buttons; arrow keys, Q/E on a keyboard). The near side follows your finger.",
+    "A foe's rune names the hero who must answer: red sword the Knight, green feather the Archer, blue rune the Mage, gold moth the Cleric.",
+    "Four pips count down each blow. Turn the right hero to it in the last beat for a Break: double damage, a stunned foe.",
+    "Breaks fill the Company gauge: tap Company! (Space) and all four strike every side at once.",
+    "Between fights choose your road: skirmishes, a champion, the pedlar, an inn, a shrine, and each region's lair."
+   ],
+   "controls": [
+    {
+     "action": "Turn the wheel a quarter",
+     "touch": "swipe left or right, or tap the curved arrow buttons",
+     "keys": "← → (A D, Q E)"
+    },
+    {
+     "action": "Turn freely, snapping to quarters",
+     "touch": "drag sideways",
+     "keys": "↓ (S) turns half way round"
+    },
+    {
+     "action": "Company strike (gauge full)",
+     "touch": "tap Company! or swipe up",
+     "keys": "Space, ↑, W or Enter"
+    },
+    {
+     "action": "Choose a stop on the road",
+     "touch": "tap a card or the stop on the map",
+     "keys": "1 2 3, or ↑ ↓ and Enter"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "speaker button on the title, or Settings",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Jacquarda Bastarda 9",
+    "Texturina",
+    "VT323"
+   ],
+   "palette": [
+    "#15111c",
+    "#f4e8cc",
+    "#f2c75c",
+    "#c9a45a",
+    "#e45a4c",
+    "#94d25e",
+    "#5cc6d6",
+    "#f4c95c",
+    "#e85a4a",
+    "#2a2846"
+   ],
+   "features": [
+    "The turntable battle: four heroes back to back, typed blows (blade, wing, ward, and friendly lantern-moths) from four sides at once, overlapping windups the scheduler keeps answerable, and Breaks for turns that land in the last beat; two fallen heroes and the Company retreats, and a fallen hero's side lets blows through to whoever stands behind.",
+    "Readable at a glance: a rune over each foe in the answering hero's colour with a closing arc and four pips, a lane of chevrons on the ground that fills toward the wheel, a mark on the rim that is steady when the right hero stands there and flashes red when not, and a pulsing ring at the answering hero's feet wherever the wheel has turned them.",
+    "Hand-drawn pixel art: four heroes in front, back and side views (with a breathing frame and a fallen pose turned from the side view), three foe families recoloured per region, feinting imps and twin strikers, a lantern-moth, the pedlar, the innkeeper, a shrine with its wisp, and three bosses: Gorm the hill giant whose two fists strike from opposite sides, Mother Bramble who vanishes and reappears on another side, and Cindermaw the dragon who circles the wheel so its blow lands where it will be, not where it is.",
+    "Three diorama stages built from painted low-poly meshes at the sprites' texel density: Mossmere Green's cobbled square at dusk with lamp posts, bunting and puddles, the Wickwood at night with glowing mushrooms, fireflies, moonbeams and a stream, and the Cinder Chapel with a rose window mirrored in its polished floor, candles and braziers.",
+    "A road map per region drawn as a tilt-shift diorama (plinths, mini models, a river, the cart token), branching stops, a pedlar with seven wares, shrines with eight boons (including 'Archer Pierces'), inns, champions and lairs.",
+    "A first-run lesson that teaches one idea at a time by playing (the battle waits at the last pip for the right hero), then runs of about ten minutes, renown, a daily road with its own best, regions cleared, and two unlockable companions that change the matchups: the Lancer (blades and wards, never a Break) and the Bard (moths, and wings sung to sleep).",
+    "Juice with restraint: hit-stop and a Break sting, slashes, arrows, bolts and sparks, coins bouncing on the cobbles, a Company Strike cut-in with all four heroes, the camera swinging a little as the wheel turns, shakes and flashes scaled by reduce-flashing, and haptics.",
+    "Synthesized sound: a ratchet for every quarter turn, clang, thwip, zap and chime, rising pip ticks, a JRPG band (square lead, plucked harp, bass, drums) with a theme per region and heavier boss arrangements, a travelling tune on the road and a lullaby at the inn."
+   ],
+   "rendering": "A 2048² (1024² on phones) moonlight shadow map takes set meshes and sprite cards turned to the light; a half-size mirror pass renders the scene upside down for puddles, the stream and the chapel floor; the main pass draws into a 4× MSAA Rgba16Float target with texel-quantised procedural materials, eight point lights and up to sixteen blob shadows, pixel sprites as camera-facing cards sampled sharp-bilinear and lit by the same lights, and additive flames, glows, light shafts and telegraph decals, keeping view depth in alpha; then the kit's bloom, a half-size depth-of-field gather that only lets out-of-focus samples spread (no halos round the sharp heroes), and one grade pass (ACES, a gentle S-curve, warm lift, vignette, an iris between screens) before the 2D interface.",
    "brief": "# 14 · Turnstone Company\n\n*Swatch 14 of The Swatch Book. Style: **Pixel sprites in 3D worlds** (Pixel & retro).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nPixel characters occupy three-dimensional sets, unified by modern lighting and depth of field. The three examples here are officially described as HD-2D; that branded term should not replace a general description of all hybrid styles.\n\n**What to look for**\n- 2D sprites with three-dimensional sets\n- Depth of field, shadows and reflections\n- Spatial lighting that preserves pixel contours\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/pixel-3d-hybrid/):\n\n> Place deliberately crafted 2D pixel characters and selected props inside coherent 3D sets. Define sprite pixel density, world scale, camera angle and billboard behavior before producing assets. Use controlled shadows, reflections, local lighting and restrained depth of field to bind both layers without smearing sprite contours. Give UI and effects compatible pixel shapes and selective dimensional depth. Ensure camera movement, animation and occlusion preserve scale and footing. Describe the approach generically rather than claiming a proprietary HD-2D pipeline. Avoid excessively blurred backgrounds, realistic models that clash with sprites, and inconsistent pixel scale across distances.\n\n\n## The game: Turnstone Company\n\n**Hook:** *Four heroes, one turntable. Turn to face the danger.*\n\nThe Turnstone Company is a band of four pixel heroes who travel the tiny diorama kingdom of Mossmere on a wooden\nturntable cart. When monsters attack, they come from all sides, and the heroes stand back to back on the turntable.\nYou don't move them. You **turn** them, so the right hero faces each attack.\n\n**Why this style:** HD-2D puts 2D pixel sprites in 3D sets with depth of field, shadows, reflections and spatial\nlight. A turntable battle is a camera's dream for that look: sprites as billboards on a rotating 3D stage, lit by\ntorches, framed by tilt-shift blur.\n\n### Core loop\n- **The wheel:** four heroes on a square turntable facing N/E/S/W. Swipe left/right to rotate 90° (or drag to turn\n  freely and snap). Desktop: ←/→ (Q/E).\n- **Telegraphed attacks:** enemies stand around the turntable and wind up attacks with clear tells (a glowing\n  rune above them, a countdown of pips). Each attack has a type: **blade** (needs the Knight: blocks), **wing**\n  (needs the Archer: shoots flyers down), **ward** (shielded enemies: needs the Mage to break the shield), and the\n  Cleric heals whoever faces her direction **behind** her. When an attack lands, the hero facing it answers if they\n  match; a mismatch hurts that hero.\n- **Counters:** a matched answer at the perfect moment (just before impact) is a **break**: the enemy is stunned and\n  takes double damage; breaks fill the **Company gauge** for a combined special (all four strike at once).\n- **Pacing:** attacks overlap: two enemies winding up on different sides at once is the puzzle. Later enemies feint,\n  swap types mid-windup, or attack twice.\n- **The road:** between battles, choose a route on a little map of tilt-shift diorama towns (a battle, a shop, an\n  inn to heal, a shrine for a perk like \"Archer pierces\"). A run crosses three regions and their bosses (a giant\n  whose two hands attack from opposite sides; a dragon that circles the turntable).\n\n### Hooks to come back\n- Regions cleared, best run, a daily road, unlockable alternate heroes (a Lancer, a Bard) that change matchups.\n\n### Look\n- 3D diorama sets (low-poly meshes with soft painted textures: a village square, a forest clearing, a ruined\n  chapel) under warm and cool point lights; pixel-art sprites for heroes and monsters drawn on CPU canvases, shown\n  as camera-facing billboards with **hard pixel edges**, casting soft blob shadows; **depth of field** (tilt-shift:\n  sharp in the middle band, blurred foreground and background in a post pass using depth), bloom on torches, a\n  subtle vignette. The camera sits high and close, orbiting a little as the turntable turns.\n- Pixel UI: health pips over heroes, enemy tell runes as pixel icons, a pixel font at native size.\n\n### Sound\n- A JRPG-flavoured battle loop (square leads, a synth harp, punchy drums), a gentle travel theme on the map, block\n  clangs, arrow thwips, mage zaps, cleric chimes; a distinctive \"break!\" sting.\n\n### Test hooks\n- `state()`: \"title\", \"map\", \"battle\", \"shop\", \"inn\", \"boss\", \"over\" (and \"paused\").\n- `snapshot()`: region, node, hero HPs, facing, enemies (side, type, windup), gauge.\n- `test_input`: `{\"turn\": 1}` (or -1), `{\"face\": \"N\"}`, `{\"win_battle\": true}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/14-turnstone-company.jpg",
+   "thumb": "thumbs/14-turnstone-company.jpg",
+   "clip": "clips/14-turnstone-company.mp4",
+   "ready": true
   },
   {
    "no": "15",
@@ -739,7 +1050,7 @@ window.SWATCHES = {
    "no": "17",
    "slug": "17-pangolin-pinball",
    "title": "Pangolin Pinball",
-   "tagline": "A tall pinball table in a sunny 16-bit zone. The ball is a pangolin. It has opinions.",
+   "tagline": "Flip a curled-up pangolin round a sunny canyon table. It has opinions about your aim.",
    "style": "16-bit-inspired pixel art",
    "style_slug": "16bit-pixel",
    "family": "pixel",
@@ -749,19 +1060,90 @@ window.SWATCHES = {
     "Layered foregrounds and backgrounds",
     "Saturated colors and nuanced sprite animation"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#2a4bc4",
+   "summary": "Clover Canyon Zone is a tall pinball table standing in a sunny 16-bit landscape, and the ball is Pango, a curled-up pangolin who uncurls to cheer when you hit a jackpot and comments on everything you do. Light C-L-O-V-E-R for the Canyon Run, ride the glass ramp three times for a three-pangolin multiball, bonk moles in the hollow log, loop the orbit for a Ring Rush, and shoot whatever Pango wishes for to raise the playfield multiplier. Pinball is pure kinetic flow, so the table is a zone you light up: stepped shading on every rock and rail, a checkered loop-track arch, dithered glass, and five parallax planes of canyon behind the open playfield.",
+   "how_to_play": [
+    "Left half of the screen flips the left flipper, right half the right one; both thumbs at once is fine.",
+    "Hold the right half to wind the spring, let go to launch Pango.",
+    "Light C-L-O-V-E-R, ride the ramp 3 times for multiball, and visit the hollow log for the Mole Bonus.",
+    "Pango has opinions: shoot what it wishes for to raise the playfield multiplier.",
+    "Swipe up with two fingers to nudge the table. Too much and it tilts."
+   ],
+   "controls": [
+    {
+     "action": "Left flipper",
+     "touch": "press the left half",
+     "keys": "Z, Left arrow or Left Shift"
+    },
+    {
+     "action": "Right flipper",
+     "touch": "press the right half",
+     "keys": "/, Right arrow or Right Shift"
+    },
+    {
+     "action": "Wind and launch the spring",
+     "touch": "hold the right half, let go",
+     "keys": "hold Space, Enter or Down, let go"
+    },
+    {
+     "action": "Nudge",
+     "touch": "swipe up with two fingers",
+     "keys": "Space (in play)"
+    },
+    {
+     "action": "Mole Bonus",
+     "touch": "left, both or right",
+     "keys": "Z, Z and /, or /"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Menus",
+     "touch": "tap",
+     "keys": "arrows and Enter"
+    },
+    {
+     "action": "Mute",
+     "touch": "speaker button",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Pixelify Sans",
+    "Press Start 2P",
+    "Silkscreen"
+   ],
+   "palette": [
+    "#251231",
+    "#2a4bc4",
+    "#7fc0fa",
+    "#ffc53a",
+    "#ee4d7d",
+    "#db8a3a",
+    "#3fae4c",
+    "#e7865a",
+    "#7c9fd8",
+    "#231f5e"
+   ],
+   "features": [
+    "A custom fixed-step ball solver: adaptive sub-steps (no ball or flipper tip moves more than a third of a ball radius per sub-step), swept-circle continuous collision against capsule-inflated segments and posts, conservative advancement against the flippers' tapered capsules, and a push-out pass; 300 random 1400 px/s launches into walls and swinging flippers never tunnel",
+    "Flippers are solenoid-driven tapered capsules: the ball meets them with the velocity of the point it touches, the rubber 'snaps' a resting ball off faster than the flipper's own surface, so live catches, drop-catches, post passes and tip shots behave like a real table; the shots were tuned with a shot-map harness (ball at each point of the flipper, which switch it reaches)",
+    "Two layers: a glass ramp tube rises up the left, arcs over the top lanes and curls through an S-chute into the right orbit, whose one-way gate hands Pango back to the right inlane; one-way gates, a spinner, a kickback spring pad, a ball-saver spring that pops up between the flippers, slingshots, three clover pop bumpers and six C-L-O-V-E-R standups",
+    "Missions and modes: Canyon Run (C-L-O-V-E-R), Pango Party (3-pangolin multiball with log jackpots and a super jackpot on the ramp), the Mole Bonus minigame (left, both or right to bonk), Ring Rush (12 rings on the ramp and orbit, an extra ball for all of them), Pango's Wishes (its opinions raise or drop the playfield multiplier), combos, a skill shot, top lanes for the bonus multiplier, nudge and tilt",
+    "A first game that teaches by playing: the spring lesson, then slow motion as Pango first reaches each flipper until that thumb flips, then tips the first time each mission comes up",
+    "Five mission stars per game, a local top-five table with initials entered pixel-style, a daily table whose seed shuffles Pango's wishes, the lucky letter, bumper values and the skill lane, and the table's code to replay any game",
+    "Pango in 16 rolling frames whose tucked-in face tumbles round, peeking out when still; uncurled poses to cheer, wave and sulk; his cousins Pip and Plum join the multiball in their own scale colours",
+    "All sound is synthesized: an FM bell for each bumper, springs that boing, a formant-filtered 'JACK-POT!', a sad wah-wah drain, and a bouncy F major loop played on rendered FM bass, e-piano and brass samples that turns up a fever arpeggio during modes"
+   ],
+   "rendering": "Everything is drawn into one pixel buffer (195x422 on a phone, 720x450 on a desktop) at a whole-number scale: the table, the ramp and the scenery are painted once on the CPU from the table's own geometry (distance-to-edge stepped bevels, checker tiles, strata, ordered dither), sprites come from one CPU-built atlas (letter-grid characters, flipper frames rasterized from the physics capsule, the rolling ball from shading rules), five parallax strips scroll at their own rates, and the kit's LowRes blit puts it on screen with nearest filtering.",
    "brief": "# 17 · Pangolin Pinball\n\n*Swatch 17 of The Swatch Book. Style: **16-bit-inspired pixel art** (Pixel & retro).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nRicher color ramps, layered parallax and fuller sprite volumes evoke the 16-bit era. Modern works can adopt that language without historical resolution or color-count limits.\n\n**What to look for**\n- Stepped shading builds form\n- Layered foregrounds and backgrounds\n- Saturated colors and nuanced sprite animation\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/16bit-pixel/):\n\n> Define a consistent logical resolution, sprite scale and tile system with richer but controlled stepped color ramps. Shape characters and objects with deliberate clusters, readable volumes and expressive frame animation. Use layered foregrounds and backgrounds, decorative tile variation and carefully separated parallax planes. UI and effects must share the world's pixel scale and palette families. Allow modern presentation without claiming exact historical hardware compliance, while preserving visible pixel craftsmanship. Avoid arbitrary high-resolution overlays, blended photographic textures, inconsistent outline density and visual noise that competes with the playable plane.\n\n\n## The game: Pangolin Pinball\n\n**Hook:** *A tall pinball table in a sunny 16-bit zone. The ball is a pangolin. It has opinions.*\n\nClover Canyon Zone: a vertical pinball table (taller than the screen; the camera follows the ball) set in a bright\n16-bit landscape with loops, rails, spring pads and checkerboard hills. The ball is Pango, a curled pangolin who\nuncurls to cheer when you hit a jackpot.\n\n**Why this style:** 16-bit pixel art is stepped shading, layered parallax and saturated colour with lively sprite\nanimation, and the era's speed. Pinball is pure kinetic flow; the table is a zone you light up.\n\n### Core loop\n- **Flippers:** touch the left half of the screen for the left flipper, the right half for the right (each a\n  `kit::ui::Zone`, both at once allowed). Desktop: Z / M or ←/→ or Shift keys. A **nudge**: swipe up with two\n  fingers (or Space) to shake the table (too many → tilt).\n- **Physics:** a custom fixed-step 2D ball physics with continuous collision against line segments and arcs (sub-step\n  the ball: it must never tunnel at high speed), flippers as rotating capsules that impart velocity, bumpers that\n  kick, slingshots, spinners, ramps that lift the ball to an upper layer (a second set of segments), loops.\n- **Missions:** light all five C-L-O-V-E-R targets → \"Canyon Run\" mode; shoot the left ramp 3 times → multiball (3\n  pangolins); hit the hollow log → the **mole bonus** minigame; a ring-collect mode where pickup rings spawn\n  along ramps. Jackpots for combos.\n- **Balls:** three balls; a ball saver for the first 5 seconds; extra balls from missions.\n\n### Hooks to come back\n- High score table (local, initials entered pixel-style), mission completion stars, a daily table (the seed shuffles\n  mission order and target values).\n\n### Look\n- Pixel art at a fixed logical width (e.g. `Fit::Width(200)` so the table is ~200 px wide on any phone, scrolling\n  vertically), stepped shading on every sprite and tile, bright saturated palette, layered parallax background\n  (sky, mountains, checker hills, palms) visible through the table's open areas. Lit inserts on the playfield blink.\n  The DMD-like score display is a strip at the top in a pixel font.\n- Juicy: score pops, flipper flashes, screen shake on bumpers (subtle), the pangolin's roll animation follows its\n  speed, sparkles on rails.\n\n### Sound\n- A bouncy 16-bit FM-ish loop (use the kit's FM layers), distinct sounds for bumpers, slingshots, spinners (pitch\n  rises with spin), ramps, a voice-like \"Jackpot!\" made of formant-filtered synth, a drain sound with a sad wah.\n\n### Test hooks\n- `state()`: \"title\", \"plunger\", \"playing\", \"drain\", \"over\" (and \"paused\").\n- `snapshot()`: score, ball, balls in play, missions lit, mode, ball positions and speeds.\n- `test_input`: `{\"flip\": \"left\"|\"right\"|\"both\"}` (a press for 150 ms), `{\"plunge\": 0.8}`, `{\"drain\": true}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/17-pangolin-pinball.jpg",
+   "thumb": "thumbs/17-pangolin-pinball.jpg",
+   "clip": "clips/17-pangolin-pinball.mp4",
+   "ready": true
   },
   {
    "no": "18",
@@ -795,7 +1177,7 @@ window.SWATCHES = {
    "no": "19",
    "slug": "19-glint",
    "title": "Glint",
-   "tagline": "Read the light. Turn the blade.",
+   "tagline": "Read where a phantom's light gathers, then swipe to meet the blow on the instant it lands.",
    "style": "Luminous high-contrast pixel art",
    "style_slug": "luminous-pixel",
    "family": "pixel",
@@ -805,19 +1187,78 @@ window.SWATCHES = {
     "Luminous edges and local glow",
     "Color masses guide attention and depth"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#05040a",
+   "summary": "Climb a drowned city's tower of thirty floors and duel the Glintborn, phantoms of old duelists made of neon pink and cyan. You never strike first: light gathers on the side a blow will come from, a diamond closes on its glyph, and you swipe toward pink light to meet it or away from cyan light to step aside, on the instant it lands. Luminous pixel art is light organising a dark picture, so here the light is the whole language of the fight: every tell, feint, hold and colour rule is something you read off a glow.",
+   "how_to_play": [
+    "Light gathers where a blow will fall, and a diamond closes on its glyph.",
+    "Pink: swipe toward the light as the diamond closes. Cyan: swipe away from it.",
+    "A glyph that gutters out is a feint: hold your blade. A stalled diamond is a held breath.",
+    "Perfect parries ring and fill your focus. Full? Tap to cut through the phantom.",
+    "Thirty floors. Each stair gives back a heart; each win, an ember."
+   ],
+   "controls": [
+    {
+     "action": "Parry or dodge",
+     "touch": "swipe up, down, left or right (anywhere)",
+     "keys": "arrow keys or WASD"
+    },
+    {
+     "action": "Finisher (focus full)",
+     "touch": "tap",
+     "keys": "Space or Enter"
+    },
+    {
+     "action": "Take an ember",
+     "touch": "tap a card",
+     "keys": "arrows, Enter"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Menus",
+     "touch": "tap",
+     "keys": "arrows, Enter"
+    },
+    {
+     "action": "Mute",
+     "touch": "sound button",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Bitcount Prop Single",
+    "Bitcount Prop Double",
+    "Handjet"
+   ],
+   "palette": [
+    "#05040a",
+    "#150e2a",
+    "#0c2f37",
+    "#ff3d8e",
+    "#38eeff",
+    "#ffb13b",
+    "#fff7fb",
+    "#c6a6ff"
+   ],
+   "features": [
+    "A swipe parry duel read entirely from light: glyphs form pixel by pixel on the side of the blow and brighten, a diamond (pink, to meet) or a ring (cyan, to dodge) closes exactly at impact, and every side has its own rising note (up highest, down lowest)",
+    "Thirty named Glintborn with their own silhouettes (hoods, brims, crowns, horns, halos, lantern heads, veils, wings, twins), weapons and habits: feints that gutter out, held breaths, tolling combos, mirrored twins, an Echo that answers your last pattern backwards",
+    "A perfect parry is a bell in the chest: hit-stop, a burst of bloom, chromatic fringe, a four-point flare, a pitched bell with a low thump and a buzz; full focus lets you dash through the phantom and cut it in two",
+    "Teaching by playing: a first-run duel teaches the four sides in slow time, then the glint and the finisher; each later idea (feint, combo, cyan, delay) arrives on its own floor with a slowed, explained first example",
+    "A roguelite climb: one heart back per stair, a choice of two embers after every duel (wider glint, an extra heart, a ward, twin-edged finishers and more), best floor, best streak and a codex of every duelist you have bested, with their lore",
+    "A daily gauntlet: five duelists from the day's seed, climbing in difficulty, with no embers",
+    "The drowned city of Nethra: violet and teal tower masses with lit windows and signs under a low moon, sinking further below as you climb, rain and splashes, a wet balcony that mirrors the phantom, and the tower's stonework streaming past between floors",
+    "A slow synth pad over a pulse that tightens with every phase, plus music-box ember chimes; everything synthesized"
+   ],
+   "rendering": "Everything is drawn into a pixel buffer about 240 px tall at one density: figures go into their own buffer as flat dark silhouettes whose alpha names a material, and a compose pass lights each silhouette's edges with its rim colours (pink from one side, cyan from the other, white on top, a fainter inner rim where an arm or a head crosses its own body), mirrors the phantom in the wet floor, dissolves figures and slides them apart along the finisher's cut; lights also go into a glow buffer that is bloomed, and one final pass scales the pixels up with nearest filtering and lays the glow over them with linear filtering (plus fringe, tint, flash and the diagonal wipe between screens).",
    "brief": "# 19 · Glint\n\n*Swatch 19 of The Swatch Book. Style: **Luminous high-contrast pixel art** (Pixel & retro).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nSaturated bright colors, dark foundations and luminous effects organize the pixel image. This category concerns color and light; science fiction and cities are only possible subjects.\n\n**What to look for**\n- Strong bright-dark contrast\n- Luminous edges and local glow\n- Color masses guide attention and depth\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/luminous-pixel/):\n\n> Build readable pixel silhouettes and broad color masses on dark foundations, using a small family of saturated luminous accents. Give each light color a role in navigation, interaction or atmosphere. Keep pixel edges deliberate and use glow as a controlled secondary layer, not a replacement for form. Match characters, architecture, UI and particles to the same pixel density and chromatic hierarchy. Animate light pulses and impacts with concise timing and preserve hazard readability when effects overlap. The setting need not be futuristic. Avoid unrestricted neon colors, washed-out bloom, blurred base sprites and dark regions with no navigational information.\n\n\n## The game: Glint\n\n**Hook:** *Read the light. Turn the blade.*\n\nIn the drowned city of Nethra, light itself remembers how to fight. You are a wanderer with a blade of light,\nchallenging the Glintborn, phantoms of old duelists made of neon pink and cyan, one by one, up a tower of thirty\nfloors. You never attack first. You parry.\n\n**Why this style:** luminous high-contrast pixel art is strong bright–dark contrast, glowing edges, and colour masses\nthat guide attention. A duel where the only information is light (where it gathers, which way it flares) is that\nstyle turned into a reading test.\n\n### Core loop\n- **Telegraph:** a phantom winds up; its blade glows and a glyph forms at the side it will strike from (up, down,\n  left, right), brightening toward the moment of the strike. Later phantoms add feints (a glyph that fades out),\n  delays (a long hold), combos (three strikes in a rhythm), and colour rules (a pink strike must be parried, a cyan\n  one must be dodged with a swipe the opposite way).\n- **Parry:** swipe in the strike's direction at the moment it lands. Perfect timing (a tight window) makes a\n  **glint** (a white flash, a hit-stop, a bell-like ring) and fills the focus meter; a merely good parry blocks; a\n  miss costs a heart.\n- **Finisher:** when the focus meter is full, tap to strike back: a dashing cut across the screen that ends the duel\n  phase. Each duelist has 2–3 phases.\n- **The tower:** 30 duelists, each with a name, a silhouette and a pattern (the Lamplighter, the Twin Herons, the\n  Saint of Static…). Between floors, a short climb with a little light-puzzle-free breather and a choice of one of\n  two \"embers\" (perks: a wider perfect window, a heart, a double-strike finisher).\n- **Daily gauntlet:** five duelists from the seed in a row, no perks.\n\n### Hooks to come back\n- Highest floor, perfect-parry streaks, a codex of every duelist defeated (their silhouette and a line of lore).\n\n### Look\n- Pixel art at ~200 px tall, deep near-black backgrounds of a ruined city in dark teal and violet masses, with\n  glowing edges: neon pink, cyan, white. A post pass adds glow (bloom on the low-res image, upscaled with nearest\n  for the pixels and linear for the glow) and slight chromatic fringing on hits. Rain or drifting motes. Characters\n  are tall, slim silhouettes with glowing outlines and capes that flow.\n- Parry glints, slashes and sparks as bright pixel shapes; screen tint shifts on hits (scaled by `cx.flash()`).\n\n### Sound\n- A pulsing synthwave-adjacent pad with a slow beat that tightens as the duel goes on; each telegraph has a rising\n  tone whose pitch maps to its direction (learnable!), perfect parries ring like a struck bell, misses thud.\n\n### Test hooks\n- `state()`: \"title\", \"climb\", \"duel\", \"finisher\", \"choose\", \"over\" (and \"paused\").\n- `snapshot()`: floor, phase, hearts, focus, the current telegraph (direction, time to impact).\n- `test_input`: `{\"auto_parry\": \"perfect\"}` (parry the next strikes perfectly), `{\"floor\": 12}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/19-glint.jpg",
+   "thumb": "thumbs/19-glint.jpg",
+   "clip": "clips/19-glint.mp4",
+   "ready": true
   },
   {
    "no": "20",
@@ -833,7 +1274,7 @@ window.SWATCHES = {
     "Occlusion and steps express height",
     "Layered tiles, facades and props"
    ],
-   "theme": "#101014",
+   "theme": "#24502b",
    "summary": "",
    "how_to_play": [],
    "controls": [],
@@ -879,7 +1320,7 @@ window.SWATCHES = {
    "no": "22",
    "slug": "22-skytether",
    "title": "Skytether",
-   "tagline": "Circle the islands. Tie the sky together before the storm.",
+   "tagline": "Loop the floating islands to tie them to the sky before the storm swallows one.",
    "style": "Faceted low-poly",
    "style_slug": "faceted-low-poly",
    "family": "render",
@@ -889,19 +1330,81 @@ window.SWATCHES = {
     "Sparse textures and broad color fields",
     "Depth built from silhouettes and layers"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#2a2340",
+   "summary": "You are a faceted bird of light above a pastel sea of cloud. Fly a full loop round a floating island (the game counts the winding angle of your path round its centre) and a folded ribbon of light follows you, seals into a ring as the loop closes and cinches round the island's cliff; its shrine lights, a pillar of light climbs to a star, and when every island of a constellation is tied the stars are joined across the sky. A storm front sweeps the map meanwhile, so the order you tie them in matters. Faceted low-poly is about planes catching the light, broad colour fields and depth built from layered silhouettes, and flight round floating rock is the style at its most graceful.",
+   "how_to_play": [
+    "Drag anywhere to steer: left and right turn you, up climbs, down sinks.",
+    "Hold your finger still to dive (faster, lower); let go or tap to flap and climb.",
+    "Fly a full loop round an island to tie it: follow the dashed ring, and close the loop.",
+    "Tight, fast loops and loops through a shrine arch score more; tie islands quickly to chain.",
+    "Tie every island before the storm front swallows one."
+   ],
+   "controls": [
+    {
+     "action": "Steer (turn, climb, sink)",
+     "touch": "drag anywhere (a floating stick from where the finger lands)",
+     "keys": "A D or ← → to turn, W S or ↑ ↓ to climb and sink, or drag with the mouse"
+    },
+    {
+     "action": "Dive",
+     "touch": "hold the finger still",
+     "keys": "hold Shift (or X)"
+    },
+    {
+     "action": "Flap and climb",
+     "touch": "let go after a dive, or tap",
+     "keys": "Space, or let go of Shift"
+    },
+    {
+     "action": "Pick a constellation",
+     "touch": "tap it on the sky map, then Fly",
+     "keys": "arrow keys, Enter"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "Sound button (title, pause, settings)",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Marcellus",
+    "Jost"
+   ],
+   "palette": [
+    "#2a2340",
+    "#fff6e8",
+    "#ffcf7a",
+    "#f47a6c",
+    "#9fe0c0",
+    "#b7ace6",
+    "#a597d4",
+    "#ffd3b6",
+    "#eca88d",
+    "#6c64ad",
+    "#f8b29a",
+    "#1d2350"
+   ],
+   "features": [
+    "Loop detection by winding angle: every island keeps the signed angle your path has swept round its centre while you are near it (with a short grace if you stray), so a loop of any shape counts, a loop round two islands ties both (a double knot) and a flyby that turns back cancels itself.",
+    "The ribbon: a folded strip of light in the island's own frame (it moves with drifting islands), its facets alternating in shade; on sealing it relaxes into a ring, cinches round the cliff lip with an overshoot, lights the shrine's lantern, sends a pillar of light up to the island's star and a shockwave across the sea.",
+    "Flight made for a thumb: a floating stick from wherever the finger lands, holding still to dive and letting go to flap, a soft auto-level that holds your altitude, rock that you slide round instead of crashing into, a sea you skim and a sky that turns you home at its edge; on desktop, keys or a mouse drag.",
+    "A camera that turns toward the island you are looping (a lock-on that frames bird, ribbon and island together), holds the island in view while its ribbon cinches, banks with the bird and widens in a dive.",
+    "24 constellations in four sky moods (dawn, day, dusk, night), one new idea every few skies: shrine arches, drifting islands, updrafts, storm cells whose lightning breaks a loop in progress, dancing pairs that orbit each other, wind rivers, crystal birds that join your flight for speed, and turning islands.",
+    "The storm is timed against a real flight: at each start the autopilot flies a copy of the sky with the storm parked, and the storm is placed so it reaches each island only after a level's slack times the moment the autopilot tied it (3x on the first sky, 1.65x on the last); the autopilot's time sets the par.",
+    "Three stars a sky (all tied, under par, fine loops), a sky map where finished constellations shine in a night chart, a daily sky made from the day's seed with its own best, a first run that teaches by playing in four steps, pause, settings and a shared mute.",
+    "Sound synthesized live: airy pads and a soft marimba in D major pentatonic, wind that rushes with speed and dive, a chime that climbs the scale as a loop goes round, a bright arpeggio when it seals, a warm rolled chord when a constellation locks, thunder and a low heartbeat as the storm closes in."
+   ],
+   "rendering": "One MSAA-4 Rgba16Float pass draws flat-normal faceted meshes (islands, shrines, arches, clouds, far floating mountains, the bird) lit by a warm key and a cool shadow side, a faceted cloud sea displaced in the vertex shader with facet normals from screen derivatives and island shadows, a direction-space sky, alpha-blended ribbons, rain and haze and additive light (ribbon cores, stars, lightning, sparks), all under exponential fog in the sky's own colour and a storm veil computed where each view ray crosses the front; then the kit's bloom chain and one grade pass (soft shoulder, flashes, storm drain, vignette, dither).",
    "brief": "# 22 · Skytether\n\n*Swatch 22 of The Swatch Book. Style: **Faceted low-poly** (3D & rendering).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nVisible polygonal facets and simplified meshes shape the world, with broad color fields replacing dense textures. The emphasis is on volume, silhouette and color grouping, rather than polygon count alone.\n\n**What to look for**\n- Clearly visible geometric facets\n- Sparse textures and broad color fields\n- Depth built from silhouettes and layers\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/faceted-low-poly/):\n\n> Use simplified meshes with clearly visible, intentionally shaped polygonal planes. Let broad color fields, silhouette and warm/cool plane relationships carry material and volume, with sparse texture detail. Build environment depth through overlapping landforms and value separation. Characters, props and interactive geometry should share the same facet scale and simplification logic. Give UI icons geometric silhouettes and use restrained faceted particles or planar effects. Animate with clean arcs that preserve volume. Avoid arbitrary polygon reduction, indiscriminate triangulation, dense photographic textures and shiny smooth shading that conceals the facets.\n\n\n## The game: Skytether\n\n**Hook:** *Circle the islands. Tie the sky together before the storm.*\n\nAbove an endless pastel sea of cloud drift islands of faceted rock, each with a little shrine. You are a faceted\nbird of light. Fly a loop around an island and you tether it with a ribbon of light; tether all the islands of a\nconstellation and they lock into place, the shrines light up, and the constellation appears in the sky. A storm\nfront is coming from the horizon.\n\n**Why this style:** faceted low-poly is visible facets, sparse textures, broad colour fields and depth through\nsilhouettes and layers. Flight through a sky of faceted islands, with the light catching each facet as you bank, is\nthe style at its most graceful.\n\n### Core loop\n- **Fly:** the bird always moves forward. Drag (anywhere, relative to where the finger landed) to steer left/right\n  and up/down; **hold still to dive** (speed up, lose height), **release to climb** (a flap). Desktop: WASD/arrows to\n  steer, Space to flap. A soft auto-level keeps it calm.\n- **Tether:** fly a full loop around an island (the game tracks the winding angle of your path around its centre):\n  a ribbon of light follows you during the loop and seals when the loop closes. A tighter, faster loop is worth more\n  (style points), and passing through the island's shrine arch while looping is a bonus.\n- **Constellations:** each level is a constellation of 4–7 islands; tether them all before the storm front (a dark\n  wall of cloud with lightning, sweeping across the map) swallows them. Islands drift slowly, some orbit each other,\n  some spin.\n- **Hazards and helpers:** updrafts (columns of rising sparkles: climb for free), storm cells (lightning that breaks\n  an unfinished loop), wind rivers that carry you, crystal birds that fly with you for a speed boost.\n- 24 constellations, with a sky map where finished ones shine.\n\n### Hooks to come back\n- Stars per constellation (time, loop quality), the night sky filling with your constellations, a daily sky.\n\n### Look\n- Flat-shaded faceted meshes (use `MeshData::faceted()` on displaced spheres and extruded shapes), sparse colour\n  fields (peach, mint, lavender, cream) with lighting that varies per facet, atmospheric fog toward the horizon in\n  the sky colour, silhouettes stacked in depth. The bird is a few large facets with a light trail; ribbons are soft\n  glowing strips. The cloud sea below as a big faceted plane slowly undulating.\n- Gentle camera: behind and above the bird, banking with it; FOV widens a touch when diving.\n\n### Sound\n- Airy pads and a soft marimba-like melody, wind rushing with speed, a rising chime as a loop closes (the pitch\n  climbs through the loop), a big warm chord when a constellation locks; thunder from the storm front.\n\n### Test hooks\n- `state()`: \"title\", \"sky_map\", \"flying\", \"constellation_done\", \"storm_caught\" (and \"paused\").\n- `snapshot()`: level, islands tethered / total, storm distance, bird position and speed, the current loop angle.\n- `test_input`: `{\"tether\": i}` (complete island i), `{\"steer\": [x, y], \"ms\": 500}`, `{\"level\": 9}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/22-skytether.jpg",
+   "thumb": "thumbs/22-skytether.jpg",
+   "clip": "clips/22-skytether.mp4",
+   "ready": true
   },
   {
    "no": "23",
@@ -935,7 +1438,7 @@ window.SWATCHES = {
    "no": "24",
    "slug": "24-topple",
    "title": "Topple",
-   "tagline": "Three charges. One building. Put it exactly where they asked.",
+   "tagline": "Stick charges on Blockton's oddest buildings and drop each one exactly where they asked.",
    "style": "Voxel worlds",
    "style_slug": "voxel-worlds",
    "family": "render",
@@ -945,19 +1448,103 @@ window.SWATCHES = {
     "Block structure continues into small details",
     "Volumetric lighting over block surfaces"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#2a2622",
+   "summary": "Blockton's demolition crew takes the jobs nobody else will: lay a crooked clock tower across the canal without touching the bakery, drop only the middle span of a bridge, knock one tower into another, pour out a giant teapot. Every building is made of quarter-metre blocks; you walk round it, stick a few charges on its walls, hit the plunger, and the blast, the storeys that give way, the chunks that tumble and break and the rubble that settles are all blocks, so you read the collapse the same way you planned it. Voxel worlds are blocks down to the smallest detail and coherent block interiors when things break, and a game about exactly where a building of blocks will fall is that idea played straight.",
+   "how_to_play": [
+    "Drag to walk round the job, pinch to look closer. The yellow tape is where it must land; teal tags are what must not be touched.",
+    "Tap a wall to stick a charge on it (pick small or large in the tray). Orange blocks are what it will take. Tap a charge again to take it back.",
+    "Blow out most of one side of a storey and the building tips that way; blow every side and it comes straight down.",
+    "Hit the plunger. Stars for landing it in the zone, lower than the height line, with no knocks on the neighbours. Spare charges score extra.",
+    "Thirty jobs in three districts, a daily order and the Yard, where anything goes."
+   ],
+   "controls": [
+    {
+     "action": "Walk round the job",
+     "touch": "drag",
+     "keys": "arrow keys or W A S D, or drag with the mouse"
+    },
+    {
+     "action": "Look closer",
+     "touch": "pinch",
+     "keys": "+ and -, or the mouse wheel"
+    },
+    {
+     "action": "Stick a charge (or take one back)",
+     "touch": "tap a wall (or the charge)",
+     "keys": "click a wall (the hovered face shows what it will take)"
+    },
+    {
+     "action": "Pick small or large",
+     "touch": "the tray, bottom left",
+     "keys": "1 and 2"
+    },
+    {
+     "action": "Take back the last charge",
+     "touch": "undo button",
+     "keys": "Z or Backspace"
+    },
+    {
+     "action": "Blow it",
+     "touch": "the plunger, bottom right",
+     "keys": "Space or Enter"
+    },
+    {
+     "action": "Skip the collapse / retry",
+     "touch": "Skip / Retry",
+     "keys": "Space / R"
+    },
+    {
+     "action": "Work order",
+     "touch": "clipboard button",
+     "keys": "C"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Menus",
+     "touch": "tap",
+     "keys": "arrow keys, Enter"
+    },
+    {
+     "action": "Mute",
+     "touch": "Sound button (title, pause, settings)",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Big Shoulders Stencil Display",
+    "Barlow Semi Condensed",
+    "Courier Prime"
+   ],
+   "palette": [
+    "#2a2622",
+    "#f2b632",
+    "#efe6d2",
+    "#221d19",
+    "#c8433a",
+    "#b4553b",
+    "#3f8f8c",
+    "#f6c27a"
+   ],
+   "features": [
+    "A voxel demolition simulation: a 72 x 108 x 72 grid of quarter-metre blocks per lot; charges remove a sphere of blocks; a storey or a slender span that loses a third of its cross-section gives way (crushing all but a hinge on the far side, so what stands above tips toward the blast); a centre-of-mass check over the remaining footing of each storey near the blast; a flood fill releases everything no longer joined to the ground as rapier3d rigid bodies with greedy-merged box colliders",
+    "Breakage that stays in blocks: chunks split again along their weakest layer when they land hard (deeper the harder they hit; tall pieces coming straight down telescope storey by storey), slender towers struck by falling pieces topple as dominoes, small clusters become loose blocks with their own cheap physics that settle and lie flat, and neighbours lose blocks where they are knocked",
+    "Thirty hand-built jobs in three districts (Canal Ward, Mill Row, Fairground Heights): pigeon loft, crooked clock, chimney between two houses, water tank, half a bridge, lock hut, domino towers, church tower, pancake flats, lighthouse, mill stacks, gasholder, tower crane, silos, a long bridge, the tallest stack in town, a giant teapot, helter-skelter, windmill, a boot-shaped house, a coaster loop, rocket ride, top-hat shop, big wheel, clown arch and a stacked folly; every job verified solvable by a scripted bot, and tolerant of being off by a block",
+    "Scoring by the block: share of the building inside the zone, the heap's height against the job's line, knocks on protected neighbours (and Marmalade the cat, who bolts if anything lands near her), bonuses for spare charges, a clean fold, a low pile and a splashdown; three stars, best scores, district unlocks at 12 stars, a daily order with its own code and best",
+    "Slow-motion blast (the physics never changes step size; slow motion runs fewer steps per frame and interpolates), replays of every take, and the best take of each job kept to watch again from the job board",
+    "A first-run lesson taught by playing (drag, pinch, place, the tray, the plunger) with Maud the foreman, her tip after a miss, and a ghost solution after two",
+    "Blockton round the lot: terraces with stepped gables and lit windows, mill chimneys and canals drawn as a few thousand triangles of big quads whose blocks the shader paints, dissolving block by block near the camera; a sunset sky with stepped clouds and a block skyline",
+    "Sound all synthesized: the crew's swung oom-pah brass loop (tuba, chord stabs, a muted trumpet) that cuts to silence for the blast, a whistle and the plunger, a layered thump and rumble, clatter scaled by each impact's energy and mass, splashes, a crowd cheer or groan, a fanfare, Marmalade's complaint and the pigeons leaving"
+   ],
+   "rendering": "A 2048 sun shadow map, then one 4x MSAA pass: every visible block (static or in a chunk, faces against a neighbour collapsed away) is one instanced cube per block in one draw, posed by a per-chunk matrix from a uniform array, with per-corner occlusion from its 26 neighbours, crisp block-edge lines and a per-block shade; terrain and town meshes; a stepped canal; the sky (which writes a mask to alpha); blocky lit dust and additive embers and zone curtains; then one post pass that marches light shafts from the sun through the sky mask, grades, flashes and vignettes.",
    "brief": "# 24 · Topple\n\n*Swatch 24 of The Swatch Book. Style: **Voxel worlds** (3D & rendering).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nCubic units build characters, architecture and terrain, remaining visible in silhouettes and broken edges. Lighting may be realistic or cartoon-like; the shared feature is block structure in 3D space rather than 2D pixel art.\n\n**What to look for**\n- Cubic units and stepped silhouettes\n- Block structure continues into small details\n- Volumetric lighting over block surfaces\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/voxel-worlds/):\n\n> Build characters, props, architecture and terrain from visible cubic units, using a consistent base voxel scale or a clearly documented family of scales. Preserve stepped silhouettes and block structure even in smaller details. Choose a restrained material palette and lighting treatment that clarifies cubic volume without smoothing away the construction. If objects break, expose coherent block interiors and keep destruction readability separate from decorative noise. Design UI icons and effects with compatible cubic or stepped forms. Avoid treating voxels as flat pixel art, arbitrary scale changes, smooth meshes that clash with blocks and excessive microvoxels that obscure silhouettes.\n\n\n## The game: Topple\n\n**Hook:** *Three charges. One building. Put it exactly where they asked.*\n\nBlockton's demolition crew takes the jobs no one else will: a crooked clock tower that must fall into the canal and\nnot on the bakery, a chimney that must collapse straight down between two houses, a bridge that must drop its\nmiddle span only. The city is made of voxels. So is everything that falls.\n\n**Why this style:** voxel worlds are cubic units, stepped silhouettes, blocks down to small details and volumetric\nlight on blocks. Destruction is where voxels shine: every chunk that breaks off is made of the same little cubes.\n\n### Core loop\n- **Survey:** orbit the building (drag), zoom (pinch). The job card shows the target zone (a glowing outline on the\n  ground) and the \"don't touch\" neighbours (the bakery, a parked cart, the cat).\n- **Place charges:** tap a voxel face to place a charge (limited: 2–5 per job) and choose its size (small / large).\n  Charges remove a sphere of voxels and push the debris.\n- **Blow it:** press the plunger. The removed voxels vanish in a flash; the building is split into connected\n  clusters (flood fill on the voxel grid); every cluster not connected to the ground becomes a rigid body\n  (rapier3d is in your Cargo.toml) with a compound collider of its voxels (merge into boxes for speed). They fall,\n  topple and break further on impact (big impacts split a cluster again along weak lines).\n- **Score:** how much of the building ended up inside the zone, minus damage to protected things, plus bonuses for\n  using fewer charges and for style (a clean fold, a \"domino\"). Three stars.\n- 30 jobs in three districts, from tidy towers to absurd ones (a giant teapot, a rollercoaster), and a sandbox.\n\n### Hooks to come back\n- Stars per job, slow-motion replays you can watch again (and the best one is kept), a daily job.\n\n### Look\n- Voxel art at a small scale (blocks ~0.25 m), coloured per material (brick, timber, slate, glass), rendered with\n  instanced cubes (or greedy-meshed chunks for the static parts), soft shadowing via a simple per-voxel ambient\n  occlusion, warm sunset light, and **volumetric dust** (billboard particles lit by the sun, plus light shafts\n  through the dust in a cheap post pass). Debris small voxels scatter and settle.\n- Keep within budget: cap rigid bodies (merge small clusters into dust particles), instance everything.\n\n### Sound\n- The plunger click, a deep thump and rumble (layered noise, low sine), crumbling clatter scaled by impact energy,\n  the crew's cheer or groan, a jaunty brass-like loop in the survey phase that cuts to silence in the slow-motion\n  moment of the blast.\n\n### Test hooks\n- `state()`: \"title\", \"map\", \"survey\", \"armed\", \"collapse\", \"result\" (and \"paused\").\n- `snapshot()`: job, charges left, voxels standing, bodies, in-zone fraction, damage, stars.\n- `test_input`: `{\"charge\": [x, y, z, \"large\"]}`, `{\"detonate\": true}`, `{\"job\": 5}`, `{\"settle\": true}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/24-topple.jpg",
+   "thumb": "thumbs/24-topple.jpg",
+   "clip": "clips/24-topple.mp4",
+   "ready": true
   },
   {
    "no": "25",
@@ -1128,7 +1715,7 @@ window.SWATCHES = {
    "no": "29",
    "slug": "29-light-fingers",
    "title": "Light Fingers",
-   "tagline": "The market is crowded. The purses are heavy. The watch is everywhere.",
+   "tagline": "Lift purses from a painted dusk crowd, and keep your hand out of their eyes.",
    "style": "Painterly 3D",
    "style_slug": "painterly-3d",
    "family": "render",
@@ -1138,19 +1725,89 @@ window.SWATCHES = {
     "Deliberately stylized 3D forms",
     "Cohesive painterly color relationships"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#1e1814",
+   "summary": "A pickpocket's night on Gaslamp Row, a harbour market at dusk painted in broad strokes. Every mark's attention is a fan of golden brushstrokes on the cobbles: slip in behind them, hold to lift, and let go when a glance swings your way, while punchlines, high notes, a rearing horse, a pigeon cloud or a tossed coin turn the crowd's heads. Painterly 3D suits it because the whole game is reading a crowd at a glance: sculpted, simplified figures in warm lamplight and cool dusk keep every silhouette, gaze and lantern beam legible.",
+   "how_to_play": [
+    "Tap the cobbles to walk, or drag to steer and slip through the crowd.",
+    "A gold glint is a purse: tap the mark to get behind them, then hold the hand to lift.",
+    "The golden fan is where a mark is looking. If it turns red on your hand, let go.",
+    "Shouts raise the heat and bring the watch: stand still in a crowd or duck into an alley to cool off.",
+    "Make the night's dues, then get out through a lit gate before the last bell."
+   ],
+   "controls": [
+    {
+     "action": "Walk",
+     "touch": "tap the cobbles, or drag to steer",
+     "keys": "WASD or arrows, or click the cobbles"
+    },
+    {
+     "action": "Run",
+     "touch": "drag far",
+     "keys": "hold Shift"
+    },
+    {
+     "action": "Slip in behind a mark",
+     "touch": "tap the mark",
+     "keys": "click the mark"
+    },
+    {
+     "action": "Lift a purse",
+     "touch": "hold the hand button",
+     "keys": "hold Space"
+    },
+    {
+     "action": "Toss a coin (2s)",
+     "touch": "coin button",
+     "keys": "Q"
+    },
+    {
+     "action": "Tip a cart, spook the horse, scatter the pigeons",
+     "touch": "tap them",
+     "keys": "E near them, or click them"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "speaker button on the title",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Abril Fatface",
+    "Spectral",
+    "Spectral SC",
+    "Pinyon Script"
+   ],
+   "palette": [
+    "#16110e",
+    "#efe3c8",
+    "#e2b552",
+    "#ffd27a",
+    "#e8502e",
+    "#8a2e26",
+    "#6a7cb4",
+    "#1c2046"
+   ],
+   "features": [
+    "A living crowd of about a hundred instanced figures built from sculpted primitives: coats and bell skirts, top hats, bonnets, caps and helmets, baskets on arms and trays on heads, parasols, canes and sacks, children and sailors; each walks its own gait, browses stalls, gossips in groups with talking hands, and gathers to watch the puppets and the singer.",
+    "Attention you can read: every mark's gaze is a fan of dry-brushed golden rays clipped by stalls and walls; it follows their head as they browse, glance about (with a tell first), count their change or check a watch, narrows when a show grabs them, and reddens when it lands on your hand. The watch carry real lantern beams.",
+    "A lift you hold: sidle in behind the mark, keep the hand button down while a ring fills, and let go in time; a robbed mark finds the purse gone a few seconds later and may point at you.",
+    "Distractions that turn heads: the puppets' punchline (cued by a slide whistle), the singer's high note, a rearing cab horse, a pigeon cloud at the pump, a tipped fruit cart and a tossed coin that bystanders scramble for.",
+    "Heat as a lantern: shouts and sightings draw watchmen to the last word of you; blend into a crowd or duck into an alley to cool; when it boils over the whistles blow, a reinforcement arrives and the music hurries.",
+    "A run of nights: rising dues and more watchmen, Mother Gannet's back room for gloves, coats, boots and smoke pellets, a ledger of twelve notable marks with painted portraits and a line each, best haul, nights survived and a daily night.",
+    "A six-lesson practice night teaches walking, slipping in, lifting, reading a glance, cooling off and getting out, one idea at a time.",
+    "All sound synthesized: a breathing crowd murmur and babble, a singer with vibrato, a slide whistle, hooves, a purse jingle, a watchman's trill, a bell, a street-organ waltz on the menus and a pizzicato that tightens with the heat."
+   ],
+   "rendering": "One MSAA scene pass at 55% resolution draws the static street mesh and instanced quaternion-posed primitives with a painterly material shader (soft value grouping, form-following brush patches, warm gas-lamp pools against a cool dusk fill, lantern spotlights, a sky dome and ground decals for gazes, rings and shadows); an eight-sector polynomial Kuwahara pass turns it into dabs of paint, and one full-screen composite adds impasto relief, contour darkening, warm/cool grading, a canvas weave and the menus' dim before the painted 2D interface.",
    "brief": "# 29 · Light Fingers\n\n*Swatch 29 of The Swatch Book. Style: **Painterly 3D** (3D & rendering).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nWithin three-dimensional spaces, simplified materials, deliberately shaped forms and painterly color weaken the photographic impression. The label describes the final image without claiming that every game uses hand-painted textures or the same renderer.\n\n**What to look for**\n- Materials emphasize broad visual structure\n- Deliberately stylized 3D forms\n- Cohesive painterly color relationships\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/painterly-3d/):\n\n> Shape characters, architecture and props with purposeful simplification and expressive proportions. Use coherent warm/cool color relationships, broad material structures and selectively visible painterly surface variation to reduce photographic appearance. Light the scene to support the designed palette and value groups, preserving depth without overly glossy physical detail. Give portraits, UI illustrations, icons and effects the same edge and color vocabulary. Animation should reinforce sculpted silhouettes and character attitude. Choose an implementation suited to the project rather than asserting a universal hand-painted-texture pipeline. Avoid applying a painting filter to otherwise realistic assets, random brush noise and mixed realism levels.\n\n\n## The game: Light Fingers\n\n**Hook:** *The market is crowded. The purses are heavy. The watch is everywhere.*\n\nGaslamp Row, a painterly Victorian market at dusk in an invented port city: stalls of fish and lanterns, street\nsingers, a puppet show, horses, pickpockets' alleys. You are Wren Allsop, the quickest hands in the Row. Each night\nyou need a haul. The marks are distracted, sometimes. The watchmen are not.\n\n**Why this style:** painterly 3D is materials that show broad structure, stylised forms and cohesive painterly colour.\nA dense crowd scene at dusk, lit by gas lamps and stall lanterns, painted in broad strokes, is that style's ideal set.\n\n### Core loop\n- **Move:** tap to walk to a spot (path through the crowd); drag to steer continuously. The crowd flows around you.\n- **Marks:** people with purses glint (a brass highlight). Each has an **attention cone** (shown faintly) and a mood:\n  they look around, check their purse, chat, watch performers. Stand behind a mark (outside their cone) and **hold**\n  to lift: a progress ring fills; if they turn and see your hand, they shout.\n- **Distractions:** the puppet show's punchline, a street singer's high note, a horse rearing, a pigeon swarm (you can\n  cause some: tip a fruit cart with a tap, throw a coin to start a scramble).\n- **Heat:** being seen raises the heat (a lantern meter); at high heat watchmen hunt you (they move toward the last\n  shout, with their own cones). Escape by breaking line of sight, ducking into an alley or blending into a crowd\n  cluster (standing still among people lowers heat).\n- **The night:** ~3 minutes; reach the haul target and get out through a gate. Caught = the night ends.\n- Between nights: spend on gloves (faster lifting), a coat (blend better), a smoke pellet (one escape).\n\n### Hooks to come back\n- Best haul, nights survived, a ledger of the Row's notable marks (with a painted portrait and a line), a daily\n  night.\n\n### Look\n- 3D crowd (instanced stylised figures built from simple shapes with painted textures, varied by colour and\n  props), stalls and buildings with broad painted materials (triplanar noise brush patterns), warm gas-lamp pools of\n  light and cool blue dusk shadows. A painterly post pass (a Kuwahara-style filter over the frame at reduced\n  resolution, plus a canvas texture) makes it read as paint. The camera is a high three-quarter view following Wren.\n- Wren's cap and scarf are the brightest accent; marks' purses glint gold.\n\n### Sound\n- Crowd murmur (layered filtered noise with chatter-like modulations), a street singer's melody (synth voice with\n  vibrato), horses' hooves, the puppet show's slide whistle, a coin-purse jingle on a lift, a watchman's whistle, a\n  tense pizzicato loop that tightens with heat.\n\n### Test hooks\n- `state()`: \"title\", \"night\", \"caught\", \"escaped\", \"shop\" (and \"paused\").\n- `snapshot()`: haul, target, heat, time, Wren's position, marks lifted, watchmen hunting.\n- `test_input`: `{\"walk\": [x, z]}`, `{\"lift\": true}` (lift from the nearest unaware mark), `{\"heat\": 1.0}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/29-light-fingers.jpg",
+   "thumb": "thumbs/29-light-fingers.jpg",
+   "clip": "clips/29-light-fingers.mp4",
+   "ready": true
   },
   {
    "no": "30",
@@ -1212,7 +1869,7 @@ window.SWATCHES = {
    "no": "32",
    "slug": "32-broadside",
    "title": "Broadside",
-   "tagline": "The deck rolls. The enemy passes. Fire on the up-roll.",
+   "tagline": "Lay your guns on a rolling deck and fire on the up-roll as the privateers pass.",
    "style": "Monochrome dithered 3D",
    "style_slug": "monochrome-dither-3d",
    "family": "render",
@@ -1222,19 +1879,89 @@ window.SWATCHES = {
     "Dither patterns replace smooth gradients",
     "Recognizable 3D perspective"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#e9e3d2",
+   "summary": "You command the port battery of the merchantman Catherine Lark across the Brine Straits. The deck rolls, so your guns rise and fall with it: lay them, then time each broadside to the swing as the privateers pass, high for range and rigging, low to hull her, while you come about to keep her in your arc and man the pump when her shot comes home. The whole sea is printed in one bit: an engraved sky, a sea of ordered dots, ships cut like woodblocks, and the dither itself making the gunsmoke and spray.",
+   "how_to_play": [
+    "The deck rolls under you, and your guns rise and fall with it.",
+    "Drag up or down (W/S, the wheel) to lay the guns: the dotted arc and the mark on the water show where the next ball falls.",
+    "Tap (Space, a click) to fire as the swing carries the mark onto her. On the ladder, the hollow pointer swings across her little ship.",
+    "Swipe toward her (A/D) to come about and keep her in your arc. Hold the pump (E) when shot lets the sea in.",
+    "Fire high to bring her masts down: a ship taken whole fetches more. Five legs to Halloway."
+   ],
+   "controls": [
+    {
+     "action": "Lay the guns",
+     "touch": "drag up or down anywhere",
+     "keys": "W / S or the up and down arrows (or the mouse wheel)"
+    },
+    {
+     "action": "Fire the broadside",
+     "touch": "tap",
+     "keys": "Space, Enter or a click"
+    },
+    {
+     "action": "Come about",
+     "touch": "swipe left or right",
+     "keys": "A / D or the left and right arrows"
+    },
+    {
+     "action": "Pump",
+     "touch": "hold the pump",
+     "keys": "hold E or Shift"
+    },
+    {
+     "action": "Round or chain shot",
+     "touch": "tap the shot (once bought)",
+     "keys": "Q"
+    },
+    {
+     "action": "Pause",
+     "touch": "the pause button",
+     "keys": "Esc / P"
+    },
+    {
+     "action": "Menus",
+     "touch": "tap",
+     "keys": "arrows or Tab, then Enter"
+    },
+    {
+     "action": "Mute",
+     "touch": "the sound button",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "IM Fell English SC",
+    "IM Fell English",
+    "IM Fell English Italic"
+   ],
+   "palette": [
+    "#18171c",
+    "#e9e3d2",
+    "#2e1d10",
+    "#e8d3ad",
+    "#061409",
+    "#8ef59a",
+    "#173d78",
+    "#e4ecef",
+    "#0c1322",
+    "#b9c6d6"
+   ],
+   "features": [
+    "A designed roll (two beating swells) carries the guns' aim: the dotted ballistic arc and a mark on the water ride with it, and a range ladder at the side shows her range, where the guns are laid and the live swing.",
+    "Ripple broadsides: each gun fires in turn down the side; balls arc, splash or strike by hull and rigging slab tests, splinter the hull, hole sails and bring masts down (a felled mast slows her and raises her prize).",
+    "Privateers that pass, overtake and wear on fixed lanes in the world, so coming about (a swipe or A/D) to keep her in your arc matters; their gunnery is spoiled by their own roll.",
+    "Leaks from shot between wind and water, a hold-to-pump crewman and a well gauge; lose the hull or let the water win and she goes down.",
+    "A five-leg voyage (a sloop, a brig, a fog bank where you fire at her muzzle flashes, a pair, a frigate) with ports to buy patching, guns, canvas, fine powder and chain shot.",
+    "A captain's log typed after each fight with an inked portrait of her captain, a gallery of captains, the best voyage's log kept, a daily voyage, seed codes and five palettes to earn.",
+    "A taught first fight (watch, lay, fire, the roll, come about, pump), synth sound (booms, splinters, a wash that follows the roll, a fiddle air and a drum on the approach), haptics and keyboard focus everywhere."
+   ],
+   "rendering": "The 3D scene (Gerstner sea mesh, ships, sails, smoke and spray) renders into a buffer at about 2 CSS px per dot that stores tone, a pattern code, an object id and smoke density; one composite pass outlines from depth and id and dithers each region with anchored thresholds (blue noise, Bayer, engraved hatching for the sky) before a nearest upscale, so the dots stay put as the deck rolls.",
    "brief": "# 32 · Broadside\n\n*Swatch 32 of The Swatch Book. Style: **Monochrome dithered 3D** (3D & rendering).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nThree-dimensional scenes and models convert continuous tones into limited-color dot patterns. Unlike pixel-drawn 2D characters, perspective and volume come from 3D space while stippled patterns carry tonal transitions.\n\n**What to look for**\n- Very limited color or near-monochrome images\n- Dither patterns replace smooth gradients\n- Recognizable 3D perspective\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/monochrome-dither-3d/):\n\n> Construct coherent three-dimensional scenes, then express tonal transitions through deliberate dot patterns and a very limited palette. Lock the output resolution, dither scale and palette relationships before creating assets. Preserve perspective and volume through composition, silhouette and consistent pattern density. Keep face cues, interactable objects and UI text readable by reducing texture where clarity matters. Stabilize the pattern during camera movement to avoid distracting shimmer, and use effects sparingly within the same tonal system. Avoid confusing this with hand-drawn 2D sprites, smooth gradients mixed arbitrarily with dithering and noisy patterns that hide gameplay information.\n\n\n## The game: Broadside\n\n**Hook:** *The deck rolls. The enemy passes. Fire on the up-roll.*\n\nThe merchantman *Catherine Lark* is crossing the Brine Straits in 1790-something (an invented sea), and privateers\nwant her cargo. You command her guns. The whole world is drawn in one bit: black and pale, the sea a field of dither,\nthe sky dithered clouds, the ships etched like an old computer's woodcut.\n\n**Why this style:** monochrome dithered 3D is near-monochrome images where dither replaces gradients, with clear 3D\nperspective. A broadside battle at sea, all rolling decks, smoke and sails, looks magnificent in 1-bit dither, and the\ndither itself makes smoke and spray.\n\n### Core loop\n- **The roll:** the ship rolls on the swell. Your guns' aim rises and falls with it. Drag up/down to set the guns'\n  elevation; the ballistic arc preview (a dotted line) moves with the roll.\n- **Fire:** tap to fire the broadside: a ripple of guns along the side. Timing it with the roll (fire on the up-roll\n  for range, the down-roll to hit the hull at close range) is the skill. Shots arc, splash or hit: hits splinter the\n  enemy's hull, sails or masts (dismasting slows them).\n- **Reload:** the gun crews reload (a progress bar of little figures). Keep the enemy in your firing arc: swipe\n  left/right to tack (turn), which takes time, and the enemy tacks too.\n- **Damage:** enemy shot holes your hull (pump water: a hold minigame) and sails. Lose the hull, lose the ship.\n- **Encounters:** a voyage is a series of encounters (a single sloop, a pair of brigs, a frigate, a fog bank where\n  you fire at muzzle flashes), with ports between to repair and buy better powder (range) or chain shot (sails).\n- The captain's log narrates each encounter in a few lines at the end.\n\n### Hooks to come back\n- Voyages completed, ships taken, best log, a daily voyage, ship upgrades and a gallery of the enemy captains.\n\n### Look\n- Render the 3D scene (sea mesh with Gerstner waves, ships built from simple hulls, masts and sail meshes, smoke\n  particles, spray) into a target, then a **dither pass**: convert luminance to 1-bit using a blue-noise or Bayer\n  threshold (stable in screen space, no shimmer when the camera moves slowly), with two colours chosen as a palette\n  (paper white and ink black by default; unlock palettes like a sepia print or a green phosphor). Edges reinforced by\n  an outline from depth so ships read clearly. Render at a moderate resolution and upscale crisp (each dither dot is\n  a visible pixel, about 2–3 screen pixels on a phone).\n- UI in the same two colours: a woodcut-style frame, an old typewriter-like or engraved face for the log.\n\n### Sound\n- Creaking timbers, the sea's wash rising and falling with the roll, cannon booms (low sine thump + noise), splashes,\n  wood splintering, a lone fiddle-like synth tune between encounters, a drum on the approach.\n\n### Test hooks\n- `state()`: \"title\", \"voyage\", \"encounter\", \"port\", \"log\", \"sunk\" (and \"paused\").\n- `snapshot()`: encounter, hull, enemy hull, elevation, roll phase, reload, distance.\n- `test_input`: `{\"fire\": true}`, `{\"elevation\": 0.4}`, `{\"win\": true}`, `{\"encounter\": 4}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/32-broadside.jpg",
+   "thumb": "thumbs/32-broadside.jpg",
+   "clip": "clips/32-broadside.mp4",
+   "ready": true
   },
   {
    "no": "33",
@@ -1278,19 +2005,80 @@ window.SWATCHES = {
     "Layered sheets create depth",
     "Paper texture or handmade edges"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#2a1c12",
+   "summary": "A pop-up book, The River Goes to Sea, lies open under a desk lamp, and on every spread a folded paper boat drifts down a paper river that never stops. You work the book itself: pull-tabs slide stones out of the channel and hold drawbridges up, riveted volvelles turn the river left or right, gates swing, lids cover the hole the cat's paw comes through, a grassy flap hides a shortcut, a whale spouts the boat across still water. Papercraft is layered sheets, folds and cut edges, and a pop-up book's mechanisms are exactly that made into toys; the signature moment is the page turn, when the boat rides the turning page over and the next spread's pop-ups fold up out of the paper.",
+   "how_to_play": [
+    "The boat drifts on its own: you can't steer it, only work the paper around it.",
+    "Drag the tabs at the page's edges: stones slide away, red tabs hold drawbridges up while you hold them.",
+    "Drag round the paper wheels until their channel joins the river; spin whirlpools to let go.",
+    "Tap gates, lids, flaps and the whale.",
+    "Rough water, bumps, paws and gulls soak the boat; a hook lifts it out. Catch three stars a page."
+   ],
+   "controls": [
+    {
+     "action": "Pull or push a tab",
+     "touch": "drag the tab along the page edge",
+     "keys": "Tab / Q / E to pick it, ← → to pull and push (hold for red tabs), or drag with the mouse"
+    },
+    {
+     "action": "Turn a wheel or spin a whirlpool",
+     "touch": "drag round the wheel",
+     "keys": "← → turn it a click, or drag round it with the mouse"
+    },
+    {
+     "action": "Swing a gate, flip a lid or flap, wake the whale",
+     "touch": "tap it",
+     "keys": "Space or Enter on the picked piece, or click"
+    },
+    {
+     "action": "Open the book, choose a chapter",
+     "touch": "tap the cards",
+     "keys": "Enter, 1–5, ↑ ↓"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "speaker button",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Caprasimo",
+    "Nunito",
+    "Libre Caslon Text"
+   ],
+   "palette": [
+    "#2a1c12",
+    "#f4ead3",
+    "#3d9a97",
+    "#93b56b",
+    "#bb5a3e",
+    "#e3a93b",
+    "#2d416e",
+    "#27304a",
+    "#e9bb4c",
+    "#e5735a"
+   ],
+   "features": [
+    "A real 3D pop-up book: cloth-bound boards, page stacks whose heights show how far you have read, pages that curve into the gutter, and leaves that turn about the spine so a lifted page lands exactly on the far stack; the cover opens on the title screen and pages riffle when you jump chapters.",
+    "Every spread is one draw: a mesh of die-cut sheets with real thickness (pale cut cores on coloured card), where each vertex picks its part, so tabs slide, wheels turn, gates swing, flaps flip and pop-ups fold flat and rise with a little bounce as the page opens.",
+    "Twenty hand-built spreads in four chapters (the brook, the mill town, the night river, the sea), each introducing one mechanism before mixing it with the others, plus today's river: three spreads picked, mirrored and re-timed from the day's seed.",
+    "Seven paper mechanisms (pull-tabs on linkages, spring tabs, riveted volvelle junctions, whirlpool wheels, lock gates, lids, shortcut flaps, a spouting whale) and five hazards with readable rhythms (fishermen's hooks, a cat's paw through a die-cut hole, gulls and an owl on wire arms, rapids, still water).",
+    "A wetness system: the boat's paper darkens in blotches from the waterline up; when it soaks through it unfolds flat and sinks, and you fold a new one.",
+    "Warm desk-lamp light with soft shadows that stay crisp where layers touch, fibrous paper grain, spot-varnished water with drifting ink current lines, gold-foil stars, brass split-pin fasteners, and a night chapter lit by paper lanterns.",
+    "Stars per spread, best times per chapter, chapters that unlock in turn, four unlockable boat folds (classic, newspaper hat boat, swan, crane) and a daily remix with its own best.",
+    "Paper foley for everything (tab hiss and clicks, wheel ratchets, flaps, gates, page whooshes, pop-up fwumps) over a music-box waltz that changes with each chapter."
+   ],
+   "rendering": "A lamp-space shadow map (2048², with a blocker search so contact shadows stay sharp and tall pop-ups throw soft ones) feeds one paper shader drawing every model (desk, spreads, boat) into a 4× MSAA target, where per-part transforms from a uniform table animate the paper and mipmapped print textures (drawn with the kit's 2D batch) carry the ink; one post pass adds the lamp's vignette, a soft focus at the frame's far edges and grain, then the paper-card UI batch draws on top.",
    "brief": "# 34 · Pop-Up River\n\n*Swatch 34 of The Swatch Book. Style: **Folded paper & papercraft** (Shape & material).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nPaper planes, folds, thickness and overlapping layers become visible design elements. This includes digital pop-up worlds and environments built from physical paper models; subject matter is not the defining factor.\n\n**What to look for**\n- Visible paper planes and folds\n- Layered sheets create depth\n- Paper texture or handmade edges\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/paper-craft/):\n\n> Construct scenes from visible sheets, folds, cut edges, tabs and layered paper planes with consistent thickness. Use a restrained paper palette, subtle fiber texture and contact shadows that explain how pieces overlap. Characters and props should share a credible folded or cut-paper construction, while important interactions remain obvious. Let animation hinge, unfold or slide along plausible paper joints. Build UI panels and icons from the same layered sheets, keeping text clean. The result may be digital or model-based. Avoid pretending every curved surface can fold without seams, unrelated clay materials, glossy plastic and shadows that contradict the paper layers.\n\n\n## The game: Pop-Up River\n\n**Hook:** *Pull the tabs. Turn the wheels. Keep the paper boat afloat.*\n\nA pop-up book called *The River Goes to Sea*. On each spread a paper river runs from the fold to the edge, and a\nlittle folded paper boat drifts down it, never stopping. The book is full of paper mechanisms: pull-tabs that slide\nbridges, volvelles (rotating wheels) that turn channels, flaps that lift to reveal a path, a fold-up lighthouse. You\nwork them, live, to get the boat safely to the next page.\n\n**Why this style:** papercraft is visible paper planes and folds, layered sheets, paper texture and handmade edges.\nA pop-up book's mechanisms are exactly that, made into interactive toys.\n\n### Core loop\n- **The boat drifts** along the river's current (it follows the water channel; it can't be steered directly).\n- **Mechanisms** (touch and drag):\n  - **pull-tabs** (drag a paper tab along its slot): slide a bridge into place, pull a rock aside, raise a paper\n    wave;\n  - **volvelles** (turn a paper wheel by dragging around it): rotate a junction to send the river left or right, or\n    spin a whirlpool;\n  - **flaps** (tap to lift/drop): open a lock gate, hide the boat from a paper gull, reveal a shortcut;\n  - **pop-ups** that rise as the page opens: a castle, a waterfall, a paper whale that can blow the boat along.\n- **Dangers:** paper rocks, a fishing hook, gulls, the cat's paw coming through a die-cut hole, wet patches where the\n  boat starts to sog (a wetness meter: too long in rough water and it unfolds and sinks).\n- **Collect:** paper stars along the way; three per spread.\n- **The book:** 20 spreads in four chapters (the brook, the mill town, the night river, the sea); each page turn is a\n  real 3D page turn where the next spread's pop-ups fold up out of the page as it opens.\n\n### Hooks to come back\n- Stars per spread, time trials once a chapter is done, a daily spread remix, unlockable boat folds (a crane, a\n  swan, a newspaper hat boat).\n\n### Look\n- True 3D paper: the book lies open on a table; each spread is a set of paper planes (layered sheets) with paper\n  texture (fibres, slight translucency where light passes), visible folds as creases with soft shading, crisp die-cut\n  edges, tiny shadows between layers, mechanisms with visible slots and paper rivets. Warm, gentle light from a desk\n  lamp. A limited palette of coloured papers (river teal, cream, brick, mustard, ink blue). Typography printed on the\n  pages like a children's book.\n\n### Sound\n- Paper foley everything: slides, rustles, flaps, folds (filtered noise shapes), a page-turn whoosh, water as soft\n  brush-noise, a music-box and soft-celeste loop.\n\n### Test hooks\n- `state()`: \"title\", \"book\", \"spread\", \"turning\", \"sunk\", \"end\" (and \"paused\").\n- `snapshot()`: spread, boat progress and wetness, stars, mechanism states.\n- `test_input`: `{\"mech\": [i, value]}` (set mechanism i), `{\"auto\": true}` (solve the spread for tests),\n  `{\"spread\": 8}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/34-pop-up-river.jpg",
+   "thumb": "thumbs/34-pop-up-river.jpg",
+   "clip": "clips/34-pop-up-river.mp4",
+   "ready": true
   },
   {
    "no": "35",

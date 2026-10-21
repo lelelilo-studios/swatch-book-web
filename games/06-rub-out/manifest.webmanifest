@@ -1,0 +1,16 @@
+{
+  "name": "Rub Out · The Swatch Book",
+  "short_name": "Rub Out",
+  "description": "Scribble out the graphite beasts the night draws, before the village's lamps go dark.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#cfd2da",
+  "theme_color": "#cfd2da",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
