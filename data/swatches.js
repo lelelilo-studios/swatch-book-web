@@ -693,7 +693,7 @@ window.SWATCHES = {
    "no": "11",
    "slug": "11-blink",
    "title": "Blink",
-   "tagline": "Close your eyes. Something changes. Find it.",
+   "tagline": "Close your eyes, something in the little ink town changes, and you have to spot it.",
    "style": "Fine-line doodle worlds",
    "style_slug": "detailed-doodle",
    "family": "paint",
@@ -704,13 +704,89 @@ window.SWATCHES = {
     "Reduced realistic volume and lighting"
    ],
    "theme": "#f6f0e2",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "summary": "Inkbridge is a busy little town drawn in fine, slightly irregular ink: a hundred-odd people with hats and bags, cats on fences, laundry, a market, a band on the bandstand, boats on the river. Hold still to blink: two hand-drawn eyelids sweep shut, and while they are shut one thing you can see changes (a hat hops to another head, shutters swing open, a sign is misspelt, a cat wanders off). Let go and tap it. A fine-line doodle world is hundreds of small, individually readable scenes, so it is the perfect board for a game of attention: every line matters because there are so many of them.",
+   "how_to_play": [
+    "Look around Inkbridge: drag to wander, pinch (or scroll) to look closer.",
+    "Hold your finger still on the town (or hold Space) to blink. While your eyes are shut, one thing you can see changes.",
+    "Let go and tap what changed. Quick eyes score more, and a streak more still.",
+    "Staying awake is your clock: finds wake you up, blinks and wrong guesses make you drowsy.",
+    "Ten changes take the day from morning to noon to evening to night. Stuck? The hint circles the right corner, or blink again to give up on one."
+   ],
+   "controls": [
+    {
+     "action": "Look around",
+     "touch": "drag",
+     "keys": "drag with the mouse, or the arrow keys / WASD"
+    },
+    {
+     "action": "Look closer",
+     "touch": "pinch",
+     "keys": "mouse wheel, or + and -"
+    },
+    {
+     "action": "Blink",
+     "touch": "hold a finger still on the town",
+     "keys": "hold Space, or hold the mouse button still"
+    },
+    {
+     "action": "Tap what changed",
+     "touch": "tap",
+     "keys": "click"
+    },
+    {
+     "action": "Hint (once a round)",
+     "touch": "magnifier, bottom right",
+     "keys": "H"
+    },
+    {
+     "action": "Pause",
+     "touch": "the round button, top left",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Play / carry on / again",
+     "touch": "tap the button",
+     "keys": "Enter or Space"
+    },
+    {
+     "action": "Today's town, how to play (title)",
+     "touch": "tap",
+     "keys": "D, H"
+    },
+    {
+     "action": "Sound",
+     "touch": "the speaker on the title, settings or pause",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Mynerve",
+    "Playpen Sans"
+   ],
+   "palette": [
+    "#f6f0e2",
+    "#2a2520",
+    "#b8ae9e",
+    "#ebdcc0",
+    "#e0472c",
+    "#2f63d6",
+    "#f0b93a",
+    "#f4e0c8",
+    "#1e2334",
+    "#e6dfcc",
+    "#f2bd5a"
+   ],
+   "features": [
+    "A town generated from its seed: rows of houses from a shape grammar (gabled, hipped, flat, stepped and mansard roofs, chimneys with smoke, sash, arched, round and tall windows with shutters, curtains and window boxes, doors, shop fronts with striped awnings and lettered signs, balconies, half-timbering, drainpipes, aerials), a church with a working clock and a weathervane, Inkwell Square's market, fountain, statue, kiosk and bandstand, Margin Park, yards with laundry, sheds, gardens and hens, the Riverwalk, the river Inkwash with its bridge and boats, and three unlockable districts (the Harbour, the Fair, the Rooftops) that wait as pencil sketches until you have spotted enough changes to ink them in",
+    "About 150 people and 60 animals living their day: walkers with strides and pauses, chatters, bench-sitters, faces at windows, stallholders, a five-piece band, fishermen, a painter up a ladder, rowers, children with kites and balloons, cats that sit, sleep and stroll, dogs, pigeons, hens, ducks and gulls; who is out depends on the hour",
+    "Hold-to-blink eyelids: two hand-drawn lids on a springy hinge with curled lashes, an eyelid crease and a soft shadow, that slap shut with a squash, show drifting phosphene doodles and scrunch lines while held, and spring open with a flutter; the same lids are the transition between every screen",
+    "About forty kinds of change in three tiers (whole things, details, tiny details): people leave, arrive or swap places, hats hop between heads, bags, poses, scarves, stripes and hairdos change, shutters, curtains, window boxes, lights, doors, chimneys, smoke, roofs, balconies, signs (re-worded or misspelt), awnings, pots and plants, trees, fruit and nests, market goods, laundry, the church clock and weathervane, boat flags, parasols, fences and birds on a wire; every change is described in a line of copy",
+    "Fairness rules: a change only happens to something inside the view you blinked on, clear of the interface, not hidden behind a house or a tree, big enough at your zoom, and with its fine lines drawn at that zoom; walkers involved stop for a chat; a stuck change starts to shiver after a while, the hint circles its corner (and pans back if you wandered off), and blinking again gives it up",
+    "A day of four rounds of ten changes, from obvious to subtle, with an 'awake' clock (blinks cost a second, wrong guesses three, finds give some back), speed bonuses and a streak multiplier, a round card listing every change with its time, a wakefulness bonus, a day strip on the end card, a best score, a daily fully inked town, unlockable districts, and a first-run tutorial that teaches by playing",
+    "One palette per hour: warm morning paper, bright noon, a peach evening with lamps and lit windows, and a night where the paper turns ink-blue, the lines turn cream and the windows glow",
+    "Synthesized sound: a soft shh for the blink, a squishy plip when the lids meet, a rustle while something changes, a pencil scratch and chime for a find, a gentle buzz for a wrong guess, a church bell between hours, a snore when you nod off; the town band plays one jaunty tune, louder near the bandstand, re-arranged for each hour (flute, full band, squeezebox, music box), over a murmur of chatter, birds, dogs and cats"
+   ],
+   "rendering": "One render pass with the kit's 2D batch and a custom fragment shader (ink.rs): wobbly capsule lines whose width breathes, outlined shapes (ellipses, trapezoids, bumpy crowns) filled with paper so they hide what is behind them, sparse patterns inside them (tiles, siding, bricks, cobbles, grass, water, leaves), world-space paper grain and an analytic pair of eyelids; static things are cached once as palette-indexed marks and recoloured for the hour at draw time, the view is culled per thing, fine details fade in by zoom, lines thin out when zoomed in close, and everything is drawn back to front in one batch (about 2,500 instances on a phone, 5,000 to 9,000 on a desktop).",
    "brief": "# 11 · Blink\n\n*Swatch 11 of The Swatch Book. Style: **Fine-line doodle worlds** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nMany tiny people and objects are built from simple, slightly irregular lines, like an enlarged hand-drawn map. It may be monochrome or lightly colored; fine line, density and adjacent miniature scenes define the style.\n\n**What to look for**\n- Fine, slightly irregular contours\n- Many miniature scenes placed together\n- Reduced realistic volume and lighting\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/detailed-doodle/):\n\n> Draw a dense but organized world from thin, slightly irregular contours and many small, individually readable scenes. Choose monochrome or a restrained light-fill palette, and use line shape and spacing as the primary means of differentiation. Keep realistic volume and directional shading minimal. Establish a consistent line-to-object scale across people, foliage, machinery, props and icons. Group details into navigable clusters with breathing room, and use simple line animations for feedback. UI should resemble the same hand-drawn map while reserving clean text areas. Avoid thick cartoon outlines, dense crosshatching and detail so small that targets become indistinguishable.\n\n\n## The game: Blink\n\n**Hook:** *Close your eyes. Something changes. Find it.*\n\nInkbridge, a bustling little town drawn in fine black lines on white: a hundred tiny people at windows, in gardens,\non rooftops and boats, cats on walls, laundry, market stalls, a band on a bandstand. It's alive: people walk, dogs\nchase, smoke curls. Hold your finger down to **blink**. When you let go, something in town is different. Tap it.\n\n**Why this style:** fine-line doodle worlds are slightly irregular lines, many miniature scenes and almost no\nvolume. Every line matters because there are so many of them: perfect for a game of attention.\n\n### Core loop\n- **Look:** the town is a big panorama (wider and taller than the screen); pan by dragging, pinch to zoom (desktop:\n  drag and wheel).\n- **Blink:** press and hold anywhere for half a second: your eyelids close (two hand-drawn lids sweep in). While\n  closed, one change happens: a hat moves to another head, a window opens, a cat disappears, a flowerpot changes\n  shape, two people swap places, a boat turns around, a sign's word changes, a bird appears.\n- **Find it:** let go: tap where the change is. Right: a little ink circle draws around it, points by speed. Wrong:\n  a scribble and time lost. A round is ~10 changes against a timer; changes get subtler (whole figures → details →\n  tiny details) and the town gets busier.\n- **Memory pressure:** you can blink only when you choose, but each blink costs a bit of time, so you learn to scan\n  the area before blinking. A \"hint\" (once per round) wiggles the right district.\n- Between rounds the town's day moves on (morning market → noon → evening lamps → a night with lit windows).\n\n### Hooks to come back\n- Best score, average find time, a daily town (seeded layout and changes), unlockable districts (the harbour, the\n  fair, the rooftops).\n\n### Look\n- Everything procedural line art: buildings from shape grammar (roofs, windows, chimneys, awnings), people as tiny\n  line figures with hats, bags and poses, trees as scribbled crowns. Slightly irregular lines (noise on width and\n  path), black on warm white, very little fill; a few flat accent colours appear only as UI (the find circle, the\n  timer). Lines drawn with the batch's anti-aliased lines; keep instance counts within budget by drawing at the\n  zoom level's detail (LOD: skip the tiniest details when zoomed out).\n- Eyelids, find circles and the timer are hand-drawn too; the type is a light, friendly handwriting-like face.\n\n### Sound\n- Town murmur (filtered noise + distant chatter-like blips), the band playing a jaunty tune that you hear louder near\n  the bandstand, a soft \"shh\" for the blink, a pencil tick on finds, a gentle wrong buzz.\n\n### Test hooks\n- `state()`: \"title\", \"looking\", \"blinking\", \"finding\", \"round_end\", \"over\" (and \"paused\").\n- `snapshot()`: round, changes found, timer, the current change's position (for tests), camera.\n- `test_input`: `{\"blink\": true}`, `{\"find\": true}` (taps the right place), `{\"round\": 4}`.",
    "poster": null,
    "thumb": null,
@@ -1475,7 +1551,7 @@ window.SWATCHES = {
    "no": "23",
    "slug": "23-squish-and-co",
    "title": "Squish & Co.",
-   "tagline": "The customers are clay. The orders are strange. Squish fast.",
+   "tagline": "Pull, pinch and poke a lump of clay into whatever the strange clay customers ask for.",
    "style": "Sculpted clay & stop-motion",
    "style_slug": "sculpted-clay",
    "family": "render",
@@ -1486,18 +1562,112 @@ window.SWATCHES = {
     "Stop-motion or frame-by-frame character"
    ],
    "theme": "#2b1b16",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "summary": "Squish & Co. is a clay shop at the end of a plasticine street. Customers made of clay (a two-headed postman, a melting moon, a man tied in a knot) come in one at a time and hold up a card, and you shape a real deformable lump on a turntable with your fingers: pull, press, poke, pinch, twist, roll and slap it, knead colours into it, and serve it before their patience runs out. The piece is judged fairly: its silhouette is rendered from the card's angle, scaled to the picture and laid over it. Sculpting is the style's own verb: every touch leaves a fingerprint that stretches with the clay, and the shop and its cast move in held stop-motion frames while the lump in your hands answers every frame.",
+   "how_to_play": [
+    "A customer holds up a card: shape your lump to match its outline (the chalk line drawn on your clay). Size doesn't matter, shape does.",
+    "Drag from the clay to pull or push it, hold a finger still to press a thumb in, tap to poke (tap the edge for a bite), flick across it to roll it longer, taller or flatter.",
+    "Two fingers pinch, spread and twist a waist (the mouse wheel on a desktop). Drag beside the clay to turn the turntable; the eye button looks from above.",
+    "Tap a tub to knead its colour in, or drag a dab onto one spot. Serve before their patience runs out: likeness earns stars, coins and tips.",
+    "Six customers make a day. Coins buy a wire cutter, a rolling pin and a star stamp; each day's best piece goes on the shelf."
+   ],
+   "controls": [
+    {
+     "action": "Pull or push the clay",
+     "touch": "drag from the clay",
+     "keys": "drag from the clay with the mouse"
+    },
+    {
+     "action": "Press a thumb in",
+     "touch": "hold a finger still on the clay",
+     "keys": "hold the button still on the clay"
+    },
+    {
+     "action": "Poke (a bite at the edge)",
+     "touch": "tap the clay (or its edge)",
+     "keys": "click the clay (or its edge)"
+    },
+    {
+     "action": "Pinch, spread, twist",
+     "touch": "two fingers: pinch, spread, turn",
+     "keys": "mouse wheel over the spot"
+    },
+    {
+     "action": "Roll longer / taller / flatter",
+     "touch": "flick across the clay: sideways / up / down",
+     "keys": "R / W or Up / S or Down"
+    },
+    {
+     "action": "Turn the turntable",
+     "touch": "drag beside the clay",
+     "keys": "A D or Left Right, or drag beside it"
+    },
+    {
+     "action": "Knead a colour in / dab it on",
+     "touch": "tap a tub / drag from a tub onto the clay",
+     "keys": "1 to 7 / drag from a tub"
+    },
+    {
+     "action": "Look from above",
+     "touch": "eye button",
+     "keys": "V"
+    },
+    {
+     "action": "Undo / back to a ball",
+     "touch": "undo / ball buttons",
+     "keys": "Z / X"
+    },
+    {
+     "action": "Tools (once bought)",
+     "touch": "tool buttons, left",
+     "keys": "Tab"
+    },
+    {
+     "action": "Serve (skip a speech)",
+     "touch": "Serve (tap the scene)",
+     "keys": "Space or Enter"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "sound button (title, pause, settings)",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Gluten",
+    "Grandstander",
+    "Gochi Hand"
+   ],
+   "palette": [
+    "#2b1b16",
+    "#3f7d74",
+    "#e7a83a",
+    "#d8432f",
+    "#f7e8cf",
+    "#8a5636",
+    "#6e3b4e",
+    "#c8693f"
+   ],
+   "features": [
+    "A real lump of clay: a 10,242-vertex icosphere sculpted by brushes in the turntable's frame (a grab that follows the finger with a fingertip's core, a flat-bottomed thumb press whose rim bulges, a fingertip poke or an edge bite, a squeeze or spread and a twist around a band under two fingers, volume-keeping rolls, stretches and slaps, a wire that slices the smaller side flat, a rolling pin), each followed by tangential relaxation so stretched clay keeps an even mesh and blunt, soft edges",
+    "Fingerprints that live in the clay: every touch writes whorl coordinates into the vertices it presses, so a print stretches when that clay is pulled; the shader bump-maps the ridges with screen derivatives and fades them below a pixel. Fresh lumps carry faint thumbprints from being rolled",
+    "Colour that marbles: tubs knead a colour in as warped swirls over part of the lump, dabs press a blob on one spot, and every gesture smears neighbours in streaks, so colours draw out along a pull and mix as you work",
+    "Fair judging: the lump's silhouette (with its front-most colour) is rasterized on the CPU from the card's view (front, a quarter turn for side views, or from above), scaled to the card picture's area and slid onto it with a small search, then scored by intersection over union against how well a fresh ball already matches, plus colour inside the overlap; a live likeness meter and a chalk outline on the clay show where it stands",
+    "Nine regulars built from clay balls, sausages, pillowy boxes, pucks and rings (Gran Pebble on her stool, Dobbs & Dobbs, Lofty Knott, Mrs. Moon, Captain Brine, Mr. Drizzle, Vulcan Jr., Dame Clanger, Bun), with replacement mouths, blinks and brows, posed on held frames: walking in through the door with the bell, talking in clay-voiced babble, getting impatient, cheering or wilting, and carrying your piece out",
+    "Thirty-seven orders in three tiers (one big move; several moves; two colours, two views or a view from above), a first day that teaches pull, roll, pinch and colour-and-poke one at a time on real orders, patience that shortens day by day, tips for speed, streaks and stamped flourishes, and customers who snatch the piece as it is when their patience runs out",
+    "A day of six customers with the sky going from afternoon to night through the window (the sun sets, the melting moon rises, the street's windows light up), the day's takings, a best day, a daily queue with its own best, a supply catalogue (wire cutter, rolling pin, star stamp) and a shelf in the shop where each day's best piece stands as a little clay model",
+    "All sound synthesized: wet squish that opens with the finger's speed and a rubbery note that rises as you stretch, a creaky turntable, thumb presses, pokes, rolls, slaps, a wire's zing, the shop bell, footsteps, coins, babble from formant syllables in each regular's voice, and a bassoon-and-pizzicato waltz with a toy celesta"
+   ],
+   "rendering": "A 2048 shadow map from the key lamp, then one 4x MSAA pass in which the lump (re-uploaded only when touched) and every prop and character (instances of one offset UV sphere that the vertex shader turns into balls, sausages, pillowy boxes and pucks, with per-instance handmade wobble and, for the cast, a held-frame boil) share one clay shader: wrap lighting with a warm, saturated terminator, a low waxy sheen, concavity occlusion computed from the mesh, and fingerprint ridges bump-mapped from per-vertex print coordinates; then a grade pass with a miniature's soft focus at the top, a vignette, a 12 fps exposure flicker and re-shot grain.",
    "brief": "# 23 · Squish & Co.\n\n*Swatch 23 of The Swatch Book. Style: **Sculpted clay & stop-motion** (3D & rendering).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nTactile sculpting, blunt edges and irregular surfaces retain a handmade character; some games photograph physical models. This grouping describes their visible sculptural and stop-motion qualities, not a shared production pipeline.\n\n**What to look for**\n- Tactile sculpted surfaces\n- Irregular handmade contours\n- Stop-motion or frame-by-frame character\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/sculpted-clay/):\n\n> Give characters, props and environments sculpted volumes, blunt edges and subtle handmade irregularities. Establish a consistent material scale for fingerprints, seams and surface dents; use these selectively so the scene remains readable. Choose lighting that reveals tactile forms and a coherent miniature sense of space. Decide and document an intentional stepped-motion cadence or stop-motion-like pose system, without claiming that assets were physically photographed. Adapt UI and icons through sculpted shapes with crisp labels. Avoid slick plastic surfaces, exaggerated procedural fingerprints on every object, inconsistent model scale and accidental animation judder.\n\n\n## The game: Squish & Co.\n\n**Hook:** *The customers are clay. The orders are strange. Squish fast.*\n\nSquish & Co. is a clay shop at the end of a surreal street where everything is made of plasticine: the walls, the\nsky, the customers (a two-headed postman, a melting moon, a tall knot of a man who wants a hat). Each customer\nholds up a picture of what they want. You have a lump of clay and two thumbs.\n\n**Why this style:** sculpted clay and stop-motion is tactile sculpted surfaces, irregular handmade contours and the\nheld-frame feel of stop-motion. Sculpting the clay yourself, with fingerprints left in it, makes the style the verb.\n\n### Core loop\n- **The lump:** a soft 3D clay blob on a turntable (a deformable mesh). Gestures shape it:\n  - **Pull** (drag outward from the lump): stretches the clay toward your finger;\n  - **Push** (drag inward / press): dents and flattens;\n  - **Pinch** (two fingers): narrows a waist;\n  - **Roll** (a quick horizontal swipe): rolls it longer and thinner;\n  - **Spin** (swipe on the turntable) to work all sides; **poke** (tap): a hole;\n  - colour: a few tubs of clay to blend in (dab a colour, it marbles in as you work).\n- **The order:** a silhouette (and colour) on the customer's card: \"a vase\", \"a fish with two tails\", \"a hat for a\n  very tall head\", \"a moon with a bite out of it\". Press **Serve** when you're happy (or when the customer's patience\n  runs out). The score compares your shape's silhouette (rendered offscreen from the card's angle) with the target\n  (intersection over union) plus colour.\n- **A day** is ~10 customers; speed combos for quick good matches; regulars come back with harder orders. Some\n  orders come with a twist (\"make it smaller than last time\").\n- **The shop grows**: earnings buy new tools (a wire loop cutter, a texture stamp, a little rolling pin) that add\n  gestures.\n\n### Hooks to come back\n- Best day, a **shelf of your best pieces** (kept as snapshots of the mesh), regular customers' stories that unfold\n  across days, a daily customer line-up.\n\n### Look\n- Real 3D clay: a smooth-ish mesh with **fingerprint normals** (a detail normal map of whorls where you touched), a\n  soft subsurface-like warm shading, slight colour marbling, a handmade irregularity (vertex noise). The shop and the\n  customers are clay too: chunky, imperfect, wonky.\n- **Stop-motion**: customers and the world animate at 12 fps with held frames and tiny \"boil\" (every hold, a\n  slightly different pose and lighting flicker, as if re-shot), while the lump you sculpt responds smoothly at full\n  rate (your hands are in the real world). A gentle animator's light flicker and film grain over everything.\n\n### Sound\n- Wet, squishy foley (filtered noise with pitch on pulls), a creaky turntable, a bell over the door, customers'\n  murmurs as clay-voiced babble (formant synth), a whimsical loop (bassoon-like synth, pizzicato).\n\n### Test hooks\n- `state()`: \"title\", \"shop\", \"order\", \"sculpting\", \"judging\", \"day_end\" (and \"paused\").\n- `snapshot()`: day, customer, the order, the last match score, coins, patience.\n- `test_input`: `{\"shape\": \"target\"}` (morph the lump to the target, for a high score), `{\"serve\": true}`,\n  `{\"day\": 3}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/23-squish-and-co.jpg",
+   "thumb": "thumbs/23-squish-and-co.jpg",
+   "clip": "clips/23-squish-and-co.mp4",
+   "ready": true
   },
   {
    "no": "24",
@@ -2177,7 +2347,7 @@ window.SWATCHES = {
    "no": "36",
    "slug": "36-shapeshift",
    "title": "Shapeshift",
-   "tagline": "Circle rolls. Square holds. Triangle leaps. Be the right shape at the right time.",
+   "tagline": "Circle rolls, square holds, triangle leaps: be the right shape at the right moment.",
    "style": "Minimal geometric color",
    "style_slug": "minimal-geometric",
    "family": "shape",
@@ -2187,14 +2357,85 @@ window.SWATCHES = {
     "Restrained color count",
     "Order through proportion and negative space"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#f2e8da",
+   "summary": "A small shape crosses single-screen compositions of flat colour, always moving, and you choose what it is: the circle rolls and bounces, the square stops dead, grips slopes and smashes cracked tiles, the triangle leaps the moment it forms. Momentum carries through every change, so each level is a short puzzle of timing. In a style built from circles, squares and triangles, the hero is the vocabulary itself, and its only verb is changing shape.",
+   "how_to_play": [
+    "The shape always moves on its own and turns back at walls. You only choose what it is.",
+    "Circle rolls: quick, faster downhill, bounces, floats, and springs throw it high.",
+    "Square holds: stops at once, tumbles up any slope, sinks, and smashes cracked tiles it lands on or tumbles into.",
+    "Triangle leaps the instant it forms (off the ground, off water, off a spring just fired), and splits cracks above it.",
+    "Reach the ringed sign. Take the diamond for a perfect route, and beat par."
+   ],
+   "controls": [
+    {
+     "action": "Become a circle",
+     "touch": "tap the left pad, or swipe left/right",
+     "keys": "1, A/D or Left/Right"
+    },
+    {
+     "action": "Become a square",
+     "touch": "tap the middle pad, or swipe down",
+     "keys": "2, S or Down"
+    },
+    {
+     "action": "Become a triangle (leap)",
+     "touch": "tap the right pad, or swipe up (again to leap again)",
+     "keys": "3, W or Up"
+    },
+    {
+     "action": "Cycle the form",
+     "touch": "tap the level",
+     "keys": "Space"
+    },
+    {
+     "action": "Restart the level",
+     "touch": "pause, Restart",
+     "keys": "R"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc / P"
+    },
+    {
+     "action": "Mute",
+     "touch": "sound button or settings",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Urbanist"
+   ],
+   "palette": [
+    "#f2e8da",
+    "#c65a3e",
+    "#24303f",
+    "#eeaa3c",
+    "#dcebe6",
+    "#1f6c75",
+    "#ee6a4f",
+    "#f5cd55",
+    "#2b4897",
+    "#172036",
+    "#3a5181",
+    "#f3ecdc",
+    "#efebe3",
+    "#1c1c21",
+    "#2c55c4",
+    "#e0432f",
+    "#f3b822"
+   ],
+   "features": [
+    "Three forms with crisp, predictable physics on a fixed 240 Hz sub-step: the circle drives to a quick cruise and keeps downhill speed, the square tumbles edge over edge at a fixed pace and grips any slope, the triangle hops when it forms and skates on a base wide enough to span one-cell gaps. Velocity carries through every change; a square formed in mid-air slams straight down.",
+    "60 hand-made single-screen levels in five sets, each one swatch of colour and one new idea: Form (roll, hold, leap), Crack (smash down, ram through, split up), Spring (springs throw what is light, and the spring-leap), Tide (the square sinks, the rest float), Colour (gates that pass only their own shape, in Kandinsky's primaries).",
+    "Every level is proved: a scripted route clears it and takes its gem, and an idle run must fail. The check runs natively while designing and in the browser from the playtest (60 of 60).",
+    "Three marks per level (cleared, the gem on the perfect route, under par), best times, a book of levels drawn as tiny compositions, and levels that open as you go (two may be skipped).",
+    "Today's shape and Flow: levels joined from hand-made halves (six tops, six bottoms, mirrored), each pair proved solvable with its gem before it is played; Flow strings them endlessly with three lives and rising difficulty.",
+    "One signed-distance shader draws the hero as a smooth morph between circle, square and triangle with one corner radius, squash and stretch in world axes, a rolling eye, and a fading trail of outlines; particles are flat squares, circles and triangles that shrink rather than fade.",
+    "Generative music: a slow two-chord pad per set and a quiet pulse; every bounce, landing, hop, tumble and morph plays a note of the set's pentatonic scale, higher the higher the shape is on the page, so each run writes its own melody. Each form has a voice: a soft roll and boop, a low thud per tumble, a bright pluck.",
+    "A first run that teaches by playing (hints with the form's icon on the first levels, the pad button pulsing), a Bauhaus-poster title with a little stage where the shape plays by itself, a nine-column wipe between screens, and end cards whose time counts up and whose marks pop in."
+   ],
+   "rendering": "One 2D batch with a custom fragment shader: flat masses merged into runs that bleed off the frame, slopes as triangles, gates, springs, cracks and spikes in the same grammar, water as merged translucent rectangles over the shape with a rippling surface line, and the hero as a signed-distance blend of three forms (kind 16) with a cut-out eye; no post-processing, no textures, no gradients.",
    "brief": "# 36 · Shapeshift\n\n*Swatch 36 of The Swatch Book. Style: **Minimal geometric color** (Shape & material).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nCharacters and environments reduce to rectangles, circles, triangles and a small set of colors. Proportion, negative space, arrangement and movement carry the image while decorative texture recedes.\n\n**What to look for**\n- Basic geometric shapes\n- Restrained color count\n- Order through proportion and negative space\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/minimal-geometric/):\n\n> Reduce characters, props and environments to a disciplined vocabulary of rectangles, circles, triangles and a few related geometric forms. Lock a small palette and give proportion, spacing, orientation and movement clear roles in identity and gameplay. Use negative space as an active compositional element, with little or no decorative texture. UI, icons and effects should use the same shape grammar and controlled color relationships. Animate through precise, expressive timing and transformations that preserve recognizable roles. Do not rely on color alone for critical distinctions. Avoid ornamental clutter, inconsistent corner treatments, arbitrary extra colors and realistic shading that weakens the abstraction.\n\n\n## The game: Shapeshift\n\n**Hook:** *Circle rolls. Square holds. Triangle leaps. Be the right shape at the right time.*\n\nA minimal world of flat colour and negative space. A small shape travels through it, always moving forward, and you\nchoose what it is: a **circle**, a **square** or a **triangle**. Each shape obeys the world differently. Levels are\nshort, precise compositions where the answer is a sequence of transformations at the right moments.\n\n**Why this style:** minimal geometric colour is basic shapes, few colours and order through proportion and negative\nspace. A game whose hero is a basic shape and whose verbs are changes of shape is that style made playable.\n\n### Core loop\n- **Tap** (or Space) cycles circle → square → triangle (with a quick morph animation); **swipe left/right/up** (or\n  1/2/3) to choose a form directly.\n- **The forms:**\n  - **Circle** rolls: fast on flats, accelerates down slopes, bounces off springy surfaces, rolls through tubes.\n  - **Square** is heavy: stops sliding, grips slopes (doesn't slide back), breaks fragile floors when it drops on\n    them, pushes blocks, sinks in water.\n  - **Triangle** points up: hops forward on each change into it, wedges into V-shaped notches (to cross gaps exactly\n    its size), and splits fragile ceilings when it rises.\n- The shape keeps its momentum across transformations: roll fast as a circle, become a triangle at the lip of a ramp\n  to launch, become a square in mid-air to drop through a fragile floor.\n- **Colours** carry rules: walls of a colour only let through the shape of that colour (one rule, introduced late).\n- 60 levels in 5 sets, each a single screen that reads at a glance; a gem in each level for a perfect route.\n\n### Hooks to come back\n- Completion, gems, best time per level, a daily level (a remix generated from parts), a level editor-free \"flow\"\n  mode that strings levels together endlessly.\n\n### Look\n- Flat colour fields with careful proportion: each set has its own palette of three or four colours (a terracotta\n  set, a sea set, a night set…), generous negative space, thin precise lines for paths, no gradients, no texture. The\n  shape squashes slightly on landings, leaves a fading trail of its outline. Typography: a geometric sans with\n  character (not one of the banned faces), numbers large and sparse.\n\n### Sound\n- Each form has a voice: the circle a soft rolling tone, the square a low thud, the triangle a bright pluck. The\n  music is minimal and generative: notes from the shape's events (bounces, landings) quantized to a quiet scale over\n  a soft pad, so every run plays its own melody.\n\n### Test hooks\n- `state()`: \"title\", \"sets\", \"level\", \"cleared\", \"failed\" (and \"paused\").\n- `snapshot()`: level, form, position, velocity, gem, time, deaths.\n- `test_input`: `{\"form\": \"circle\"|\"square\"|\"triangle\"}`, `{\"solve\": true}`, `{\"level\": 23}`.",
    "poster": null,
    "thumb": null,

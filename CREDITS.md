@@ -16,6 +16,7 @@ All fonts are from Google Fonts under the SIL Open Font License (or Apache 2.0);
 - **06 Rub Out**: Cabin Sketch, Architects Daughter
 - **09 Hedge Remedies**: Cherry Swash, Vollkorn, Vollkorn SC
 - **10 Tower of Babble**: UnifrakturMaguntia, IM Fell DW Pica
+- **11 Blink**: Mynerve, Playpen Sans
 - **14 Turnstone Company**: Jacquarda Bastarda 9, Texturina, VT323
 - **15 Eight-Bit Errands**: Jacquard 12, Jersey 10, Micro 5
 - **16 Ping**: Jersey 10, Tiny5
@@ -23,11 +24,13 @@ All fonts are from Google Fonts under the SIL Open Font License (or Apache 2.0);
 - **19 Glint**: Bitcount Prop Single, Bitcount Prop Double, Handjet
 - **20 Lawn Order**: Workbench, a 7-pixel bitmap face drawn for the game (in the sprite atlas)
 - **22 Skytether**: Marcellus, Jost
+- **23 Squish & Co.**: Gluten, Grandstander, Gochi Hand
 - **24 Topple**: Big Shoulders Stencil Display, Barlow Semi Condensed, Courier Prime
 - **26 Ultra Slugger**: Racing Sans One, Saira Condensed
 - **29 Light Fingers**: Abril Fatface, Spectral, Spectral SC, Pinyon Script
 - **32 Broadside**: IM Fell English SC, IM Fell English, IM Fell English Italic
 - **34 Pop-Up River**: Caprasimo, Nunito, Libre Caslon Text
+- **36 Shapeshift**: Urbanist
 - **37 Pulsewave**: Chakra Petch
 - **Index**: Alegreya, Nunito
 
