@@ -703,7 +703,7 @@ window.SWATCHES = {
     "Many miniature scenes placed together",
     "Reduced realistic volume and lighting"
    ],
-   "theme": "#101014",
+   "theme": "#f6f0e2",
    "summary": "",
    "how_to_play": [],
    "controls": [],
@@ -1264,7 +1264,7 @@ window.SWATCHES = {
    "no": "20",
    "slug": "20-lawn-order",
    "title": "Lawn Order",
-   "tagline": "One mower. One lawn. Swipe it straight, mow it all.",
+   "tagline": "One mower, one lawn: swipe it straight and mow every blade, in sixty village gardens.",
    "style": "Top-down tile-based pixel art",
    "style_slug": "topdown-tile-pixel",
    "family": "pixel",
@@ -1275,18 +1275,83 @@ window.SWATCHES = {
     "Layered tiles, facades and props"
    ],
    "theme": "#24502b",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "summary": "Wilf has the oldest mower in the county, and once Bessie starts rolling she doesn't stop until she hits something. Each garden of Pottering Hills is a sliding puzzle on a 16-pixel tile grid: swipe to send her across the lawn, cut every blade of grass in the judge's par, and win the summer fair's rosettes. Top-down tile pixel art is floors seen from above and upright things seen from the front, sorted by where they stand; a slide-until-you-hit-something puzzle on a garden grid uses that grammar directly, and mown stripes are the most satisfying tile change there is.",
+   "how_to_play": [
+    "Swipe (or press an arrow key) to send Bessie rolling: she won't stop till she hits something.",
+    "Every blade she rolls over is mown. Mow the whole lawn, round the beds, ponds and hedges.",
+    "Match the judge's par for three stars. Undo and Start Again are one tap and free.",
+    "Each street brings one new thing: gnomes that skid, molehills, slick clover, a sleeping dog, sprinklers, gates on a latch.",
+    "Stuck? Wilf's hint shows a good next swipe (but caps the stars at two)."
+   ],
+   "controls": [
+    {
+     "action": "Roll the mower",
+     "touch": "swipe anywhere",
+     "keys": "arrow keys or WASD"
+    },
+    {
+     "action": "Undo",
+     "touch": "Undo button",
+     "keys": "Z or Backspace"
+    },
+    {
+     "action": "Start again",
+     "touch": "Again button",
+     "keys": "R"
+    },
+    {
+     "action": "Hint",
+     "touch": "Hint button",
+     "keys": "H"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Menus",
+     "touch": "tap",
+     "keys": "arrows and Enter"
+    },
+    {
+     "action": "Mute",
+     "touch": "sound button",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Workbench",
+    "a 7-pixel bitmap face drawn for the game (in the sprite atlas)"
+   ],
+   "palette": [
+    "#46843a",
+    "#8cc45b",
+    "#5c9b40",
+    "#c0372e",
+    "#f6f0dc",
+    "#4596bd",
+    "#357540",
+    "#f8d76a",
+    "#1f1a17",
+    "#14201a"
+   ],
+   "features": [
+    "60 gardens on seven village streets, each street introducing one piece with a live demonstration card: gnomes that skid until they hit something, molehills that stop you dead, slick clover that bounces you back, a sleeping terrier who ambles after you, sprinklers that soak their neighbours two swipes in four, and gates swung by a latch stone",
+    "Every garden is proven solvable and given its par by an A* solver (an admissible bound from row/column line cover, a maximum bipartite matching); gardens were grown offline from seeds by a generator that lays out beds, ponds, sheds and hedges, then places each stopper where it opens up the most unreachable lawn",
+    "A daily garden and shareable garden codes, grown at runtime by the same generator and solver; the Featherstone Manor gardens are mirror-symmetric, like a formal garden",
+    "Stars per garden, ribbon ranks across the village, and a scrolling map of Pottering Hills whose plots fill in with mown stripes",
+    "Wilf's hint (the solver's next swipe from wherever you are), automatic detection of a wedged garden, free undo and restart",
+    "An oblique top-down world on one 16-pixel grid: floors from above, upright things from the front, y-sorted so trees, hedges and the front fence hide what stands behind them; mown stripes revealed in the direction of travel; clippings, exhaust puffs, butterflies, bees, a mole who pops up",
+    "Every house in the terrace, roof, back garden and washing line around a garden is painted procedurally per garden; the title is the game's name clipped out of hedge",
+    "Synthesized sound: Bessie's two-stroke as scheduled pops whose rate and pitch rise with speed, a musette-accordion village polka, clippings, thuds, a ceramic knock for gnomes, a terrier's woof and grumble"
+   ],
+   "rendering": "One pixel buffer at a whole-number scale (195x422 on a phone, 480x300 on a desktop): a CPU-painted sprite atlas and a per-garden village backdrop, then the garden drawn as ground tiles plus y-sorted upright sprites with the kit's 2D batch, and the LowRes blit puts it on screen with nearest filtering.",
    "brief": "# 20 · Lawn Order\n\n*Swatch 20 of The Swatch Book. Style: **Top-down tile-based pixel art** (Pixel & retro).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nTop-down floors, visible elevations and upright sprites combine into a 2D space where paths and height remain readable. Spatial organization is the focus; pixel density, lighting and subject matter still vary.\n\n**What to look for**\n- Top-down floors and upright characters\n- Occlusion and steps express height\n- Layered tiles, facades and props\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/topdown-tile-pixel/):\n\n> Establish a consistent oblique top-down spatial grammar: visible floor planes, readable front-facing elevations and upright characters. Lock tile dimensions, character scale, wall thickness, occlusion rules and height cues across every environment and prop. Use steps, shadows and overlap to communicate traversable surfaces and elevation without contradictory perspectives. Keep pixel density and color ramps consistent in the world, UI, icons and effects. Animate characters clearly within the chosen grid while allowing the game's movement rules to remain unchanged. Avoid mixing incompatible viewing angles, ambiguous collision boundaries and using the farming or fantasy setting as a substitute for visual rules.\n\n\n## The game: Lawn Order\n\n**Hook:** *One mower. One lawn. Swipe it straight, mow it all.*\n\nThe Pottering Hills summer fair has a lawn competition, and you have the oldest mower in the county: once it starts\nrolling in a direction, it doesn't stop until it hits something. Each garden is a puzzle: mow every patch of grass\nby sliding across the lawn, around flowerbeds, gnomes, ponds and sleeping dogs.\n\n**Why this style:** top-down tile-based pixel art is top-down floors, upright sprites, occlusion that shows height,\nlayered tiles and facades. A tile-sliding puzzle on a garden grid uses that grammar directly, and mowed stripes\nare the most satisfying top-down tile change there is.\n\n### Core loop\n- **Swipe** up/down/left/right: the mower rolls in that direction until it hits an obstacle (a flowerbed, a gnome, a\n  fence, a tree, the garden edge). Every grass tile it crosses becomes mowed (stripes in the direction travelled).\n- **Mow every tile** to finish the garden. A **par** (the fewest moves, known from the solver) earns three stars;\n  more moves earn fewer. Undo (one tap) and restart are free.\n- **New pieces over the gardens:** sprinklers that turn on every few moves and wet tiles (wet grass can't be mowed\n  until it dries in 2 moves), a sleeping dog that wakes and moves one tile when you pass next to it, gnomes you can\n  push one tile (they slide like the mower), ice-like clover patches that you skid over, molehills that stop you,\n  a garden hose that can be cut, gates that switch.\n- **Gardens:** 60 hand-tuned-feeling gardens generated from seeds with a solver (BFS/IDA*) that guarantees each is\n  solvable and computes its par; difficulty curve across village streets (the vicar's lawn, the twins' garden, the\n  manor maze).\n\n### Hooks to come back\n- Stars per garden, a village map that fills with mowed gardens, a daily garden, the fair's ribbon ranks.\n\n### Look\n- Pixel art top-down at ~16 px tiles, `Fit` chosen so a garden of ~8×10 tiles fills a portrait phone, hard edges.\n  Layered tiles: grass (long, unmown, with flowers) → mowed stripes (light/dark by direction), stone paths, fence\n  facades seen from above with their front face showing height, hedges, ponds with lilies, houses' roofs at the\n  edges. Upright sprites (gnomes, dogs, sprinklers, the mower and its old gardener walking behind it) with y-sorted\n  occlusion. Clippings fly as the mower runs.\n\n### Sound\n- A cheerful village loop (accordion-like synth, light percussion), the mower's two-stroke putter (a voice whose\n  pitch rises with speed), clunks on stops, a happy jingle when the last tile is mowed, a dog's sleepy grumble.\n\n### Test hooks\n- `state()`: \"title\", \"map\", \"garden\", \"solved\" (and \"paused\").\n- `snapshot()`: garden, moves, par, tiles left, mower position, solved.\n- `test_input`: `{\"move\": \"up\"|\"down\"|\"left\"|\"right\"}`, `{\"solve\": true}` (play the solver's solution),\n  `{\"garden\": 12}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/20-lawn-order.jpg",
+   "thumb": "thumbs/20-lawn-order.jpg",
+   "clip": "clips/20-lawn-order.mp4",
+   "ready": true
   },
   {
    "no": "21",
@@ -1420,7 +1485,7 @@ window.SWATCHES = {
     "Irregular handmade contours",
     "Stop-motion or frame-by-frame character"
    ],
-   "theme": "#101014",
+   "theme": "#2b1b16",
    "summary": "",
    "how_to_play": [],
    "controls": [],
@@ -1823,7 +1888,7 @@ window.SWATCHES = {
     "Naturalistic lighting and proportions",
     "Cinematic framing and controlled color"
    ],
-   "theme": "#101014",
+   "theme": "#0e0d0b",
    "summary": "",
    "how_to_play": [],
    "controls": [],

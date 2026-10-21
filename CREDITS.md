@@ -21,6 +21,7 @@ All fonts are from Google Fonts under the SIL Open Font License (or Apache 2.0);
 - **16 Ping**: Jersey 10, Tiny5
 - **17 Pangolin Pinball**: Pixelify Sans, Press Start 2P, Silkscreen
 - **19 Glint**: Bitcount Prop Single, Bitcount Prop Double, Handjet
+- **20 Lawn Order**: Workbench, a 7-pixel bitmap face drawn for the game (in the sprite atlas)
 - **22 Skytether**: Marcellus, Jost
 - **24 Topple**: Big Shoulders Stencil Display, Barlow Semi Condensed, Courier Prime
 - **26 Ultra Slugger**: Racing Sans One, Saira Condensed
