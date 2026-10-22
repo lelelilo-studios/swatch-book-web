@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- the Thistledown in a square of morning sky, a parcel swinging below -->
+  <rect width="32" height="32" fill="#4f90ea"/>
+  <rect y="20" width="32" height="12" fill="#7cb4f2"/>
+  <rect y="27" width="32" height="5" fill="#dfeefb"/>
+  <rect x="2" y="25" width="6" height="3" fill="#fffdf4"/><rect x="22" y="24" width="8" height="4" fill="#fffdf4"/>
+  <rect x="6" y="5" width="13" height="1" fill="#bb8b56"/><rect x="5" y="5" width="1" height="1" fill="#e0614a"/><rect x="19" y="5" width="1" height="1" fill="#e0614a"/>
+  <rect x="12" y="6" width="1" height="6" fill="#5a5768"/>
+  <rect x="8" y="7" width="3" height="3" fill="#e0ac84"/><rect x="8" y="6" width="3" height="1" fill="#74462c"/><rect x="7" y="9" width="1" height="2" fill="#f6c040"/>
+  <rect x="8" y="10" width="3" height="2" fill="#2f5eaa"/>
+  <rect x="3" y="12" width="17" height="1" fill="#d5ad70"/>
+  <rect x="3" y="13" width="17" height="2" fill="#b3393b"/><rect x="20" y="11" width="1" height="3" fill="#7a2134"/>
+  <rect x="4" y="15" width="15" height="1" fill="#fbf0d8"/>
+  <rect x="5" y="16" width="12" height="1" fill="#87603f"/><rect x="7" y="17" width="8" height="1" fill="#5f3d31"/>
+  <rect x="11" y="18" width="1" height="5" fill="#c4a070"/>
+  <rect x="9" y="23" width="5" height="4" fill="#c0925c"/><rect x="11" y="23" width="1" height="4" fill="#fbf0d8"/><rect x="9" y="25" width="5" height="1" fill="#e3d4b6"/><rect x="11" y="25" width="1" height="1" fill="#c0393a"/>
+</svg>
