@@ -1282,7 +1282,7 @@ window.SWATCHES = {
    "no": "18",
    "slug": "18-cloud-porter",
    "title": "Cloud Porter",
-   "tagline": "Fly the parcel there. Don't drop it. Don't swing it into the chimney.",
+   "tagline": "Pedal parcels between floating islands. Don't drop them, don't swing them into chimneys.",
    "style": "Densely detailed pixel art",
    "style_slug": "detailed-pixel",
    "family": "pixel",
@@ -1292,14 +1292,79 @@ window.SWATCHES = {
     "Rich value and hue changes",
     "Detail across scenery and characters"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#3f86e8",
+   "summary": "Tuck flies the Thistledown, a pedal-powered propeller boat, between the Dandelion Isles with whatever needs delivering swinging below on a rope: eggs, a wedding cake, Granny in a basket, a grand piano. Two thumbs pedal; the load swings on a real rope chain, knocks crack it, and a soft landing on the right mat earns the best tip. Densely detailed pixel art is detail you want to look at: delivery flight takes you slowly past, around and down into twelve islands painted pixel by pixel, and the craft's swinging cargo makes every chimney, washing line and windmill sail part of the puzzle.",
+   "how_to_play": [
+    "Hold both thumbs to climb. The left thumb drifts you left, the right thumb right. Let go and you sink.",
+    "Swoop low so the hook catches the parcel's strap, then follow the arrow to the glowing mat.",
+    "Set it down gently: fast deliveries and soft landings tip best. Knocks crack fragile things.",
+    "Wind lines warn of gusts, chimney smoke lifts you, birds and the Inspector's airship bump you.",
+    "A shift is one day, dawn to lamp-lighting. Tips buy parts and paint in the hangar."
+   ],
+   "controls": [
+    {
+     "action": "Climb",
+     "touch": "hold both halves of the screen",
+     "keys": "Space, Up or W"
+    },
+    {
+     "action": "Drift left",
+     "touch": "hold the left half",
+     "keys": "Left or A"
+    },
+    {
+     "action": "Drift right",
+     "touch": "hold the right half",
+     "keys": "Right or D"
+    },
+    {
+     "action": "Reel the rope in or out (winch)",
+     "touch": "reel button",
+     "keys": "Down or S"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Menus",
+     "touch": "tap",
+     "keys": "arrows and Enter"
+    },
+    {
+     "action": "Mute",
+     "touch": "sound button",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "the ticket face, a narrow 7-pixel bitmap face drawn for the game (in the sprite atlas)",
+    "Coral Pixels (the page's loading screen)"
+   ],
+   "palette": [
+    "#3f86e8",
+    "#fffaf0",
+    "#2a1b2e",
+    "#b3393b",
+    "#c08f74",
+    "#6ba542",
+    "#f6c040",
+    "#ec9a62",
+    "#f4e8c8",
+    "#0e1030"
+   ],
+   "features": [
+    "A pedal craft that flies on two thumbs: a propeller with spin-up and run-down, tilt that follows the pushed pedal, and a load that pulls the craft as it swings; empty it climbs eagerly, under a grand piano it labours",
+    "A real rope: a position-based chain of nine links held by 'no longer than' constraints (so it can go slack), a long-range constraint that carries the load's weight to the craft, and collisions against a signed distance field painted from the islands, so the rope drapes over roofs and snags on chimneys",
+    "Ten kinds of cargo with their own weight, wind catch and fragility, three states of repair each, and their own reactions to a knock: eggs crack and drip, Granny says 'Oh!', the piano plonks, the bell bongs, the bees get out, the sunflower loses petals",
+    "Twelve named islands painted pixel by pixel at start-up from lots (houses in five wall materials and four roofs, windows with shutters, curtains and flower boxes, doors, chimneys, balconies, a post office, a windmill, a lighthouse, a bell tower, an observatory, a market, a teahouse, a fort, fish racks, topiary) over rock with strata, boulders, roots, moss, cracks and homes carved into the cliff",
+    "A living world: islanders who wave as you pass (and keep waving while you're bringing their parcel), walkers, gardeners, a fisher with a line down into the clouds, cats and hens, birds that take off from the roofs as you come near, chimney smoke, swaying hollyhocks and sunflowers, washing lines whose laundry flies off if you hit them, turning windmill sails that knock you",
+    "A shift is one day in four minutes: dawn to lamp-lighting, with gusts you see coming as streaming wind lines, thermals over chimneys, crossing flocks, and after noon the Air Inspector's airship (bump it and you're fined); at night lamps and windows light and the lighthouse turns",
+    "Tips for speed and for soft landings, a streak multiplier, a daily shift, a hangar of five upgrades and six liveries, and a postcard album that fills with a 1:1 window onto every island you deliver to",
+    "A first shift that teaches by flying (the clock waits until the first delivery), a title screen flown live by Tuck with a cake on a short rope, and layouts for portrait phones, phones on their side and desktops"
+   ],
+   "rendering": "One pixel buffer at a whole-number scale (about 195 px across a portrait phone, 480x300 on a desktop): the sky is drawn with a dithered-band gradient shader and parallax decks of cloud and far isles, the world into its own target from a packed island texture and a CPU-painted sprite atlas, lamps and windows into a light map, and one grade pass lays the time of day over the world (split-toned shadows and highlights), steps the lamplight into dithered bands and composites it over the sky before the interface is drawn on top.",
    "brief": "# 18 · Cloud Porter\n\n*Swatch 18 of The Swatch Book. Style: **Densely detailed pixel art** (Pixel & retro).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nDense pixel clusters, complex color ramps and rich environmental detail bring raster imagery close to illustration. Pixel boundaries remain visible, while texture, lighting and layered detail take precedence over simple symbols.\n\n**What to look for**\n- Dense clusters and material detail\n- Rich value and hue changes\n- Detail across scenery and characters\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/detailed-pixel/):\n\n> Use carefully shaped pixel clusters, nuanced hue shifts and richer stepped ramps to describe cloth, foliage, stone and architecture. Keep a consistent pixel scale and concentrate intricate detail around focal assets, allowing quieter surfaces and distance to preserve hierarchy. Give characters expressive but readable frame animation and materials that match the environment's cluster language. Design UI icons at intentional resolutions rather than downscaling painted images. Effects may use controlled soft light, but must preserve the underlying pixel contours. Avoid random pixel noise, inconsistent sprite density and detail that vanishes or flickers at the target display size.\n\n\n## The game: Cloud Porter\n\n**Hook:** *Fly the parcel there. Don't drop it. Don't swing it into the chimney.*\n\nAbove the cloud sea floats the Dandelion Isles, dense little worlds of pixel detail: tiled roofs, washing lines,\nwindmills, market stalls, tiny gardens. Between them flies Tuck, a porter in a pedal-powered propeller craft, with\nwhatever needs delivering hanging below on a rope: a crate of eggs, a wedding cake, a sleepy grandmother in a\nbasket, a grand piano.\n\n**Why this style:** densely detailed pixel art is dense clusters, material detail and rich value/hue shifts\neverywhere. Delivery flight lets the player fly slowly past, around and into that detail, and stop to look at it.\n\n### Core loop\n- **Fly:** tap the left half to thrust up-left, the right half to thrust up-right (each tap a pedal burst; hold for\n  a steady climb). Gravity pulls down; the craft tilts with thrust. Desktop: ←/→ (or A/D), Space for both.\n- **The rope:** the cargo hangs on a rope (verlet chain) and swings like a pendulum, lagging behind. Fly smoothly or\n  it swings into things. Fragile cargo cracks when it hits something too hard (a damage meter per parcel).\n- **Deliver:** pick up at one porch (the parcel hooks on as you fly over), deliver to the target porch (an arrow at\n  the screen edge points the way), lower it gently onto the landing mat. Faster and gentler deliveries earn bigger\n  tips (coins).\n- **Weather and hazards:** gusts (visible as streaming wind lines), chimney smoke that pushes up, flocks of birds,\n  washing lines to avoid, a grumpy airship, nighttime with lanterns.\n- **Shifts:** a shift is ~4 minutes of deliveries with a clock; coins buy craft upgrades (a stronger rope, a\n  steadier propeller, a winch to shorten the rope) and cosmetic paint.\n\n### Hooks to come back\n- Best shift tips, a \"postcard\" album that fills with each island you've delivered to (drawn as a little pixel\n  postcard), a daily shift.\n\n### Look\n- Pixel art at roughly 240 px tall (`Fit::Height(240)`), hard edges, very dense hand-placed-looking detail generated\n  from rules: houses assembled from tile parts, gardens, signs, people who wave, birds on roofs, flowers swaying.\n  Rich value and hue shifts (warm sunlit tops, cool shadows), layered parallax clouds and distant islands, soft\n  pixel lighting at dusk. A small HUD in a pixel font.\n\n### Sound\n- A light, plucky loop (pizzicato-like synth, flute), pedal whirr pitch following thrust, rope creaks with tension,\n  a satisfying \"ding-dong\" on delivery, cargo clunks, the grandmother's tiny \"oh!\".\n\n### Test hooks\n- `state()`: \"title\", \"flying\", \"delivered\", \"shift_end\" (and \"paused\").\n- `snapshot()`: time left, coins, cargo kind and damage, craft position, target island.\n- `test_input`: `{\"thrust\": \"left\"|\"right\"|\"both\", \"ms\": 300}`, `{\"deliver\": true}`, `{\"time\": 5}`.",
    "poster": null,
    "thumb": null,
@@ -1979,7 +2044,7 @@ window.SWATCHES = {
    "no": "28",
    "slug": "28-little-lockkeeper",
    "title": "Little Lockkeeper",
-   "tagline": "Raise the water. Lower the water. Get every boat home.",
+   "tagline": "Raise the water, lower the water: get every narrowboat up and down the flight.",
    "style": "Miniature dioramas",
    "style_slug": "miniature-diorama",
    "family": "render",
@@ -1989,19 +2054,83 @@ window.SWATCHES = {
     "Simplified but carefully shaped small details",
     "Soft occlusion and a model-like appearance"
    ],
-   "theme": "#101014",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "theme": "#4a2f1e",
+   "summary": "Pennyweir is a canal village built as a tabletop model: a flight of brick locks climbs the hill between cottages, the Drowned Duck and the chapel, and narrowboats come up and down it all day. You are the lock-keeper: lift the paddles to fill and empty the chambers, swing the gates only when the water either side matches, pair boats going the same way, spare the reservoir and keep the walkers dry. Miniature dioramas are elevated framing, chunky rounded models and soft occlusion under a tilt-shift lens, and a lock flight on a table, tiny boats rising and falling as the water pours, is the most toy-like machine there is.",
+   "how_to_play": [
+    "Boats come up the hill and down it; each needs the lock ahead set to its level.",
+    "Tap a paddle to let water in or out of a lock. It drops by itself when the water either side has met.",
+    "Tap a gate to swing it. It only opens when the water matches; boats sail in and out on their own.",
+    "Two boats going the same way can share a lock. The ring round each skipper is their patience: three cross skippers end the day.",
+    "Every lockful comes from the reservoir, so spare it. Never swing a gate with a walker on it."
+   ],
+   "controls": [
+    {
+     "action": "Lift or drop a paddle",
+     "touch": "tap its counter (the red-knobbed rack)",
+     "keys": "Arrow keys choose a gate, F lifts its paddle (or click)"
+    },
+    {
+     "action": "Swing a gate",
+     "touch": "tap its counter (the two wooden doors)",
+     "keys": "Space swings the chosen gate (or click)"
+    },
+    {
+     "action": "Swing the bridge",
+     "touch": "tap the bridge's counter",
+     "keys": "B"
+    },
+    {
+     "action": "Look round the table",
+     "touch": "drag to turn a little, pinch to look closer, double tap to reset",
+     "keys": "mouse drag and wheel"
+    },
+    {
+     "action": "Who's that boat?",
+     "touch": "tap a boat",
+     "keys": "click a boat"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "speaker button or the pause board",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Shrikhand",
+    "Fredoka"
+   ],
+   "palette": [
+    "#4a2f1e",
+    "#f6eedb",
+    "#2b2420",
+    "#2f5d50",
+    "#b8382c",
+    "#e3a93b",
+    "#4f9c9a",
+    "#84ac52",
+    "#a4553d"
+   ],
+   "features": [
+    "A canal that works: a chain of pounds and chambers whose water finds its level through paddles (flow follows the square root of the head), gates that only swing when the levels match, paddles that drop by themselves when the water meets, staircases whose chambers share gates (fill from above, so the one above must be full; empty into the one below, or it overflows the by-wash)",
+    "Traffic with rules: narrowboats claim a lock and a mooring beyond it before they go in, keep to their own side, share a broad lock in pairs, wait at the stop line, swap lanes round a partner, and turn back or sulk when their patience runs out",
+    "Six canals of Pennyweir from two locks to six, adding walkers who cross on the gates, a swing bridge with cars that lose patience too, staircases and a hotel boat that fills a lock alone; stars per canal, a daily timetable, and a scrapbook of the 32 boats met",
+    "A first morning that teaches by playing: two boats, one idea at a time (paddle, gate, fill, gate, a lock already set, a boat coming down), the canal itself deciding when each card is learnt; later canals open with a card about what's new",
+    "The diorama is built procedurally per canal: a lofted brick-and-coping channel with green slime below the top water line, terraced hillside, cottages with window boxes and chimneys that smoke, the Drowned Duck with parasols and drinkers, a chapel, willows trailing over the pounds, a reservoir pond up the hill, all on a cut-earth plinth on a walnut table",
+    "Counters like painted wooden game pieces for every paddle and gate, standing beside the canal on short leaders to the real posts and gates so the water stays visible; a level gauge by each chamber with ticks for the water either side; skippers' faces ringed by patience that turn cross and wobble; a refused gate flashes its paddle; desktop keys (arrows, Space, F, B)",
+    "Light that follows the day from 07:00 to 19:00, always raking across the table from behind: long morning shadows, a bright noon, golden evening, lamps and windows lit at dusk",
+    "Synthesized sound: a concertina waltz from the pub, pouring water as loud as the paddles, gate creaks and their knock, ratchets and clacks, two-tone horns pitched per boat, ducks, splashes, the toll's chime"
+   ],
+   "rendering": "A sun shadow map (12-tap soft PCF), one 4x MSAA pass of the models (wrap lighting, sky and bounce ambient, per-vertex occlusion baked from a signed-distance picture of every shape and the ground, painted material patterns) and the water (levels from a uniform per body, wave normals, sky reflection, foam where paddles pour, contact shade under boats), each fragment writing its own blur into alpha from its distance to a plane of focus tilted along the hillside and a sharp capsule round the canal; then a half-size depth-of-field gather and one grade pass (saturation, a little S-curve, warm lifted shadows, vignette, the circular wipe between screens).",
    "brief": "# 28 · Little Lockkeeper\n\n*Swatch 28 of The Swatch Book. Style: **Miniature dioramas** (3D & rendering).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nElevated framing, small rounded architecture and soft shadows make worlds resemble models arranged on a tabletop. This is a visual treatment of scale and material, not a requirement that the game literally depict toys.\n\n**What to look for**\n- Elevated or isometric framing\n- Simplified but carefully shaped small details\n- Soft occlusion and a model-like appearance\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/miniature-diorama/):\n\n> Make the world feel like a carefully arranged tabletop model through elevated or isometric framing, compact architecture, deliberate small details and soft contact shadows. Establish a coherent miniature material scale and gently rounded, simplified shapes. Keep characters and props compatible with the model's proportions, with interaction targets separated by value and placement. Use restrained atmospheric or depth-of-field effects that never blur the playable area. UI icons should feel like small model pieces while labels stay crisp. Animate with controlled, charming secondary motion. Avoid indiscriminate toy gloss, excessive tiny clutter and forcing literal toy subject matter onto the game.\n\n\n## The game: Little Lockkeeper\n\n**Hook:** *Raise the water. Lower the water. Get every boat home.*\n\nPennyweir is a miniature canal village on a tabletop: a flight of locks climbs a gentle hill between cottages, a\nlock-keeper's hut, a pub with tables outside, ducks, and willow trees. Narrowboats arrive at the top and bottom wanting\nto pass. You are the lock-keeper. You work the gates and paddles that fill and empty each lock chamber.\n\n**Why this style:** miniature dioramas are elevated framing, small rounded details, soft occlusion and a model-like\nlook. A canal flight on a tabletop, with tiny boats rising and falling as water pours, is the most toy-like,\nsatisfying machine imaginable.\n\n### Core loop\n- **Locks:** each chamber has upper and lower gates and paddles (sluices). Tap a paddle to open it: water flows and\n  the chamber level moves toward the pound above or below (animated, with foam and a rising water line). Gates can\n  only open when the levels match on both sides. Tap a gate to swing it.\n- **Boats:** narrowboats arrive at either end, queue, and move forward on their own into an open chamber; each has a\n  patience bar (a little skipper whose mood shows) and a colour. Getting a boat through the whole flight scores; a boat\n  running out of patience leaves angry (one strike of three).\n- **Puzzle under pressure:** sharing chambers between up and down traffic efficiently (pairing boats going the same\n  way, alternating), wasting water as little as possible (a reservoir at the top drains if you waste it; let it run\n  dry and the top pound gets too low), and keeping the walkers on the footbridge safe (don't swing a gate while\n  someone crosses).\n- **Days:** a day of traffic (~3 minutes) on a flight of 3–6 locks; later canals add swing bridges for road traffic,\n  a staircase lock (chambers sharing gates), and a fast hotel boat that must not wait.\n\n### Hooks to come back\n- Boats passed per day, stars per canal, a scrapbook of canals and the boats' names, a daily timetable.\n\n### Look\n- A tabletop diorama: rounded, chunky 3D models (cottages, gates with balance beams, boats with painted roses and\n  castles patterns, ducks, people as little rounded figures), soft **ambient occlusion** (a cheap screen-space AO or\n  baked per-vertex AO on the models), warm soft key light, and a strong **tilt-shift** depth of field (sharp middle,\n  blurred near and far, using depth) so it reads as a miniature. The camera is high and angled, orbitable a little.\n- Water: a gently moving surface with a soft reflection of the sky and foam where paddles pour; levels animate\n  smoothly.\n\n### Sound\n- Pouring water whose volume follows open paddles, gate creaks, boat horns (soft two-tone toots), ducks, a pub's\n  distant chatter, a gentle folk loop (concertina-like synth).\n\n### Test hooks\n- `state()`: \"title\", \"map\", \"day\", \"day_end\" (and \"paused\").\n- `snapshot()`: day time, boats passed, strikes, reservoir, each lock's level and gates, boats queued.\n- `test_input`: `{\"paddle\": [lock, \"upper\"|\"lower\"]}`, `{\"gate\": [lock, \"upper\"|\"lower\"]}`, `{\"auto\": true}`\n  (a simple automatic keeper for tests), `{\"day_end\": true}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/28-little-lockkeeper.jpg",
+   "thumb": "thumbs/28-little-lockkeeper.jpg",
+   "clip": "clips/28-little-lockkeeper.mp4",
+   "ready": true
   },
   {
    "no": "29",

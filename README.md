@@ -26,7 +26,7 @@ iPad and Mac. Phones first (portrait, touch); a keyboard works on a computer.
 | 15 | [Eight-Bit Errands](https://lelelilo-studios.github.io/swatch-book-web/games/15-eight-bit-errands/) | 8-bit-inspired pixel art | Pixel & retro | One word from the Queen, three seconds to do it: sixteen tiny errands at an 8-bit court. |
 | 16 | [Ping](https://lelelilo-studios.github.io/swatch-book-web/games/16-ping/) | Monochrome-led pixel art | Pixel & retro | Steer a tiny sub down a black trench: ping to see the walls, but every ping is heard. |
 | 17 | [Pangolin Pinball](https://lelelilo-studios.github.io/swatch-book-web/games/17-pangolin-pinball/) | 16-bit-inspired pixel art | Pixel & retro | Flip a curled-up pangolin round a sunny canyon table. It has opinions about your aim. |
-| 18 | Cloud Porter | Densely detailed pixel art | Pixel & retro | Fly the parcel there. Don't drop it. Don't swing it into the chimney. |
+| 18 | Cloud Porter | Densely detailed pixel art | Pixel & retro | Pedal parcels between floating islands. Don't drop them, don't swing them into chimneys. |
 | 19 | [Glint](https://lelelilo-studios.github.io/swatch-book-web/games/19-glint/) | Luminous high-contrast pixel art | Pixel & retro | Read where a phantom's light gathers, then swipe to meet the blow on the instant it lands. |
 | 20 | [Lawn Order](https://lelelilo-studios.github.io/swatch-book-web/games/20-lawn-order/) | Top-down tile-based pixel art | Pixel & retro | One mower, one lawn: swipe it straight and mow every blade, in sixty village gardens. |
 | 21 | The Twelfth Door | Coarse minimal pixel art | Pixel & retro | Twelve doors. One candle. Find the way out of the house before it goes out. |
@@ -36,7 +36,7 @@ iPad and Mac. Phones first (portrait, touch); a keyboard works on a computer.
 | 25 | Polygon Midnight | Low-resolution retro 3D | 3D & rendering | A late-night drive through roads that shouldn't exist. Drift until the sun comes up. |
 | 26 | [Ultra Slugger](https://lelelilo-studios.github.io/swatch-book-web/games/26-ultra-slugger/) | Anime cel-shaded 3D | 3D & rendering | Every pitch is a special move. Every swing is your answer. |
 | 27 | Scrapshot | Inked comic-book 3D | 3D & rendering | Bolt together the worst gun in the wasteland. Then use it. |
-| 28 | Little Lockkeeper | Miniature dioramas | 3D & rendering | Raise the water. Lower the water. Get every boat home. |
+| 28 | [Little Lockkeeper](https://lelelilo-studios.github.io/swatch-book-web/games/28-little-lockkeeper/) | Miniature dioramas | 3D & rendering | Raise the water, lower the water: get every narrowboat up and down the flight. |
 | 29 | [Light Fingers](https://lelelilo-studios.github.io/swatch-book-web/games/29-light-fingers/) | Painterly 3D | 3D & rendering | Lift purses from a painted dusk crowd, and keep your hand out of their eyes. |
 | 30 | [Still Water](https://lelelilo-studios.github.io/swatch-book-web/games/30-still-water/) | Cinematic realism | 3D & rendering | One river, one evening, one fly. Read the rises, cast like you mean it, let it go. |
 | 31 | In Step | Muted theatrical lighting | 3D & rendering | March with them. Breathe with them. Slip away when the light looks elsewhere. |

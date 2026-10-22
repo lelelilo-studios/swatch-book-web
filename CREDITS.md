@@ -22,12 +22,14 @@ All fonts are from Google Fonts under the SIL Open Font License (or Apache 2.0);
 - **15 Eight-Bit Errands**: Jacquard 12, Jersey 10, Micro 5
 - **16 Ping**: Jersey 10, Tiny5
 - **17 Pangolin Pinball**: Pixelify Sans, Press Start 2P, Silkscreen
+- **18 Cloud Porter**: the ticket face, a narrow 7-pixel bitmap face drawn for the game (in the sprite atlas), Coral Pixels (the page's loading screen)
 - **19 Glint**: Bitcount Prop Single, Bitcount Prop Double, Handjet
 - **20 Lawn Order**: Workbench, a 7-pixel bitmap face drawn for the game (in the sprite atlas)
 - **22 Skytether**: Marcellus, Jost
 - **23 Squish & Co.**: Gluten, Grandstander, Gochi Hand
 - **24 Topple**: Big Shoulders Stencil Display, Barlow Semi Condensed, Courier Prime
 - **26 Ultra Slugger**: Racing Sans One, Saira Condensed
+- **28 Little Lockkeeper**: Shrikhand, Fredoka
 - **29 Light Fingers**: Abril Fatface, Spectral, Spectral SC, Pinyon Script
 - **30 Still Water**: Spectral, Hanken Grotesk
 - **32 Broadside**: IM Fell English SC, IM Fell English, IM Fell English Italic
