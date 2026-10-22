@@ -38,7 +38,7 @@ iPad and Mac. Phones first (portrait, touch); a keyboard works on a computer.
 | 27 | Scrapshot | Inked comic-book 3D | 3D & rendering | Bolt together the worst gun in the wasteland. Then use it. |
 | 28 | Little Lockkeeper | Miniature dioramas | 3D & rendering | Raise the water. Lower the water. Get every boat home. |
 | 29 | [Light Fingers](https://lelelilo-studios.github.io/swatch-book-web/games/29-light-fingers/) | Painterly 3D | 3D & rendering | Lift purses from a painted dusk crowd, and keep your hand out of their eyes. |
-| 30 | Still Water | Cinematic realism | 3D & rendering | One river, one evening, one fly. Read the rises, cast like you mean it, let it go. |
+| 30 | [Still Water](https://lelelilo-studios.github.io/swatch-book-web/games/30-still-water/) | Cinematic realism | 3D & rendering | One river, one evening, one fly. Read the rises, cast like you mean it, let it go. |
 | 31 | In Step | Muted theatrical lighting | 3D & rendering | March with them. Breathe with them. Slip away when the light looks elsewhere. |
 | 32 | [Broadside](https://lelelilo-studios.github.io/swatch-book-web/games/32-broadside/) | Monochrome dithered 3D | 3D & rendering | Lay your guns on a rolling deck and fire on the up-roll as the privateers pass. |
 | 33 | Reach | Luminous layered environments | 3D & rendering | Grow toward the light. Don't let the dark eat your branches. |
