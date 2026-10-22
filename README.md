@@ -44,7 +44,7 @@ iPad and Mac. Phones first (portrait, touch); a keyboard works on a computer.
 | 33 | Reach | Luminous layered environments | 3D & rendering | Grow toward the light. Don't let the dark eat your branches. |
 | 34 | [Pop-Up River](https://lelelilo-studios.github.io/swatch-book-web/games/34-pop-up-river/) | Folded paper & papercraft | Shape & material | Pull the tabs. Turn the wheels. Keep the paper boat afloat. |
 | 35 | Umbra | Layered silhouettes | Shape & material | The shadows are the floor. You hold the lamp. |
-| 36 | Shapeshift | Minimal geometric color | Shape & material | Circle rolls, square holds, triangle leaps: be the right shape at the right moment. |
+| 36 | [Shapeshift](https://lelelilo-studios.github.io/swatch-book-web/games/36-shapeshift/) | Minimal geometric color | Shape & material | Circle rolls, square holds, triangle leaps: be the right shape at the right moment. |
 | 37 | [Pulsewave](https://lelelilo-studios.github.io/swatch-book-web/games/37-pulsewave/) | Neon vector-like graphics | Shape & material | No gun. Hold to charge a shockwave, let go, and turn the swarm into sparks. |
 
 The styles are the 37 of [Game Art Style](https://gameartstyle.loopyhop.com/), a visual atlas of how games see the
