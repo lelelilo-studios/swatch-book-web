@@ -28,6 +28,7 @@ All fonts are from Google Fonts under the SIL Open Font License (or Apache 2.0);
 - **24 Topple**: Big Shoulders Stencil Display, Barlow Semi Condensed, Courier Prime
 - **26 Ultra Slugger**: Racing Sans One, Saira Condensed
 - **29 Light Fingers**: Abril Fatface, Spectral, Spectral SC, Pinyon Script
+- **30 Still Water**: Spectral, Hanken Grotesk
 - **32 Broadside**: IM Fell English SC, IM Fell English, IM Fell English Italic
 - **34 Pop-Up River**: Caprasimo, Nunito, Libre Caslon Text
 - **36 Shapeshift**: Urbanist

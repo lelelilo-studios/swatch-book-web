@@ -127,7 +127,7 @@ window.SWATCHES = {
     "Hard-edged value grouping",
     "Saturated accents against deep shadows"
    ],
-   "theme": "#101014",
+   "theme": "#070c18",
    "summary": "",
    "how_to_play": [],
    "controls": [],
@@ -788,10 +788,10 @@ window.SWATCHES = {
    ],
    "rendering": "One render pass with the kit's 2D batch and a custom fragment shader (ink.rs): wobbly capsule lines whose width breathes, outlined shapes (ellipses, trapezoids, bumpy crowns) filled with paper so they hide what is behind them, sparse patterns inside them (tiles, siding, bricks, cobbles, grass, water, leaves), world-space paper grain and an analytic pair of eyelids; static things are cached once as palette-indexed marks and recoloured for the hour at draw time, the view is culled per thing, fine details fade in by zoom, lines thin out when zoomed in close, and everything is drawn back to front in one batch (about 2,500 instances on a phone, 5,000 to 9,000 on a desktop).",
    "brief": "# 11 · Blink\n\n*Swatch 11 of The Swatch Book. Style: **Fine-line doodle worlds** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nMany tiny people and objects are built from simple, slightly irregular lines, like an enlarged hand-drawn map. It may be monochrome or lightly colored; fine line, density and adjacent miniature scenes define the style.\n\n**What to look for**\n- Fine, slightly irregular contours\n- Many miniature scenes placed together\n- Reduced realistic volume and lighting\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/detailed-doodle/):\n\n> Draw a dense but organized world from thin, slightly irregular contours and many small, individually readable scenes. Choose monochrome or a restrained light-fill palette, and use line shape and spacing as the primary means of differentiation. Keep realistic volume and directional shading minimal. Establish a consistent line-to-object scale across people, foliage, machinery, props and icons. Group details into navigable clusters with breathing room, and use simple line animations for feedback. UI should resemble the same hand-drawn map while reserving clean text areas. Avoid thick cartoon outlines, dense crosshatching and detail so small that targets become indistinguishable.\n\n\n## The game: Blink\n\n**Hook:** *Close your eyes. Something changes. Find it.*\n\nInkbridge, a bustling little town drawn in fine black lines on white: a hundred tiny people at windows, in gardens,\non rooftops and boats, cats on walls, laundry, market stalls, a band on a bandstand. It's alive: people walk, dogs\nchase, smoke curls. Hold your finger down to **blink**. When you let go, something in town is different. Tap it.\n\n**Why this style:** fine-line doodle worlds are slightly irregular lines, many miniature scenes and almost no\nvolume. Every line matters because there are so many of them: perfect for a game of attention.\n\n### Core loop\n- **Look:** the town is a big panorama (wider and taller than the screen); pan by dragging, pinch to zoom (desktop:\n  drag and wheel).\n- **Blink:** press and hold anywhere for half a second: your eyelids close (two hand-drawn lids sweep in). While\n  closed, one change happens: a hat moves to another head, a window opens, a cat disappears, a flowerpot changes\n  shape, two people swap places, a boat turns around, a sign's word changes, a bird appears.\n- **Find it:** let go: tap where the change is. Right: a little ink circle draws around it, points by speed. Wrong:\n  a scribble and time lost. A round is ~10 changes against a timer; changes get subtler (whole figures → details →\n  tiny details) and the town gets busier.\n- **Memory pressure:** you can blink only when you choose, but each blink costs a bit of time, so you learn to scan\n  the area before blinking. A \"hint\" (once per round) wiggles the right district.\n- Between rounds the town's day moves on (morning market → noon → evening lamps → a night with lit windows).\n\n### Hooks to come back\n- Best score, average find time, a daily town (seeded layout and changes), unlockable districts (the harbour, the\n  fair, the rooftops).\n\n### Look\n- Everything procedural line art: buildings from shape grammar (roofs, windows, chimneys, awnings), people as tiny\n  line figures with hats, bags and poses, trees as scribbled crowns. Slightly irregular lines (noise on width and\n  path), black on warm white, very little fill; a few flat accent colours appear only as UI (the find circle, the\n  timer). Lines drawn with the batch's anti-aliased lines; keep instance counts within budget by drawing at the\n  zoom level's detail (LOD: skip the tiniest details when zoomed out).\n- Eyelids, find circles and the timer are hand-drawn too; the type is a light, friendly handwriting-like face.\n\n### Sound\n- Town murmur (filtered noise + distant chatter-like blips), the band playing a jaunty tune that you hear louder near\n  the bandstand, a soft \"shh\" for the blink, a pencil tick on finds, a gentle wrong buzz.\n\n### Test hooks\n- `state()`: \"title\", \"looking\", \"blinking\", \"finding\", \"round_end\", \"over\" (and \"paused\").\n- `snapshot()`: round, changes found, timer, the current change's position (for tests), camera.\n- `test_input`: `{\"blink\": true}`, `{\"find\": true}` (taps the right place), `{\"round\": 4}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/11-blink.jpg",
+   "thumb": "thumbs/11-blink.jpg",
+   "clip": "clips/11-blink.mp4",
+   "ready": true
   },
   {
    "no": "12",
@@ -2048,7 +2048,7 @@ window.SWATCHES = {
    "no": "30",
    "slug": "30-still-water",
    "title": "Still Water",
-   "tagline": "One river, one evening, one fly. Cast like you mean it.",
+   "tagline": "One river, one evening, one fly. Read the rises, cast like you mean it, let it go.",
    "style": "Cinematic realism",
    "style_slug": "cinematic-realism",
    "family": "render",
@@ -2059,13 +2059,86 @@ window.SWATCHES = {
     "Cinematic framing and controlled color"
    ],
    "theme": "#0e0d0b",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "summary": "Fly fishing at golden hour, with the whole craft made gentle: swipe up for the back cast, wait for the tug as the loop straightens behind you, swipe down to shoot. Then mend the drift, strike when a trout sips, and fight it to the net by holding and easing, before letting it go. Cinematic realism belongs to a low sun on moving water: an analytic sky, a true planar reflection, Fresnel, mist and god rays, all graded like film. The fly line itself is simulated physics you have to read.",
+   "how_to_play": [
+    "Swipe up to lift the line into a back cast. Wait until it straightens behind you (a soft tug), then swipe down where you want the fly.",
+    "Good timing earns reach: false-cast (up, down, up) to throw further. Late casts collapse; early ones crack the fly off.",
+    "Watch the fly drift. If the current bellies the line and the fly starts to drag, flick sideways to mend upstream.",
+    "When a trout sips your fly, tap to strike. Then hold to pull and ease off when it runs or the line sings. Bring it to the net and let it go.",
+    "The evening lasts about five minutes. Match the hatch from the fly box as the light goes."
+   ],
+   "controls": [
+    {
+     "action": "Back cast",
+     "touch": "swipe up",
+     "keys": "W"
+    },
+    {
+     "action": "Forward cast (aims where the finger turns)",
+     "touch": "swipe down",
+     "keys": "S (aim with the mouse or the arrow keys)"
+    },
+    {
+     "action": "Mend",
+     "touch": "flick left / right",
+     "keys": "A / D"
+    },
+    {
+     "action": "Strike",
+     "touch": "tap",
+     "keys": "Space / Enter"
+    },
+    {
+     "action": "Fight: pull / give line",
+     "touch": "hold / let go (slide to lean the rod)",
+     "keys": "hold Space / let go (A / D lean)"
+    },
+    {
+     "action": "Release the fish",
+     "touch": "tap",
+     "keys": "Space"
+    },
+    {
+     "action": "Fly box",
+     "touch": "fly button, bottom left",
+     "keys": "F, then 1-4"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc"
+    },
+    {
+     "action": "Mute",
+     "touch": "pause or settings",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Spectral",
+    "Hanken Grotesk"
+   ],
+   "palette": [
+    "#0e0d0b",
+    "#f2eadb",
+    "#a99f8e",
+    "#e8b266",
+    "#c9603f",
+    "#a8be9c",
+    "#2b2a36",
+    "#f0c27a"
+   ],
+   "features": [
+    "A fly line you can feel: a hybrid model. A kinematic rolling loop (rod leg, loop, fly leg, leader turnover) drives the aerial strokes, and a position-based verlet chain (anisotropic air and water drag, bending stiffness, line shot and stripped at the tip) takes over on the water, in the fall, in mends and in the fight. The rod is a tip path that accelerates to an abrupt stop, with spring overshoot and a load-bent blank.",
+    "Learnable cast rhythm: forward timing is graded (Perfect, Good, Early, Late) against the moment the back loop straightens, and each good false cast adds reach (11.5 m to 29 m). The fly goes where your finger turned, and a short line lands short. Late casts collapse, early ones crack, and slaps spook nearby fish.",
+    "Living water: three stretches (Willow Run, Meadow Bend, Canyon Pool) with a thalweg, a riffle, a boulder with potential-flow wake, pools and snags. Current bellies the line and measured drag makes fish refuse or bolt. Fish hold in lies, rise to a four-stage hatch, inspect, take or refuse, and each has its own strike window.",
+    "A fight with physics and tells: tension from load and distance, two limits (holding vs giving), stamina, and runs, dogging, jumps and snag dives. The line sings before it breaks and the reel only gains when you ease. You can snap the tippet, throw the hook, or get snagged. Every trout is netted, measured and released.",
+    "A tutorial that teaches by doing (Lift, Shoot, Reach, Mend, Strike, Fight, Net, Release), a journal of every fish (species, length, lie, light, fly), personal bests, a seeded daily evening, and stretches that unlock by catches.",
+    "Procedural everything: three trout species with painted spots, bands and worm marks on a lofted, bending body; trees with alpha-to-coverage leaf cards; a willow with swaying strands; reeds, rocks, banks, a canyon wall; a woven net. No image assets.",
+    "Sound from synthesis: layered river noise louder near the riffle, the swish of the line pitched by speed, the reel's ratchet, sips, splashes, a singing line under strain, dusk birds, and a quiet guitar-and-strings loop that thins as the light goes.",
+    "Phone-first: portrait framing that follows rises and the lesson fish, one-thumb gestures, restrained serif UI, deterministic seeded rounds, and an autopilot that can fish a whole evening."
+   ],
+   "rendering": "HDR (Rgba16Float, MSAA 4×) forward rendering: an analytic single-scattering sky (Rayleigh plus Mie with a Kasten-Young airmass), mirrored on the CPU to light the scene and set exposure; a half-res planar reflection pass (the view-projection mirrored) feeding a water shader with Fresnel, flow-advected normal maps, rise rings, a pebbled bed and depth tint through the surface; alpha-to-coverage foliage, screen-space-width line ribbons and additive particles; then quarter-res god rays (a radial blur from the sun), bloom with exposure-relative thresholds, and one ACES grade pass with a warm split tone, vignette, grain, letterbox and fades.",
    "brief": "# 30 · Still Water\n\n*Swatch 30 of The Swatch Book. Style: **Cinematic realism** (3D & rendering).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nBelievable materials, human proportions and lighting are organized with cinematic framing, depth and color control. Different periods and settings can share this treatment; science-fiction and western subjects do not automatically become separate styles.\n\n**What to look for**\n- Detailed, believable surface materials\n- Naturalistic lighting and proportions\n- Cinematic framing and controlled color\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/cinematic-realism/):\n\n> Use believable human proportions, coherent object scale and carefully observed material responses across characters, architecture, props and terrain. Build lighting, exposure, atmospheric depth and color grading around purposeful cinematic composition while keeping gameplay targets readable. Establish material reference standards and detail budgets that match the camera and platform. UI should be restrained and functional, and effects should respect scene exposure and physical context without hiding interactions. Animate with convincing weight, contact and transitions. Keep the setting independent of the style. Avoid indiscriminate photogrammetry density, inconsistent weathering, crushed shadows, excessive blur and spectacle that obscures play.\n\n\n## The game: Still Water\n\n**Hook:** *One river, one evening, one fly. Cast like you mean it.*\n\nThe Kettle River runs through a quiet valley at golden hour: low sun through cottonwoods, mayflies hatching over the\nwater, trout rising in rings that spread and fade. You stand knee-deep with a fly rod. The game is the whole craft of\nfly fishing, made gentle: reading the water, casting the line, laying the fly softly, the take, the fight.\n\n**Why this style:** cinematic realism is believable materials, naturalistic light and proportions, cinematic framing\nand graded colour. A river at golden hour (water, sky, light through mist) is where realism is most beautiful and\nmost achievable on a phone.\n\n### Core loop\n- **Read the water:** fish rise in rings at different spots (a riffle, a seam, a pool under a willow); bigger fish\n  rise less often and in harder places.\n- **Cast:** a two-part rhythm. Swipe back (up the screen) for the back-cast: the line unrolls behind; swipe forward at\n  the right moment, when the line straightens (a subtle cue in the line's shape and a soft sound): a well-timed\n  forward cast shoots more line and lands softly; badly timed ones pile up or slap. The direction of the forward swipe\n  aims; its length sets distance. False-cast (repeat) to add distance.\n- **Drift and mend:** the current pulls the line into a belly that drags the fly unnaturally; flick (a small swipe\n  upstream) to **mend** and keep a natural drift. A fly that drags puts fish down.\n- **The take:** a fish rises to your fly: a ring, a sip. Strike (tap) within a short window.\n- **The fight:** hold to keep tension (the rod bends), release to let line run; too much tension snaps the tippet,\n  too little lets the hook fall out. The fish runs, jumps, heads for snags. Land it into the net; then release it\n  (always: a gentle moment as it swims off).\n- **An evening** is ~5 minutes of light: the sun sets, the hatch thickens, then darkness. Different flies for the\n  hatch stages (choose from a small fly box).\n\n### Hooks to come back\n- A **journal** of every fish (species, length, where, the light), personal bests, a daily evening (seeded weather\n  and hatch), new stretches of river unlocked (a meadow bend, a canyon pool).\n\n### Look\n- A physically based sky (single-scattering approximation with a low sun), a sun disk and haze, **water** with\n  reflections of sky and bank (a planar-ish reflection by mirroring the scene's few elements or a screen-space\n  approximation), Fresnel, normal-mapped flow ripples, rise rings, refraction tint over shallows; mist layers; god\n  rays through trees (a radial blur from the sun in a post pass); tree silhouettes with leaf cards. Filmic tone\n  mapping (ACES), a warm grade, subtle grain and lens vignette. The line is a thin bright curve catching the light.\n- Camera: first-person-ish, low over the water, with a gentle handheld sway; framing shifts during the fight.\n\n### Sound\n- The river (layered filtered noise, louder near riffles), birds at dusk, the swish of the line (pitch from speed),\n  the reel's click, a fish splash, a quiet guitar-and-strings ambient loop.\n\n### Test hooks\n- `state()`: \"title\", \"river\", \"casting\", \"drifting\", \"fighting\", \"landed\", \"evening_end\" (and \"paused\").\n- `snapshot()`: time of evening, line out, tension, fish on, fish landed, the fly position.\n- `test_input`: `{\"cast\": [x, z]}` (a perfect cast to a spot), `{\"strike\": true}`, `{\"land\": true}`,\n  `{\"time\": 0.9}`.",
    "poster": null,
    "thumb": null,
