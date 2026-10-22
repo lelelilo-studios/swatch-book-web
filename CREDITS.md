@@ -11,6 +11,7 @@ No screenshot or artwork from that site, or from the games it lists, is used in 
 All fonts are from Google Fonts under the SIL Open Font License (or Apache 2.0); each licence ships next to its font.
 
 - **01 The Tell**: Fraunces, Alegreya Sans, Alegreya
+- **02 Debt of Thunder**: Bangers, Sofia Sans Condensed
 - **03 Wet on Wet**: Cormorant Garamond, Alegreya, Kalam
 - **05 Rubber Rafters**: Limelight, Rammetto One, Coustard
 - **06 Rub Out**: Cabin Sketch, Architects Daughter

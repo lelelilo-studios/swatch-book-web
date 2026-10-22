@@ -10,7 +10,7 @@ iPad and Mac. Phones first (portrait, touch); a keyboard works on a computer.
 | No. | Game | Style | Family | What you do |
 |---|---|---|---|---|
 | 01 | [The Tell](https://lelelilo-studios.github.io/swatch-book-web/games/01-the-tell/) | Expressionist painting | Paint & line | Every face paints its lies. Read the brushwork, doubt the liar, close the case. |
-| 02 | Debt of Thunder | Bold comic illustration | Paint & line | You have no sword. You are the strike. |
+| 02 | [Debt of Thunder](https://lelelilo-studios.github.io/swatch-book-web/games/02-debt-of-thunder/) | Bold comic illustration | Paint & line | Drag back, let go: dash through drowned gods and pay off a hundred storms. |
 | 03 | [Wet on Wet](https://lelelilo-studios.github.io/swatch-book-web/games/03-wet-on-wet/) | Watercolor washes | Paint & line | Wet a shape, drop in colour, let it bloom. Finish each sketch before the paper dries. |
 | 04 | Snails in the Margin | Illuminated manuscript illustration | Paint & line | The knights fled the margins. Now it's you, a quill, and the snails. |
 | 05 | [Rubber Rafters](https://lelelilo-studios.github.io/swatch-book-web/games/05-rubber-rafters/) | Rubber-hose animation | Paint & line | Stretch, grab, fling up a cartoon theatre before the curtain rises on you. |

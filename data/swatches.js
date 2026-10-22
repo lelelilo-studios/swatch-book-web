@@ -117,7 +117,7 @@ window.SWATCHES = {
    "no": "02",
    "slug": "02-debt-of-thunder",
    "title": "Debt of Thunder",
-   "tagline": "You have no sword. You are the strike.",
+   "tagline": "Drag back, let go: dash through drowned gods and pay off a hundred storms.",
    "style": "Bold comic illustration",
    "style_slug": "bold-comic-illustration",
    "family": "paint",
@@ -128,18 +128,75 @@ window.SWATCHES = {
     "Saturated accents against deep shadows"
    ],
    "theme": "#070c18",
-   "summary": "",
-   "how_to_play": [],
-   "controls": [],
-   "fonts": [],
-   "palette": [],
-   "features": [],
-   "rendering": "",
+   "summary": "A dash-only roguelite: Kestrel has no sword, so every attack is a slingshot dash that lightning-bolts across the room and cuts everything on its line, bouncing where Ricochet allows. Chains fill the ink for a Storm Dash; foes telegraph in bold red; blessings from an original drowned pantheon change the dash itself. Bold comic illustration is a medium of poses and impacts (wind-up, streak, held landing, ink slash, onomatopoeia), and a dash fighter is exactly a sequence of those.",
+   "how_to_play": [
+    "Press anywhere, drag back, let go: Kestrel dashes the other way. A longer pull goes further.",
+    "Everything on one dash is cut. Line foes up for a chain; the aim line numbers who it will hit.",
+    "A foe that turns red strikes where the floor is painted: dash out, or cut it first.",
+    "Three pips, three dashes; stand still and they come back. Chains fill the ink: double-tap for a Storm Dash.",
+    "Clear a hall, take a patron's gift, go deeper. Ten halls, two wardens, a hundred storms owed."
+   ],
+   "controls": [
+    {
+     "action": "Aim and dash",
+     "touch": "press, drag back, release",
+     "keys": "arrows / WASD to aim, hold Space to wind up, release; or drag with the mouse"
+    },
+    {
+     "action": "Storm Dash (full ink)",
+     "touch": "double-tap anywhere, or tap the ink meter",
+     "keys": "E (or Shift, or Enter)"
+    },
+    {
+     "action": "Take a gift",
+     "touch": "tap a card",
+     "keys": "1 / 2 / 3, or arrows and Enter"
+    },
+    {
+     "action": "Pause",
+     "touch": "pause button",
+     "keys": "Esc or P"
+    },
+    {
+     "action": "Mute",
+     "touch": "sound button or settings",
+     "keys": "M"
+    }
+   ],
+   "fonts": [
+    "Bangers",
+    "Sofia Sans Condensed"
+   ],
+   "palette": [
+    "#070c18",
+    "#1f4d5e",
+    "#0b0912",
+    "#f6ead0",
+    "#ffe23a",
+    "#f08a1c",
+    "#ff2d3f",
+    "#34509e",
+    "#e8a63c",
+    "#22d3b6",
+    "#ff5a3c",
+    "#ffb8d4"
+   ],
+   "features": [
+    "Dash-only combat: a slingshot aim traced through the room with bounces, landing ring, and numbered target brackets showing exactly who the dash will cut (shielded foes marked).",
+    "Hit-stop on every cut, white flash frames, crescent slashes, jagged impact bursts with radiating lines, ink splats that stay on the floor, two-ink and inverted impact frames on big chains, and onomatopoeia that pop and hold (KRAK!, KRA-KA-KOOM!, KLANNG!).",
+    "Five enemies with readable tells (the body turns bold red, the reach is painted on the floor and fills as the beat runs out, a drum marks it): Sodden, Harpooner, Clamguard (shield front, cut it from the side), Puffer Monk, Bell Jelly; gilded elites deeper down.",
+    "An original drowned pantheon (Brazen Ord, Saint Calcine, the Hollow Abbess, Warden Skerry, the Thunder-Mother) offering ten stacking blessings that change the dash: Ricochet, Toll, Brand, Riposte, Echo, Mirage, Undertow, Riptide, Static, Second Wind.",
+    "A ten-hall dive with a treasure vault of urns and a giant clam, a shrine, and two bosses with cut-in panels: Corallina the Reef Queen, who fills the floor with coral spikes in patterns, and the Toll Engine, armoured in front with valves on its back that a wall-crash leaves open.",
+    "Storm Dash: full ink turns the world to ink-blue while Kestrel ricochets foe to foe as a yellow bolt and lands with a thunderclap.",
+    "A first-run lesson room taught by playing (one idea at a time, with a ghost finger), the surface shrine where storms buy favours that count toward the hundred-storm debt, a daily dive with fixed gifts, records, pause, settings and a tally that counts up.",
+    "Synthesized sound: a crackling dash sweep, chain hits that climb in pitch, a dreaded tell drum, a drum-heavy D minor loop with brass stabs, a heavier boss theme and a choir for gifts."
+   ],
+   "rendering": "One 2D batch with a custom fragment shader draws every shape as an inked flat fill with a hard-edged shadow crescent (and halftone band) on the side away from a fixed upper-left light; figures are drawn twice, swollen solid ink first for the heavy outer contour, then their parts with thin inner lines; the scene renders to an Rgba8 target and one post pass prints it on the page (halftone-dot vignette, paper tooth, colour-plate split on blows, two-ink or inverted impact frames, the Storm Dash grade) before the interface batch draws crisp on top.",
    "brief": "# 02 · Debt of Thunder\n\n*Swatch 02 of The Swatch Book. Style: **Bold comic illustration** (Paint & line).*\n\n## The request this collection answers\n\n> \"for each of the art styles in here, create a unique game suited for that art style and with a game mechanic, can be in 2d, 3d, isometric, anything you thing about... should look final product (not prototype), for mobile (using rust + webgpu) ... dont take a reference any past game or project created on this machine, as you have to plan a cool mechanic, engaging, adictive and unique for each of the games... be creative and pay attention to small details\"\n\n## The style\n\nAssertive contours, sharply separated values and saturated accents create immediate visual impact. Characters and environments prioritize readability, recalling carefully colored comic panels.\n\n**What to look for**\n- Strong contours and silhouettes\n- Hard-edged value grouping\n- Saturated accents against deep shadows\n\n**Art direction** (quoted from the style's page, https://gameartstyle.loopyhop.com/styles/bold-comic-illustration/):\n\n> Build characters and props around assertive silhouettes, deliberate contour weights and hard-edged shadow groups. Use a limited family of saturated accents against deep, chromatically controlled shadows. Compose environments like readable colored comic panels, with detail concentrated near narrative and gameplay focal points. Keep UI panels, item icons and action indicators in the same ink-and-flat-color vocabulary. Use graphic slashes, impact shapes and brief held poses for effects and motion. Whether assets are 2D or 3D, prioritize the final illustrated appearance. Avoid airbrushed shading, muddy midtones, photographic textures and excessive black outlines on every small detail.\n\n\n## The game: Debt of Thunder\n\n**Hook:** *You have no sword. You are the strike.*\n\nKestrel, a courier of the drowned pantheon, owes the Thunder-Mother one hundred storms. To pay, she dives through\nthe sunken halls of an original underwater pantheon (brass gods, coral saints, tide-wardens), fighting with the one\ngift she has: the dash. There is no attack button. **Every attack is a dash**: drag back and release, and Kestrel\nlightning-bolts across the room, cutting through every enemy on her line.\n\n**Why this style:** bold comic illustration lives on strong contours, hard-edged value groups and saturated accents\nagainst deep shadow, and on dramatic poses. A dash-only fighter is a sequence of poses and impacts: wind-up, streak,\nfreeze frame, ink slash, splash of colour.\n\n### Core loop\n- **Aim and dash:** press anywhere and drag back (a slingshot line with a hard ink arrow shows the path, bounces\n  included); release to dash. Short drags are short hops; long drags cover the room. Desktop: hold the mouse and\n  drag, or aim with WASD/arrows and press Space.\n- **Chain:** every enemy cut on one dash adds to the **chain**; chains fill the **ink meter**. Ending a dash next to\n  an enemy (not through it) leaves you open; enemies telegraph attacks with a bold red silhouette and a beat.\n- **Stamina:** three dash pips that refill quickly while you stand still: rhythm, not spam.\n- **Rooms:** a run is ~10 rooms (arena fights, a treasure room, a shrine room) then a boss (a brass colossus whose\n  weak points open only from behind; a coral queen who fills the floor with spikes in patterns).\n- **Blessings:** after each room choose one of three blessings from the patron gods, each a card with a bold\n  illustrated face. They change the dash itself: *Ricochet* (bounce off walls once), *Brand* (leave a burning\n  trail), *Echo* (a ghost repeats your last dash a moment later), *Undertow* (pull enemies toward your path),\n  *Static* (enemies hit arc lightning to neighbours), *Second Wind* (a free dash after a 3-chain). Blessings stack.\n- **Ink meter** full: double-tap for a **Storm Dash** that ricochets automatically through every enemy on screen.\n- A run takes 5–8 minutes. Death returns you to the surface shrine with the storms you earned (meta currency) to\n  buy permanent small upgrades (an extra pip, a starting blessing reroll, more health).\n\n### Hooks to come back\n- Storms paid toward the hundred (a long goal), best depth, fastest boss kill; a daily seed run with fixed\n  blessings.\n\n### Look\n- Top-down three-quarter view of tiled sunken halls, drawn as bold illustrations: heavy black contours (thick on\n  silhouettes, thin inside), flat hard-edged value groups, deep blue-black shadows, saturated accents (Kestrel's\n  electric yellow, enemy reds, blessing colours). Light shafts from above in flat shapes.\n- Comic impact language: freeze frames on hits (scaled by `cx.flash()`), ink splashes, halftone dots in shadows,\n  bold onomatopoeia occasionally (\"KRAK\"). Kestrel's dash leaves a jagged lightning streak with a speed-line smear.\n- Characters are 2D illustrated shapes (SDF and polygons with outlines) with strong poses, animated with snappy\n  key poses.\n\n### Sound\n- Punchy hits (noise burst + tuned thump), the dash as a crackling electric sweep, a drum-heavy loop with a brass-like\n  synth stab, the boss with its own theme. Choir pad on blessings.\n\n### Test hooks\n- `state()`: \"title\", \"surface\", \"aim\", \"dashing\", \"choose\", \"boss\", \"over\" (and \"paused\").\n- `snapshot()`: room, health, pips, chain, ink, enemies left, blessings, position.\n- `test_input`: `{\"dash\": [dx, dy]}` (a dash vector in room units), `{\"room\": 10}`, `{\"godmode\": true}`.",
-   "poster": null,
-   "thumb": null,
-   "clip": null,
-   "ready": false
+   "poster": "posters/02-debt-of-thunder.jpg",
+   "thumb": "thumbs/02-debt-of-thunder.jpg",
+   "clip": "clips/02-debt-of-thunder.mp4",
+   "ready": true
   },
   {
    "no": "03",
