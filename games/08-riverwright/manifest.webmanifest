@@ -1,0 +1,16 @@
+{
+  "name": "Riverwright · The Swatch Book",
+  "short_name": "Riverwright",
+  "description": "Dig and heap a floating valley until its spring finds every thirsty hamlet.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#e9ddcf",
+  "theme_color": "#e9ddcf",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

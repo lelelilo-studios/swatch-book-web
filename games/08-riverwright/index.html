@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#e9ddcf">
+<meta name="color-scheme" content="light">
+<title>Riverwright</title>
+<meta name="description" content="Riverwright: Dig and heap a floating valley until its spring finds every thirsty hamlet. Swatch 08 of The Swatch Book, a phone game in painted green valleys.">
+<meta name="author" content="Lelelilo-Studios">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Swatch Book · Lelelilo-Studios">
+<meta property="og:title" content="Riverwright · The Swatch Book">
+<meta property="og:description" content="Dig and heap a floating valley until its spring finds every thirsty hamlet.">
+<meta property="og:url" content="https://lelelilo-studios.github.io/swatch-book-web/games/08-riverwright/">
+<meta property="og:image" content="https://lelelilo-studios.github.io/swatch-book-web/thumbs/08-riverwright.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Riverwright">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preload" href="pkg/game_bg.wasm?v=1e830ef-6adfb262" as="fetch" type="application/wasm" crossorigin>
+<style>
+  /* The kit's page. The game's own look comes from its theme (below), which sets these. */
+  :root { --bg: #111; --ink: #f2efe6; --muted: #a9a49a; --accent: #f0bd52; --danger: #e0624f; --panel: rgba(255,255,255,.06);
+    --font-display: Georgia, serif; --font-body: system-ui, sans-serif; --tag-ink: var(--ink); --tag-paper: color-mix(in srgb, var(--bg) 82%, transparent); --tag-line: color-mix(in srgb, var(--ink) 30%, transparent); }
+</style>
+<style>
+/* Riverwright: the page's look while the game loads, and on its fallback screens. The cloud sea in warm cream
+   and lilac, deep pine ink, a terracotta accent, set in Young Serif and Literata. */
+@font-face { font-family: "RiverwrightDisplay"; src: url("fonts/display.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "RiverwrightBody"; src: url("fonts/body.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "RiverwrightItalic"; src: url("fonts/italic.ttf") format("truetype"); font-display: swap; }
+:root {
+  --bg: #e9ddcf;
+  --ink: #24402f;
+  --muted: #6f6152;
+  --accent: #c4613a;
+  --danger: #b03a26;
+  --panel: rgba(255, 249, 236, .6);
+  --font-display: "RiverwrightDisplay", Georgia, serif;
+  --font-body: "RiverwrightBody", Georgia, serif;
+}
+.screen { background: radial-gradient(ellipse 85% 70% at 50% 40%, #fbf1df 0%, #ecdfd2 48%, #cfc3d9 100%); }
+h1 { color: #24402f; text-shadow: 0 2px 0 rgba(227, 169, 68, .55); }
+.tagline { font-family: "RiverwrightItalic", Georgia, serif; font-style: italic; color: #4c4136; }
+.kicker, .status { letter-spacing: .14em; }
+.bar { height: 4px; border-radius: 4px; background: rgba(36, 64, 47, .14); }
+.bar i { background: linear-gradient(90deg, #3e8fa0, #6fb3a8); border-radius: 4px; }
+
+</style>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden; overscroll-behavior: none; }
+  body { font: 500 16px/1.45 var(--font-body); -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-text-size-adjust: 100%; }
+  canvas#lelelilo, canvas#kit-mirror { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none; outline: none; }
+  canvas#kit-mirror { display: none; pointer-events: none; z-index: 1; }
+  #kit-safe { position: fixed; inset: 0; visibility: hidden; pointer-events: none;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+  #kit-fps { position: fixed; left: 8px; bottom: 8px; z-index: 9; display: none; font: 600 11px ui-monospace, monospace; color: #fff; background: rgba(0,0,0,.6); padding: 3px 6px; border-radius: 4px; pointer-events: none; }
+  .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; box-sizing: border-box;
+    padding: max(28px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+    background: var(--bg); text-align: center; transition: opacity .55s ease, visibility 0s; z-index: 5; }
+  .screen.gone { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .55s ease, visibility 0s .55s; }
+  .screen.hidden { display: none; }
+  .kicker { font: 700 11px/1 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .kicker b { color: var(--accent); font-weight: 800; }
+  h1 { margin: 0; font: 400 clamp(34px, 10vw, 64px)/1.02 var(--font-display); letter-spacing: .01em; color: var(--ink); text-wrap: balance; }
+  .tagline { margin: 0; max-width: 26em; color: var(--muted); font-size: 15px; text-wrap: balance; }
+  .bar { width: min(240px, 62vw); height: 2px; background: color-mix(in srgb, var(--ink) 16%, transparent); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+  .status { font: 700 11px var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); min-height: 1em; }
+  .loader-art { width: min(160px, 40vw); height: auto; }
+  .note { max-width: 30em; color: var(--muted); font-size: 14px; line-height: 1.55; user-select: text; -webkit-user-select: text; }
+  .browsers { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 30em; }
+  .browsers a, .btn { color: var(--ink); text-decoration: none; padding: 12px 16px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent); font: 700 14px var(--font-body); background: var(--panel); cursor: pointer; }
+  .browsers a:hover, .btn:hover, .browsers a:focus-visible, .btn:focus-visible { border-color: var(--accent); outline: none; }
+  .help { max-width: 30em; text-align: left; padding: 12px 16px; border: 1.5px dashed color-mix(in srgb, var(--ink) 30%, transparent); border-radius: 10px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+  .help.hidden { display: none; }
+  .help ol { margin: 6px 0 0; padding-left: 20px; }
+  .help b { color: var(--ink); }
+  code { font: 600 13px ui-monospace, monospace; }
+  .err { font: 500 12px/1.5 ui-monospace, monospace; color: var(--danger); white-space: pre-wrap; max-width: min(90vw, 760px); max-height: 32vh; overflow: auto; text-align: left; padding: 12px 14px; border: 1.5px dashed var(--danger); border-radius: 8px; user-select: text; -webkit-user-select: text; }
+  .foot { position: absolute; left: 0; right: 0; bottom: max(14px, env(safe-area-inset-bottom)); display: flex; justify-content: center; gap: 18px; font: 700 12px var(--font-body); letter-spacing: .08em; }
+  .foot a { color: var(--muted); text-decoration: none; padding: 10px 6px; }
+  .foot a:hover, .foot a:focus-visible { color: var(--ink); outline: none; }
+  .foot a span { color: var(--accent); }
+  /* The swatch tag: back to the collection. Games show it on menus and hide it in play. */
+  #swatch-tag { position: fixed; z-index: 4; display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px 0 10px; box-sizing: border-box;
+    font: 700 11px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--tag-ink); text-decoration: none;
+    background: var(--tag-paper); border: 1px dashed var(--tag-line); border-radius: 999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: opacity .3s ease, transform .3s ease; }
+  #swatch-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+  #swatch-tag[data-pos="tl"] { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="tr"] { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag[data-pos="bl"] { bottom: max(12px, env(safe-area-inset-bottom)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="br"] { bottom: max(12px, env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag.off { opacity: 0; pointer-events: none; transform: translateY(-4px); }
+  #swatch-tag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .screen, .screen.gone, .bar i, #swatch-tag { transition: none; } }
+</style>
+</head>
+<body>
+<canvas id="lelelilo" tabindex="0" aria-label="Riverwright, a game. Dig and heap a floating valley until its spring finds every thirsty hamlet."></canvas>
+<canvas id="kit-mirror" aria-hidden="true"></canvas>
+<div id="kit-safe" aria-hidden="true"></div>
+<div id="kit-fps" aria-hidden="true"></div>
+<a id="swatch-tag" data-pos="tr" href="../../#08-riverwright" aria-label="Back to The Swatch Book, swatch 08 of 37">Swatch 08 · The Swatch Book</a>
+
+<div class="screen" id="loading" role="status" aria-live="polite">
+  <div class="loader-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" width="200" height="150">
+  <!-- A floating island in the cloud sea: its spring fills a river that winds down to a cottage, the meadow greens -->
+  <style>
+    .river { stroke-dasharray: 120; stroke-dashoffset: 120; animation: run 4.2s ease-in-out infinite; }
+    .green { animation: green 4.2s ease-in-out infinite; }
+    .bob { animation: bob 5s ease-in-out infinite; transform-origin: 100px 80px; }
+    .cloud { animation: drift 9s ease-in-out infinite alternate; }
+    @keyframes run { 0% { stroke-dashoffset: 120; } 55%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -120; } }
+    @keyframes green { 0%, 25% { opacity: 0; } 60%, 85% { opacity: .9; } 100% { opacity: 0; } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    @keyframes drift { from { transform: translateX(-6px); } to { transform: translateX(6px); } }
+    @media (prefers-reduced-motion: reduce) { .river, .green, .bob, .cloud { animation: none; } .river { stroke-dashoffset: 0; } .green { opacity: .8; } }
+  </style>
+  <g class="cloud">
+    <ellipse cx="40" cy="122" rx="34" ry="10" fill="#fbf1df"/>
+    <ellipse cx="160" cy="126" rx="32" ry="9" fill="#d9cde2"/>
+    <ellipse cx="100" cy="132" rx="40" ry="9" fill="#efe4da"/>
+  </g>
+  <g class="bob">
+    <path d="M38 62 L100 34 L162 62 L150 82 L100 108 L50 82 Z" fill="#8a5432"/>
+    <path d="M50 82 L100 108 L150 82 L132 94 L100 128 L68 94 Z" fill="#5b4b78"/>
+    <path d="M50 74 L100 98 L150 74 L150 82 L100 108 L50 82 Z" fill="#b5713f"/>
+    <path d="M38 62 L100 34 L162 62 L100 92 Z" fill="#b59a54"/>
+    <path d="M38 62 L100 34 L162 62 L100 92 Z" fill="#5e8e36" class="green"/>
+    <path d="M100 34 L162 62 L100 92 Z" fill="#000" opacity=".08"/>
+    <path d="M92 40 C104 48 84 54 98 62 C110 68 94 74 104 84" stroke="#3e8fa0" stroke-width="6" fill="none" stroke-linecap="round" class="river"/>
+    <circle cx="92" cy="40" r="5" fill="#8d8899"/>
+    <circle cx="70" cy="56" r="6" fill="#2f5d2a"/>
+    <circle cx="128" cy="52" r="5" fill="#3a6b30"/>
+    <rect x="112" y="72" width="14" height="9" fill="#f4ead0"/>
+    <path d="M110 73 L119 66 L128 73 Z" fill="#c4613a"/>
+  </g>
+</svg>
+</div>
+  <div class="kicker">Swatch <b>08</b> · Painted green valleys</div>
+  <h1>Riverwright</h1>
+  <p class="tagline">Dig and heap a floating valley until its spring finds every thirsty hamlet.</p>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <div class="status" id="status">Threading the needle…</div>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="unsupported">
+  <div class="kicker">Swatch <b>08</b> · Painted green valleys</div>
+  <h1>Riverwright</h1>
+  <p class="note">This game draws with <b>WebGPU</b>, and this browser doesn't offer it yet. It plays in these:</p>
+  <div class="browsers">
+    <a href="https://www.google.com/chrome/" rel="noopener">Chrome · Android &amp; desktop</a>
+    <a href="https://www.apple.com/safari/" rel="noopener">Safari 26+ · iPhone, iPad, Mac</a>
+    <a href="https://www.microsoft.com/edge" rel="noopener">Edge</a>
+  </div>
+  <div class="help hidden" id="linux-help"></div>
+  <p class="note" id="why" style="font-size:12px"></p>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="failed">
+  <div class="kicker">Swatch <b>08</b> · Painted green valleys</div>
+  <h1>A thread snapped</h1>
+  <p class="note">Riverwright couldn't start. Starting it again usually helps.</p>
+  <div class="browsers"><a href="." id="again" class="btn">Try again</a><a href="../../" class="btn">Back to the book</a></div>
+  <div class="err" id="errtext"></div>
+</div>
+
+<script type="module">
+  const BUILD = '1e830ef-6adfb262';
+  window.__lelelilo_build = BUILD;
+  const $ = id => document.getElementById(id);
+  const show = id => { for (const s of ['loading', 'unsupported', 'failed']) $(s).classList.toggle('hidden', s !== id); };
+  const setProgress = k => { $('bar').style.width = `${Math.max(0, Math.min(1, k)) * 100}%`; };
+  let failed = false;
+  const fail = e => { if (failed) return; failed = true; console.error(e); $('errtext').textContent = String(e && e.message || e); show('failed'); $('swatch-tag').classList.remove('off'); };
+  $('again').addEventListener('click', e => { e.preventDefault(); location.reload(); });
+  // Inside the collection's preview frames, the tag is the index's job
+  if (window.self !== window.top) $('swatch-tag').style.display = 'none';
+  // A tap that reveals the tag (a pause button, say) must not also click it: it wakes up a moment later
+  let tagTimer = 0;
+  window.__kitTag = on => {
+    const t = $('swatch-tag'), was = !t.classList.contains('off');
+    t.classList.toggle('off', !on);
+    if (on && !was) { t.style.pointerEvents = 'none'; clearTimeout(tagTimer); tagTimer = setTimeout(() => { t.style.pointerEvents = ''; }, 450); }
+  };
+  const LINUX = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
+  const linuxHelp = `<b>On Linux</b>, WebGPU is still switched off by default. In Chrome, Chromium, Brave or Edge:
+    <ol><li>open <code>chrome://flags</code>, set <b>Unsafe WebGPU Support</b> to Enabled,</li>
+    <li>set <b>Vulkan</b> to Enabled,</li><li>relaunch the browser.</li></ol>`;
+  async function hasWebGPU() {
+    if (!navigator.gpu) return 'This browser has no WebGPU.';
+    for (let i = 0; i < 3; i++) {
+      try { const a = await navigator.gpu.requestAdapter(); if (a) return null; }
+      catch (e) { if (i === 2) return 'WebGPU could not start: ' + e.message; }
+      await new Promise(r => setTimeout(r, 250 * (i + 1)));
+    }
+    return 'WebGPU is here but found no graphics adapter it can use.';
+  }
+  async function fetchWasm(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Could not download the game (${res.status})`);
+    const total = +res.headers.get('content-length') || 0, reader = res.body.getReader(), parts = [];
+    let got = 0;
+    for (;;) {
+      const { done, value } = await reader.read(); if (done) break;
+      parts.push(value); got += value.length;
+      setProgress(total ? got / total * 0.85 : Math.min(0.85, got / 2.5e6));
+    }
+    return new Response(new Blob(parts), { headers: { 'Content-Type': 'application/wasm' } });
+  }
+  (async () => {
+    const why = await hasWebGPU();
+    if (why) {
+      $('why').textContent = why;
+      if (LINUX) { $('linux-help').innerHTML = linuxHelp; $('linux-help').classList.remove('hidden'); }
+      show('unsupported'); return;
+    }
+    try {
+      addEventListener('lelelilo-error', e => fail(e.detail));
+      addEventListener('kit-progress', e => { setProgress(0.85 + 0.15 * e.detail); });
+      addEventListener('lelelilo-ready', () => {
+        setProgress(1); $('status').textContent = 'Ready';
+        setTimeout(() => $('loading').classList.add('gone'), 180);
+        $('lelelilo').focus({ preventScroll: true });
+      }, { once: true });
+      const [{ default: init }, wasm] = await Promise.all([import(`./pkg/game.js?v=${BUILD}`), fetchWasm(`./pkg/game_bg.wasm?v=${BUILD}`)]);
+      $('status').textContent = 'Stitching…';
+      await init({ module_or_path: wasm });
+    } catch (e) { fail(e); }
+  })();
+</script>
+</body>
+</html>

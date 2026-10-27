@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#241810">
+<meta name="color-scheme" content="dark">
+<title>Snails in the Margin</title>
+<meta name="description" content="Snails in the Margin: Draw ink walls and paint marginal guardians to keep snails off a gilded initial. Swatch 04 of The Swatch Book, a phone game in gilded manuscript.">
+<meta name="author" content="Lelelilo-Studios">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Swatch Book · Lelelilo-Studios">
+<meta property="og:title" content="Snails in the Margin · The Swatch Book">
+<meta property="og:description" content="Draw ink walls and paint marginal guardians to keep snails off a gilded initial.">
+<meta property="og:url" content="https://lelelilo-studios.github.io/swatch-book-web/games/04-snails-in-the-margin/">
+<meta property="og:image" content="https://lelelilo-studios.github.io/swatch-book-web/thumbs/04-snails-in-the-margin.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Snails">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preload" href="pkg/game_bg.wasm?v=1e830ef-6adfb261" as="fetch" type="application/wasm" crossorigin>
+<style>
+  /* The kit's page. The game's own look comes from its theme (below), which sets these. */
+  :root { --bg: #111; --ink: #f2efe6; --muted: #a9a49a; --accent: #f0bd52; --danger: #e0624f; --panel: rgba(255,255,255,.06);
+    --font-display: Georgia, serif; --font-body: system-ui, sans-serif; --tag-ink: var(--ink); --tag-paper: color-mix(in srgb, var(--bg) 82%, transparent); --tag-line: color-mix(in srgb, var(--ink) 30%, transparent); }
+</style>
+<style>
+/* Snails in the Margin: the page while the game loads, and its fallback screens. A folio of warm vellum on a
+   walnut desk, iron-gall ink, vermilion rubrics and lapis; Pirata One for the name, Almendra for the words. */
+@font-face { font-family: "MarginDisplay"; src: url("fonts/display.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "MarginBody"; src: url("fonts/body.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "MarginItalic"; src: url("fonts/italic.ttf") format("truetype"); font-display: swap; }
+:root {
+  --bg: #241810;
+  --ink: #2e2219;
+  --muted: #7a6650;
+  --accent: #b0331d;
+  --danger: #8e2414;
+  --panel: rgba(46, 34, 25, .05);
+  --font-display: "MarginDisplay", "Times New Roman", serif;
+  --font-body: "MarginBody", Georgia, serif;
+  --tag-ink: #efe2c6;
+  --tag-paper: rgba(36, 24, 16, .82);
+  --tag-line: rgba(216, 172, 76, .55);
+}
+html, body { background: #241810; }
+body .screen {
+  color: var(--ink);
+  background:
+    radial-gradient(70% 60% at 50% 42%, rgba(255, 249, 232, .55) 0%, rgba(239, 226, 198, 0) 72%),
+    repeating-linear-gradient(0deg, transparent 0 21px, rgba(122, 90, 64, .09) 21px 22px),
+    radial-gradient(130% 100% at 50% 50%, #efe2c6 0%, #e4d1a8 80%, #cdb282 100%);
+}
+.screen::before {
+  content: ""; position: absolute; inset: 12px; pointer-events: none;
+  border: 3px solid #2c4c9a; outline: 2px solid #c9787e; outline-offset: -7px;
+  box-shadow: inset 0 0 0 9px rgba(216, 172, 76, .35);
+}
+.screen h1 { color: #2e2219; letter-spacing: .01em; }
+.screen .kicker { font-family: "MarginBody", Georgia, serif; letter-spacing: .16em; color: #7a6650; }
+.screen .kicker b { color: #b0331d; }
+.screen .tagline { font-family: "MarginItalic", Georgia, serif; font-style: italic; color: #b0331d; font-size: 16px; }
+.screen .status { font-family: "MarginBody", Georgia, serif; letter-spacing: .12em; color: #7a6650; }
+.screen .bar { height: 4px; border-radius: 2px; background: rgba(46, 34, 25, .14); }
+.screen .bar i { background: repeating-linear-gradient(90deg, #b0331d 0 6px, #2c4c9a 6px 12px); }
+.screen .note, .screen .help { color: #5a4838; }
+.screen .btn, .screen .browsers a { border-radius: 4px; color: #2e2219; border-color: rgba(46, 34, 25, .45); font-family: "MarginBody", Georgia, serif; }
+.screen .foot a { color: #7a6650; }
+
+</style>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden; overscroll-behavior: none; }
+  body { font: 500 16px/1.45 var(--font-body); -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-text-size-adjust: 100%; }
+  canvas#lelelilo, canvas#kit-mirror { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none; outline: none; }
+  canvas#kit-mirror { display: none; pointer-events: none; z-index: 1; }
+  #kit-safe { position: fixed; inset: 0; visibility: hidden; pointer-events: none;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+  #kit-fps { position: fixed; left: 8px; bottom: 8px; z-index: 9; display: none; font: 600 11px ui-monospace, monospace; color: #fff; background: rgba(0,0,0,.6); padding: 3px 6px; border-radius: 4px; pointer-events: none; }
+  .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; box-sizing: border-box;
+    padding: max(28px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+    background: var(--bg); text-align: center; transition: opacity .55s ease, visibility 0s; z-index: 5; }
+  .screen.gone { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .55s ease, visibility 0s .55s; }
+  .screen.hidden { display: none; }
+  .kicker { font: 700 11px/1 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .kicker b { color: var(--accent); font-weight: 800; }
+  h1 { margin: 0; font: 400 clamp(34px, 10vw, 64px)/1.02 var(--font-display); letter-spacing: .01em; color: var(--ink); text-wrap: balance; }
+  .tagline { margin: 0; max-width: 26em; color: var(--muted); font-size: 15px; text-wrap: balance; }
+  .bar { width: min(240px, 62vw); height: 2px; background: color-mix(in srgb, var(--ink) 16%, transparent); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+  .status { font: 700 11px var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); min-height: 1em; }
+  .loader-art { width: min(160px, 40vw); height: auto; }
+  .note { max-width: 30em; color: var(--muted); font-size: 14px; line-height: 1.55; user-select: text; -webkit-user-select: text; }
+  .browsers { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 30em; }
+  .browsers a, .btn { color: var(--ink); text-decoration: none; padding: 12px 16px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent); font: 700 14px var(--font-body); background: var(--panel); cursor: pointer; }
+  .browsers a:hover, .btn:hover, .browsers a:focus-visible, .btn:focus-visible { border-color: var(--accent); outline: none; }
+  .help { max-width: 30em; text-align: left; padding: 12px 16px; border: 1.5px dashed color-mix(in srgb, var(--ink) 30%, transparent); border-radius: 10px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+  .help.hidden { display: none; }
+  .help ol { margin: 6px 0 0; padding-left: 20px; }
+  .help b { color: var(--ink); }
+  code { font: 600 13px ui-monospace, monospace; }
+  .err { font: 500 12px/1.5 ui-monospace, monospace; color: var(--danger); white-space: pre-wrap; max-width: min(90vw, 760px); max-height: 32vh; overflow: auto; text-align: left; padding: 12px 14px; border: 1.5px dashed var(--danger); border-radius: 8px; user-select: text; -webkit-user-select: text; }
+  .foot { position: absolute; left: 0; right: 0; bottom: max(14px, env(safe-area-inset-bottom)); display: flex; justify-content: center; gap: 18px; font: 700 12px var(--font-body); letter-spacing: .08em; }
+  .foot a { color: var(--muted); text-decoration: none; padding: 10px 6px; }
+  .foot a:hover, .foot a:focus-visible { color: var(--ink); outline: none; }
+  .foot a span { color: var(--accent); }
+  /* The swatch tag: back to the collection. Games show it on menus and hide it in play. */
+  #swatch-tag { position: fixed; z-index: 4; display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px 0 10px; box-sizing: border-box;
+    font: 700 11px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--tag-ink); text-decoration: none;
+    background: var(--tag-paper); border: 1px dashed var(--tag-line); border-radius: 999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: opacity .3s ease, transform .3s ease; }
+  #swatch-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+  #swatch-tag[data-pos="tl"] { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="tr"] { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag[data-pos="bl"] { bottom: max(12px, env(safe-area-inset-bottom)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="br"] { bottom: max(12px, env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag.off { opacity: 0; pointer-events: none; transform: translateY(-4px); }
+  #swatch-tag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .screen, .screen.gone, .bar i, #swatch-tag { transition: none; } }
+</style>
+</head>
+<body>
+<canvas id="lelelilo" tabindex="0" aria-label="Snails in the Margin, a game. Draw ink walls and paint marginal guardians to keep snails off a gilded initial."></canvas>
+<canvas id="kit-mirror" aria-hidden="true"></canvas>
+<div id="kit-safe" aria-hidden="true"></div>
+<div id="kit-fps" aria-hidden="true"></div>
+<a id="swatch-tag" data-pos="tl" href="../../#04-snails-in-the-margin" aria-label="Back to The Swatch Book, swatch 04 of 37">Swatch 04 · The Swatch Book</a>
+
+<div class="screen" id="loading" role="status" aria-live="polite">
+  <div class="loader-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" role="img" aria-label="A snail crawls along a quill's line toward a gilded square">
+  <style>
+    .line { fill: none; stroke: #2a1f17; stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 150; animation: draw 2.6s ease-in-out infinite; }
+    .snail { animation: crawl 2.6s ease-in-out infinite; }
+    .shell { transform-origin: 52px 72px; animation: bob .65s ease-in-out infinite alternate; }
+    .glint { animation: glint 2.6s linear infinite; }
+    @keyframes draw { 0% { stroke-dashoffset: 150 } 45%, 100% { stroke-dashoffset: 0 } }
+    @keyframes crawl { 0%, 30% { transform: translateX(-14px) } 100% { transform: translateX(10px) } }
+    @keyframes bob { from { transform: translateY(0) } to { transform: translateY(-1.5px) } }
+    @keyframes glint { 0%, 60% { opacity: 0 } 70% { opacity: 1 } 85%, 100% { opacity: 0 } }
+    @media (prefers-reduced-motion: reduce) { .line, .snail, .shell, .glint { animation: none } .glint { opacity: 0 } }
+  </style>
+  <rect x="112" y="22" width="36" height="36" fill="#2c4c9a" stroke="#2a1f17" stroke-width="2"/>
+  <rect x="116" y="26" width="28" height="28" fill="#d8ac4c" stroke="#2a1f17" stroke-width="1.4"/>
+  <path class="glint" d="M118 46 L 140 28" stroke="#fff4c8" stroke-width="5" stroke-linecap="round" opacity="0"/>
+  <path d="M136 34 C 136 29, 124 28, 124 34 C 124 40, 136 38, 136 45 C 136 51, 124 51, 123 46" fill="none" stroke="#c9787e" stroke-width="3.4" stroke-linecap="round"/>
+  <path class="line" d="M12 92 C 40 86, 70 98, 100 90 S 140 86, 150 92"/>
+  <g class="snail">
+    <path d="M30 84 C 30 78, 36 76, 42 78 L 66 78 C 71 78, 73 81, 75 84 Z" fill="#c9b48c" stroke="#2a1f17" stroke-width="2" stroke-linejoin="round"/>
+    <g class="shell">
+      <circle cx="50" cy="70" r="10" fill="#b57a3f" stroke="#2a1f17" stroke-width="2"/>
+      <path d="M50.50 70.50 L50.69 70.64 L50.79 70.85 L50.78 71.08 L50.67 71.32 L50.47 71.53 L50.17 71.66 L49.82 71.71 L49.43 71.64 L49.04 71.45 L48.69 71.13 L48.42 70.69 L48.27 70.17 L48.26 69.58 L48.41 68.97 L48.72 68.39 L49.21 67.88 L49.83 67.49 L50.57 67.25 L51.39 67.21 L52.23 67.37 L53.03 67.76 L53.75 68.35 L54.31 69.14 L54.69 70.07 L54.82 71.10 L54.70 72.17 L54.31 73.22 L53.65 74.17 L52.76 74.95 L51.66 75.51 L50.43 75.80 L49.13 75.78 L47.84 75.43 L46.64 74.77 L45.61 73.81 L44.81 72.60 L44.33 71.20 L44.19 69.69 L44.42 68.15 L45.04 66.68 L46.00 65.38 L47.29 64.32 L48.82 63.59 L50.51 63.24 L52.28 63.31 L54.02 63.81 L55.61 64.73 L56.96 66.03 L57.97 67.65 L58.59 69.50 L58.74 71.47 L58.40 73.46 L57.59 75.34 L56.33 77.00 L54.68 78.33 L52.73 79.24 L50.58 79.67 L48.35 79.56 L46.19 78.92 L44.21 77.75" fill="none" stroke="#5b3519" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <path d="M70 78 L 73 66 M 73 79 L 77 68" stroke="#2a1f17" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="73" cy="66" r="2.3" fill="#fbf6ea" stroke="#2a1f17" stroke-width="1.2"/>
+    <circle cx="77" cy="68" r="2.3" fill="#fbf6ea" stroke="#2a1f17" stroke-width="1.2"/>
+    <circle cx="73.8" cy="66.2" r="1" fill="#2a1f17"/><circle cx="77.8" cy="68.2" r="1" fill="#2a1f17"/>
+  </g>
+</svg>
+</div>
+  <div class="kicker">Swatch <b>04</b> · Gilded manuscript</div>
+  <h1>Snails in the Margin</h1>
+  <p class="tagline">Draw ink walls and paint marginal guardians to keep snails off a gilded initial.</p>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <div class="status" id="status">Threading the needle…</div>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="unsupported">
+  <div class="kicker">Swatch <b>04</b> · Gilded manuscript</div>
+  <h1>Snails in the Margin</h1>
+  <p class="note">This game draws with <b>WebGPU</b>, and this browser doesn't offer it yet. It plays in these:</p>
+  <div class="browsers">
+    <a href="https://www.google.com/chrome/" rel="noopener">Chrome · Android &amp; desktop</a>
+    <a href="https://www.apple.com/safari/" rel="noopener">Safari 26+ · iPhone, iPad, Mac</a>
+    <a href="https://www.microsoft.com/edge" rel="noopener">Edge</a>
+  </div>
+  <div class="help hidden" id="linux-help"></div>
+  <p class="note" id="why" style="font-size:12px"></p>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="failed">
+  <div class="kicker">Swatch <b>04</b> · Gilded manuscript</div>
+  <h1>A thread snapped</h1>
+  <p class="note">Snails in the Margin couldn't start. Starting it again usually helps.</p>
+  <div class="browsers"><a href="." id="again" class="btn">Try again</a><a href="../../" class="btn">Back to the book</a></div>
+  <div class="err" id="errtext"></div>
+</div>
+
+<script type="module">
+  const BUILD = '1e830ef-6adfb261';
+  window.__lelelilo_build = BUILD;
+  const $ = id => document.getElementById(id);
+  const show = id => { for (const s of ['loading', 'unsupported', 'failed']) $(s).classList.toggle('hidden', s !== id); };
+  const setProgress = k => { $('bar').style.width = `${Math.max(0, Math.min(1, k)) * 100}%`; };
+  let failed = false;
+  const fail = e => { if (failed) return; failed = true; console.error(e); $('errtext').textContent = String(e && e.message || e); show('failed'); $('swatch-tag').classList.remove('off'); };
+  $('again').addEventListener('click', e => { e.preventDefault(); location.reload(); });
+  // Inside the collection's preview frames, the tag is the index's job
+  if (window.self !== window.top) $('swatch-tag').style.display = 'none';
+  // A tap that reveals the tag (a pause button, say) must not also click it: it wakes up a moment later
+  let tagTimer = 0;
+  window.__kitTag = on => {
+    const t = $('swatch-tag'), was = !t.classList.contains('off');
+    t.classList.toggle('off', !on);
+    if (on && !was) { t.style.pointerEvents = 'none'; clearTimeout(tagTimer); tagTimer = setTimeout(() => { t.style.pointerEvents = ''; }, 450); }
+  };
+  const LINUX = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
+  const linuxHelp = `<b>On Linux</b>, WebGPU is still switched off by default. In Chrome, Chromium, Brave or Edge:
+    <ol><li>open <code>chrome://flags</code>, set <b>Unsafe WebGPU Support</b> to Enabled,</li>
+    <li>set <b>Vulkan</b> to Enabled,</li><li>relaunch the browser.</li></ol>`;
+  async function hasWebGPU() {
+    if (!navigator.gpu) return 'This browser has no WebGPU.';
+    for (let i = 0; i < 3; i++) {
+      try { const a = await navigator.gpu.requestAdapter(); if (a) return null; }
+      catch (e) { if (i === 2) return 'WebGPU could not start: ' + e.message; }
+      await new Promise(r => setTimeout(r, 250 * (i + 1)));
+    }
+    return 'WebGPU is here but found no graphics adapter it can use.';
+  }
+  async function fetchWasm(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Could not download the game (${res.status})`);
+    const total = +res.headers.get('content-length') || 0, reader = res.body.getReader(), parts = [];
+    let got = 0;
+    for (;;) {
+      const { done, value } = await reader.read(); if (done) break;
+      parts.push(value); got += value.length;
+      setProgress(total ? got / total * 0.85 : Math.min(0.85, got / 2.5e6));
+    }
+    return new Response(new Blob(parts), { headers: { 'Content-Type': 'application/wasm' } });
+  }
+  (async () => {
+    const why = await hasWebGPU();
+    if (why) {
+      $('why').textContent = why;
+      if (LINUX) { $('linux-help').innerHTML = linuxHelp; $('linux-help').classList.remove('hidden'); }
+      show('unsupported'); return;
+    }
+    try {
+      addEventListener('lelelilo-error', e => fail(e.detail));
+      addEventListener('kit-progress', e => { setProgress(0.85 + 0.15 * e.detail); });
+      addEventListener('lelelilo-ready', () => {
+        setProgress(1); $('status').textContent = 'Ready';
+        setTimeout(() => $('loading').classList.add('gone'), 180);
+        $('lelelilo').focus({ preventScroll: true });
+      }, { once: true });
+      const [{ default: init }, wasm] = await Promise.all([import(`./pkg/game.js?v=${BUILD}`), fetchWasm(`./pkg/game_bg.wasm?v=${BUILD}`)]);
+      $('status').textContent = 'Stitching…';
+      await init({ module_or_path: wasm });
+    } catch (e) { fail(e); }
+  })();
+</script>
+</body>
+</html>

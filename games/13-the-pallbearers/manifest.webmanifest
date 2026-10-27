@@ -1,0 +1,16 @@
+{
+  "name": "The Pallbearers · The Swatch Book",
+  "short_name": "The Pallbearers",
+  "description": "Carry the Count down an endless crypt stair by lantern light. Keep him level.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#0b0907",
+  "theme_color": "#0b0907",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

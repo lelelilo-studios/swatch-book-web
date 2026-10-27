@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#2a2340"/>
+  <polygon points="0,0 64,0 64,30 0,38" fill="#6c64ad"/>
+  <polygon points="0,38 64,30 64,40 0,46" fill="#f8b29a"/>
+  <polygon points="0,46 64,40 64,64 0,64" fill="#a595c6"/>
+  <!-- an island -->
+  <polygon points="17,33 47,31 44,36 20,37" fill="#9fd8b4"/>
+  <polygon points="20,37 44,36 37,46 26,45" fill="#eca88d"/>
+  <polygon points="26,45 37,46 31,55" fill="#9e7aa6"/>
+  <polygon points="44,36 37,46 47,31" fill="#d08f7c"/>
+  <!-- the ribbon round it -->
+  <path d="M9,36 C9,27 55,25 55,33 C55,41 9,44 9,36 Z" fill="none" stroke="#ffcf7a" stroke-width="2.6"/>
+  <!-- a star -->
+  <polygon points="45,9 47,15 53,17 47,19 45,25 43,19 37,17 43,15" fill="#fff6e8"/>
+</svg>

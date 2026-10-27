@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- A little floating island: a green hill, a river winding down it, a cottage, its root in the clouds -->
+  <rect width="64" height="64" rx="14" fill="#ecdfd2"/>
+  <ellipse cx="18" cy="50" rx="14" ry="6" fill="#fbf1df"/>
+  <ellipse cx="48" cy="52" rx="13" ry="5" fill="#d9cde2"/>
+  <path d="M12 30 L32 20 L52 30 L48 40 L32 52 L16 40 Z" fill="#7a4a2c"/>
+  <path d="M16 40 L32 52 L48 40 L44 44 L32 58 L20 44 Z" fill="#5b4b78"/>
+  <path d="M12 30 L32 20 L52 30 L32 40 Z" fill="#6f9a3a"/>
+  <path d="M32 20 L52 30 L32 40 Z" fill="#4f7b3b"/>
+  <path d="M30 22 C34 26 26 29 31 32 C35 34 30 37 32 40" stroke="#3e8fa0" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M30 22 C34 26 26 29 31 32" stroke="#bfe3dc" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <rect x="37" y="27" width="7" height="5" fill="#f4ead0"/>
+  <path d="M36 27.5 L40.5 24 L45 27.5 Z" fill="#c4613a"/>
+  <circle cx="22" cy="28" r="3" fill="#2f5d2a"/>
+</svg>

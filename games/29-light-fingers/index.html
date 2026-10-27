@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#1e1814">
+<meta name="color-scheme" content="dark">
+<title>Light Fingers</title>
+<meta name="description" content="Light Fingers: Lift purses from a painted dusk crowd, and keep your hand out of their eyes. Swatch 29 of The Swatch Book, a phone game in oil-painted 3d.">
+<meta name="author" content="Lelelilo-Studios">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Swatch Book · Lelelilo-Studios">
+<meta property="og:title" content="Light Fingers · The Swatch Book">
+<meta property="og:description" content="Lift purses from a painted dusk crowd, and keep your hand out of their eyes.">
+<meta property="og:url" content="https://lelelilo-studios.github.io/swatch-book-web/games/29-light-fingers/">
+<meta property="og:image" content="https://lelelilo-studios.github.io/swatch-book-web/thumbs/29-light-fingers.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Light Fingers">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preload" href="pkg/game_bg.wasm?v=1e830ef-6adfb263" as="fetch" type="application/wasm" crossorigin>
+<style>
+  /* The kit's page. The game's own look comes from its theme (below), which sets these. */
+  :root { --bg: #111; --ink: #f2efe6; --muted: #a9a49a; --accent: #f0bd52; --danger: #e0624f; --panel: rgba(255,255,255,.06);
+    --font-display: Georgia, serif; --font-body: system-ui, sans-serif; --tag-ink: var(--ink); --tag-paper: color-mix(in srgb, var(--bg) 82%, transparent); --tag-line: color-mix(in srgb, var(--ink) 30%, transparent); }
+</style>
+<style>
+/* Light Fingers: the page's look while the game loads, and on its fallback screens. Dusk over Gaslamp Row: umber
+   and ink-blue, cream type, a gold glint; Abril Fatface for the name, Spectral for everything else. */
+@font-face { font-family: "FingersDisplay"; src: url("fonts/display.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "FingersBody"; src: url("fonts/body.ttf") format("truetype"); font-display: swap; }
+:root {
+  --bg: #16110e;
+  --ink: #efe3c8;
+  --muted: #b3a68c;
+  --accent: #e2b552;
+  --danger: #e8502e;
+  --panel: rgba(239, 227, 200, .06);
+  --font-display: "FingersDisplay", Georgia, serif;
+  --font-body: "FingersBody", Georgia, serif;
+}
+body { background: #16110e; }
+.screen { background: radial-gradient(120% 70% at 50% 8%, #3a2a3a 0%, #22182a 38%, #16110e 100%); }
+h1 { font-weight: 400; letter-spacing: .01em; }
+.tagline { font-style: italic; font-size: 17px; }
+.bar { height: 3px; border-radius: 2px; background: rgba(239, 227, 200, .12); }
+.bar i { background: linear-gradient(90deg, #9c7a3a, #e2b552); }
+.btn, .browsers a { border-radius: 10px; }
+
+</style>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden; overscroll-behavior: none; }
+  body { font: 500 16px/1.45 var(--font-body); -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-text-size-adjust: 100%; }
+  canvas#lelelilo, canvas#kit-mirror { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none; outline: none; }
+  canvas#kit-mirror { display: none; pointer-events: none; z-index: 1; }
+  #kit-safe { position: fixed; inset: 0; visibility: hidden; pointer-events: none;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+  #kit-fps { position: fixed; left: 8px; bottom: 8px; z-index: 9; display: none; font: 600 11px ui-monospace, monospace; color: #fff; background: rgba(0,0,0,.6); padding: 3px 6px; border-radius: 4px; pointer-events: none; }
+  .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; box-sizing: border-box;
+    padding: max(28px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+    background: var(--bg); text-align: center; transition: opacity .55s ease, visibility 0s; z-index: 5; }
+  .screen.gone { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .55s ease, visibility 0s .55s; }
+  .screen.hidden { display: none; }
+  .kicker { font: 700 11px/1 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .kicker b { color: var(--accent); font-weight: 800; }
+  h1 { margin: 0; font: 400 clamp(34px, 10vw, 64px)/1.02 var(--font-display); letter-spacing: .01em; color: var(--ink); text-wrap: balance; }
+  .tagline { margin: 0; max-width: 26em; color: var(--muted); font-size: 15px; text-wrap: balance; }
+  .bar { width: min(240px, 62vw); height: 2px; background: color-mix(in srgb, var(--ink) 16%, transparent); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+  .status { font: 700 11px var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); min-height: 1em; }
+  .loader-art { width: min(160px, 40vw); height: auto; }
+  .note { max-width: 30em; color: var(--muted); font-size: 14px; line-height: 1.55; user-select: text; -webkit-user-select: text; }
+  .browsers { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 30em; }
+  .browsers a, .btn { color: var(--ink); text-decoration: none; padding: 12px 16px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent); font: 700 14px var(--font-body); background: var(--panel); cursor: pointer; }
+  .browsers a:hover, .btn:hover, .browsers a:focus-visible, .btn:focus-visible { border-color: var(--accent); outline: none; }
+  .help { max-width: 30em; text-align: left; padding: 12px 16px; border: 1.5px dashed color-mix(in srgb, var(--ink) 30%, transparent); border-radius: 10px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+  .help.hidden { display: none; }
+  .help ol { margin: 6px 0 0; padding-left: 20px; }
+  .help b { color: var(--ink); }
+  code { font: 600 13px ui-monospace, monospace; }
+  .err { font: 500 12px/1.5 ui-monospace, monospace; color: var(--danger); white-space: pre-wrap; max-width: min(90vw, 760px); max-height: 32vh; overflow: auto; text-align: left; padding: 12px 14px; border: 1.5px dashed var(--danger); border-radius: 8px; user-select: text; -webkit-user-select: text; }
+  .foot { position: absolute; left: 0; right: 0; bottom: max(14px, env(safe-area-inset-bottom)); display: flex; justify-content: center; gap: 18px; font: 700 12px var(--font-body); letter-spacing: .08em; }
+  .foot a { color: var(--muted); text-decoration: none; padding: 10px 6px; }
+  .foot a:hover, .foot a:focus-visible { color: var(--ink); outline: none; }
+  .foot a span { color: var(--accent); }
+  /* The swatch tag: back to the collection. Games show it on menus and hide it in play. */
+  #swatch-tag { position: fixed; z-index: 4; display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px 0 10px; box-sizing: border-box;
+    font: 700 11px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--tag-ink); text-decoration: none;
+    background: var(--tag-paper); border: 1px dashed var(--tag-line); border-radius: 999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: opacity .3s ease, transform .3s ease; }
+  #swatch-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+  #swatch-tag[data-pos="tl"] { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="tr"] { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag[data-pos="bl"] { bottom: max(12px, env(safe-area-inset-bottom)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="br"] { bottom: max(12px, env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag.off { opacity: 0; pointer-events: none; transform: translateY(-4px); }
+  #swatch-tag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .screen, .screen.gone, .bar i, #swatch-tag { transition: none; } }
+</style>
+</head>
+<body>
+<canvas id="lelelilo" tabindex="0" aria-label="Light Fingers, a game. Lift purses from a painted dusk crowd, and keep your hand out of their eyes."></canvas>
+<canvas id="kit-mirror" aria-hidden="true"></canvas>
+<div id="kit-safe" aria-hidden="true"></div>
+<div id="kit-fps" aria-hidden="true"></div>
+<a id="swatch-tag" data-pos="tl" href="../../#29-light-fingers" aria-label="Back to The Swatch Book, swatch 29 of 37">Swatch 29 · The Swatch Book</a>
+
+<div class="screen" id="loading" role="status" aria-live="polite">
+  <div class="loader-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="A hand creeping toward a glinting purse">
+  <style>
+    .hand { animation: creep 2.6s ease-in-out infinite; transform-origin: 30px 140px; }
+    .glint { animation: twinkle 2.6s ease-in-out infinite; transform-origin: 124px 50px; }
+    .cone { animation: look 5.2s ease-in-out infinite; transform-origin: 112px 34px; }
+    @keyframes creep { 0%, 100% { transform: translate(0, 0) } 45%, 60% { transform: translate(16px, -12px) } }
+    @keyframes twinkle { 0%, 100% { opacity: .2; transform: scale(.6) } 50% { opacity: 1; transform: scale(1.1) } }
+    @keyframes look { 0%, 100% { transform: rotate(-10deg) } 50% { transform: rotate(18deg) } }
+    @media (prefers-reduced-motion: reduce) { .hand, .glint, .cone { animation: none } }
+  </style>
+  <g class="cone" opacity=".55">
+    <path d="M112 34 L 70 118 M 112 34 L 96 124 M 112 34 L 124 124 M 112 34 L 150 116" stroke="#ffd27a" stroke-width="5" stroke-linecap="round" opacity=".35"/>
+    <path d="M66 116 C 90 128, 130 128, 154 112" stroke="#ffd27a" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+  </g>
+  <path d="M96 62 C 82 70, 78 86, 86 96 C 94 104, 114 104, 122 96 C 130 86, 126 70, 112 62 Z" fill="#b8862e"/>
+  <path d="M92 76 C 90 84, 92 92, 100 96" stroke="#e8b85a" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M94 62 C 100 58, 108 58, 114 62" stroke="#6a4a1e" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M98 58 C 94 50, 100 46, 104 52 C 108 46, 114 50, 110 58" fill="#c89838"/>
+  <g class="glint"><path d="M124 40 C 125 48, 126 49, 134 50 C 126 51, 125 52, 124 60 C 123 52, 122 51, 114 50 C 122 49, 123 48, 124 40 Z" fill="#fff3c4"/></g>
+  <g class="hand">
+    <path d="M8 156 C 22 140, 36 132, 52 128" stroke="#c4402a" stroke-width="16" fill="none" stroke-linecap="round"/>
+    <path d="M48 130 C 56 120, 64 116, 74 116" stroke="#e8c8a0" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M52 126 C 58 118, 66 112, 76 110" stroke="#f0d4b0" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M50 134 C 58 132, 66 132, 74 128" stroke="#dcb890" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>
+</div>
+  <div class="kicker">Swatch <b>29</b> · Oil-painted 3D</div>
+  <h1>Light Fingers</h1>
+  <p class="tagline">Lift purses from a painted dusk crowd, and keep your hand out of their eyes.</p>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <div class="status" id="status">Threading the needle…</div>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="unsupported">
+  <div class="kicker">Swatch <b>29</b> · Oil-painted 3D</div>
+  <h1>Light Fingers</h1>
+  <p class="note">This game draws with <b>WebGPU</b>, and this browser doesn't offer it yet. It plays in these:</p>
+  <div class="browsers">
+    <a href="https://www.google.com/chrome/" rel="noopener">Chrome · Android &amp; desktop</a>
+    <a href="https://www.apple.com/safari/" rel="noopener">Safari 26+ · iPhone, iPad, Mac</a>
+    <a href="https://www.microsoft.com/edge" rel="noopener">Edge</a>
+  </div>
+  <div class="help hidden" id="linux-help"></div>
+  <p class="note" id="why" style="font-size:12px"></p>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="failed">
+  <div class="kicker">Swatch <b>29</b> · Oil-painted 3D</div>
+  <h1>A thread snapped</h1>
+  <p class="note">Light Fingers couldn't start. Starting it again usually helps.</p>
+  <div class="browsers"><a href="." id="again" class="btn">Try again</a><a href="../../" class="btn">Back to the book</a></div>
+  <div class="err" id="errtext"></div>
+</div>
+
+<script type="module">
+  const BUILD = '1e830ef-6adfb263';
+  window.__lelelilo_build = BUILD;
+  const $ = id => document.getElementById(id);
+  const show = id => { for (const s of ['loading', 'unsupported', 'failed']) $(s).classList.toggle('hidden', s !== id); };
+  const setProgress = k => { $('bar').style.width = `${Math.max(0, Math.min(1, k)) * 100}%`; };
+  let failed = false;
+  const fail = e => { if (failed) return; failed = true; console.error(e); $('errtext').textContent = String(e && e.message || e); show('failed'); $('swatch-tag').classList.remove('off'); };
+  $('again').addEventListener('click', e => { e.preventDefault(); location.reload(); });
+  // Inside the collection's preview frames, the tag is the index's job
+  if (window.self !== window.top) $('swatch-tag').style.display = 'none';
+  // A tap that reveals the tag (a pause button, say) must not also click it: it wakes up a moment later
+  let tagTimer = 0;
+  window.__kitTag = on => {
+    const t = $('swatch-tag'), was = !t.classList.contains('off');
+    t.classList.toggle('off', !on);
+    if (on && !was) { t.style.pointerEvents = 'none'; clearTimeout(tagTimer); tagTimer = setTimeout(() => { t.style.pointerEvents = ''; }, 450); }
+  };
+  const LINUX = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
+  const linuxHelp = `<b>On Linux</b>, WebGPU is still switched off by default. In Chrome, Chromium, Brave or Edge:
+    <ol><li>open <code>chrome://flags</code>, set <b>Unsafe WebGPU Support</b> to Enabled,</li>
+    <li>set <b>Vulkan</b> to Enabled,</li><li>relaunch the browser.</li></ol>`;
+  async function hasWebGPU() {
+    if (!navigator.gpu) return 'This browser has no WebGPU.';
+    for (let i = 0; i < 3; i++) {
+      try { const a = await navigator.gpu.requestAdapter(); if (a) return null; }
+      catch (e) { if (i === 2) return 'WebGPU could not start: ' + e.message; }
+      await new Promise(r => setTimeout(r, 250 * (i + 1)));
+    }
+    return 'WebGPU is here but found no graphics adapter it can use.';
+  }
+  async function fetchWasm(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Could not download the game (${res.status})`);
+    const total = +res.headers.get('content-length') || 0, reader = res.body.getReader(), parts = [];
+    let got = 0;
+    for (;;) {
+      const { done, value } = await reader.read(); if (done) break;
+      parts.push(value); got += value.length;
+      setProgress(total ? got / total * 0.85 : Math.min(0.85, got / 2.5e6));
+    }
+    return new Response(new Blob(parts), { headers: { 'Content-Type': 'application/wasm' } });
+  }
+  (async () => {
+    const why = await hasWebGPU();
+    if (why) {
+      $('why').textContent = why;
+      if (LINUX) { $('linux-help').innerHTML = linuxHelp; $('linux-help').classList.remove('hidden'); }
+      show('unsupported'); return;
+    }
+    try {
+      addEventListener('lelelilo-error', e => fail(e.detail));
+      addEventListener('kit-progress', e => { setProgress(0.85 + 0.15 * e.detail); });
+      addEventListener('lelelilo-ready', () => {
+        setProgress(1); $('status').textContent = 'Ready';
+        setTimeout(() => $('loading').classList.add('gone'), 180);
+        $('lelelilo').focus({ preventScroll: true });
+      }, { once: true });
+      const [{ default: init }, wasm] = await Promise.all([import(`./pkg/game.js?v=${BUILD}`), fetchWasm(`./pkg/game_bg.wasm?v=${BUILD}`)]);
+      $('status').textContent = 'Stitching…';
+      await init({ module_or_path: wasm });
+    } catch (e) { fail(e); }
+  })();
+</script>
+</body>
+</html>

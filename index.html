@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070d18">
+<meta name="color-scheme" content="dark">
+<title>The Swatch Book</title>
+<meta name="description" content="Thirty-seven art styles, each made into a little phone game. A collection by Lelelilo-Studios, from Neri's Game Post on lelelilo.com.">
+<meta name="author" content="Lelelilo-Studios">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lelelilo-Studios">
+<meta property="og:title" content="The Swatch Book">
+<meta property="og:description" content="Thirty-seven art styles, each made into a little phone game.">
+<meta property="og:url" content="https://lelelilo-studios.github.io/swatch-book-web/">
+<meta property="og:image" content="https://lelelilo-studios.github.io/swatch-book-web/thumbs/index.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="preload" href="fonts/alegreya-800.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="fonts/nunito-400.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+<a class="skip" href="#book">Skip to the swatches</a>
+
+<div class="sky" aria-hidden="true">
+  <svg class="cloud c1" viewBox="0 0 220 90"><g><circle cx="50" cy="60" r="30"/><circle cx="90" cy="42" r="38"/><circle cx="140" cy="52" r="32"/><circle cx="180" cy="64" r="22"/><rect x="40" y="58" width="150" height="30" rx="15"/></g></svg>
+  <svg class="cloud c2" viewBox="0 0 220 90"><g><circle cx="40" cy="62" r="24"/><circle cx="80" cy="46" r="34"/><circle cx="128" cy="40" r="40"/><circle cx="176" cy="60" r="26"/><rect x="30" y="58" width="160" height="30" rx="15"/></g></svg>
+  <svg class="cloud c3" viewBox="0 0 220 90"><g><circle cx="60" cy="58" r="28"/><circle cx="104" cy="44" r="36"/><circle cx="150" cy="58" r="26"/><rect x="40" y="56" width="130" height="30" rx="15"/></g></svg>
+  <svg class="cloud c4" viewBox="0 0 220 90"><g><circle cx="46" cy="60" r="26"/><circle cx="92" cy="40" r="40"/><circle cx="146" cy="50" r="34"/><circle cx="186" cy="66" r="20"/><rect x="36" y="58" width="160" height="30" rx="15"/></g></svg>
+  <canvas id="motes"></canvas>
+</div>
+
+<header class="top">
+  <a class="studio" href="https://lelelilo.com/?ref=swatch-book" aria-label="Lelelilo-Studios, lelelilo.com">
+    <img src="assets/lelelilo-lockup-horizontal.svg" alt="Lelelilo-Studios · Lelelilo.com" width="187" height="40">
+  </a>
+  <div class="round">
+    <button type="button" id="about-btn" aria-label="About The Swatch Book" title="About this book">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l2 3v15H5V6z"/><circle cx="12" cy="7.5" r="1.4"/><path d="M9 12h6M9 15.5h6M9 19h4"/></svg>
+    </button>
+    <button type="button" id="intro-btn" aria-label="Play the studio intro again" title="Play the intro again">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="title">
+    <figure class="neri" aria-hidden="true">
+      <svg viewBox="0 0 260 300" class="neri-svg">
+        <defs>
+          <radialGradient id="felt" cx="48%" cy="44%" r="68%"><stop offset="0" stop-color="#f6eedb"/><stop offset=".6" stop-color="#e8dcc0"/><stop offset="1" stop-color="#d4c29c"/></radialGradient>
+          <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6a4c"/><stop offset="1" stop-color="#6a4c34"/></linearGradient>
+          <linearGradient id="scarf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8392a"/><stop offset="1" stop-color="#7d2416"/></linearGradient>
+          <radialGradient id="lamp" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe7a8"/><stop offset=".45" stop-color="#ffc94a" stop-opacity=".7"/><stop offset="1" stop-color="#ffc94a" stop-opacity="0"/></radialGradient>
+          <pattern id="tweed" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6L6 0M-1 1L1 -1M5 7L7 5" stroke="#5a3f2a" stroke-width="1" opacity=".55"/></pattern>
+          <pattern id="knit" width="8" height="7" patternUnits="userSpaceOnUse"><path d="M0 0l4 5l4-5" fill="none" stroke="#5e170c" stroke-width="1.2" opacity=".5"/></pattern>
+        </defs>
+        <g class="neri-body">
+          <!-- the lantern's glow, behind -->
+          <circle cx="38" cy="214" r="40" fill="url(#lamp)" class="lamp-glow"/>
+          <!-- boots -->
+          <ellipse cx="102" cy="276" rx="22" ry="13" fill="#5a3d28"/><ellipse cx="158" cy="276" rx="22" ry="13" fill="#5a3d28"/>
+          <path d="M84 272q18-8 36 0" stroke="#3e2a1b" stroke-width="2" fill="none"/><path d="M140 272q18-8 36 0" stroke="#3e2a1b" stroke-width="2" fill="none"/>
+          <!-- hands -->
+          <circle cx="40" cy="160" r="16" fill="#ddcfae"/><circle cx="220" cy="160" r="16" fill="#ddcfae"/>
+          <!-- the pillow -->
+          <path class="pillow" d="M42 58 C 92 76, 168 76, 218 58 C 200 120, 200 206, 218 262 C 168 246, 92 246, 42 262 C 60 206, 60 120, 42 58 Z" fill="url(#felt)" stroke="#d6c49f" stroke-width="10" stroke-linejoin="round"/>
+          <path d="M62 80 C 102 92, 158 92, 198 80 C 186 130, 186 196, 198 240 C 158 230, 102 230, 62 240 C 74 196, 74 130, 62 80 Z" fill="none" stroke="#a88f62" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="8 7"/>
+          <!-- darned patch -->
+          <rect x="164" y="196" width="22" height="18" rx="3" fill="#cbb58a" transform="rotate(-8 175 205)"/>
+          <path d="M166 200h18M166 205h18M166 210h18" stroke="#8a6f48" stroke-width="1.3" transform="rotate(-8 175 205)"/>
+          <!-- face -->
+          <g class="eyes">
+            <ellipse cx="104" cy="134" rx="10.5" ry="13.5" fill="#160e0a"/><circle cx="100.5" cy="128.5" r="3.6" fill="#fff"/><circle cx="107.5" cy="139" r="1.6" fill="#fff"/>
+            <ellipse cx="156" cy="134" rx="10.5" ry="13.5" fill="#160e0a"/><circle cx="152.5" cy="128.5" r="3.6" fill="#fff"/><circle cx="159.5" cy="139" r="1.6" fill="#fff"/>
+          </g>
+          <g fill="#b48b5c" opacity=".75"><circle cx="86" cy="152" r="2"/><circle cx="93" cy="157" r="1.7"/><circle cx="82" cy="159" r="1.5"/><circle cx="174" cy="152" r="2"/><circle cx="167" cy="157" r="1.7"/><circle cx="178" cy="159" r="1.5"/></g>
+          <path d="M114 158 Q130 174 146 158" fill="none" stroke="#160e0a" stroke-width="6" stroke-linecap="round"/>
+          <!-- courier's cap: tweed, a brass badge, a pencil in the band -->
+          <path d="M52 76 C 58 30, 202 30, 208 76 C 168 66, 92 66, 52 76 Z" fill="url(#cap)"/>
+          <path d="M52 76 C 58 30, 202 30, 208 76 C 168 66, 92 66, 52 76 Z" fill="url(#tweed)"/>
+          <path d="M196 72 C 222 70, 240 78, 238 86 C 222 88, 204 84, 190 80 Z" fill="#5e432d"/>
+          <path d="M54 72 C 94 62, 166 62, 206 72" fill="none" stroke="#4a3322" stroke-width="5"/>
+          <circle cx="130" cy="52" r="8" fill="#d9ad52" stroke="#9c7428" stroke-width="2"/><path d="M126 52h8M130 48v8" stroke="#9c7428" stroke-width="1.6"/>
+          <g transform="rotate(-24 82 60)"><rect x="66" y="56" width="40" height="6" rx="1.5" fill="#f2c447"/><rect x="62" y="56" width="6" height="6" rx="1.5" fill="#e38b8b"/><path d="M106 56l7 3-7 3z" fill="#e8cfa0"/><path d="M111 58.4l2 .6-2 .6z" fill="#3a3a3a"/></g>
+          <!-- the satchel strap, under the scarf -->
+          <path d="M52 178 C 110 196, 170 214, 210 238" stroke="#5e432d" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <!-- the scarf, one end streaming -->
+          <path d="M60 196 C 100 210, 160 210, 200 196 L 202 214 C 160 228, 100 228, 58 214 Z" fill="url(#scarf)"/>
+          <path d="M60 196 C 100 210, 160 210, 200 196 L 202 214 C 160 228, 100 228, 58 214 Z" fill="url(#knit)"/>
+          <path class="scarf-tail" d="M72 210 C 50 222, 30 216, 10 226 L 6 244 C 28 236, 52 240, 78 224 Z" fill="url(#scarf)"/>
+          <path class="scarf-tail" d="M6 244l-2 6M12 242l-1 7M18 240l0 7" stroke="#7d2416" stroke-width="2" stroke-linecap="round"/>
+          <!-- the satchel bag with a sealed letter -->
+          <rect x="182" y="222" width="54" height="40" rx="7" fill="#7a5a40"/>
+          <rect x="190" y="212" width="36" height="22" rx="2" fill="#f6ecd2" transform="rotate(6 208 223)"/>
+          <circle cx="209" cy="225" r="5" fill="#b8332a"/>
+          <path d="M182 234 h54" stroke="#5e432d" stroke-width="3"/>
+          <!-- the Echo Lantern at the hip -->
+          <g class="lantern">
+            <path d="M38 186 v8" stroke="#8a6324" stroke-width="2.5"/>
+            <rect x="26" y="194" width="24" height="30" rx="4" fill="#b8863b"/>
+            <rect x="30" y="198" width="16" height="22" rx="2" fill="#ffe3a3" class="flame"/>
+            <path d="M24 194h28M24 224h28" stroke="#8a6324" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
+      <figcaption class="sr-only">Neri, the courier of the Game Post</figcaption>
+    </figure>
+    <div class="hero-text">
+      <p class="kicker"><span class="seal" aria-hidden="true"></span><span>A letter from Neri's Game Post</span></p>
+      <h1 id="title">The <em>Swatch</em> Book</h1>
+      <p class="lede">Thirty-seven art styles, each sewn into a little game for your phone. Every swatch is a different hand, a different look, a different idea.</p>
+      <p class="gpu-note" id="gpu-note" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>
+        <span>These games draw with <b>WebGPU</b>, which this browser doesn't offer. They play in Chrome on Android and computers, Edge, and Safari 26+ on iPhone, iPad and Mac.</span>
+      </p>
+    </div>
+  </section>
+
+  <nav class="chapters" aria-label="Chapters">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <label class="search"><span class="sr-only">Search the swatches</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+      <input type="search" id="search" placeholder="Find a swatch" autocomplete="off" spellcheck="false">
+      <kbd>/</kbd>
+    </label>
+  </nav>
+
+  <section class="book" id="book" aria-label="The swatches"></section>
+  <p class="empty" id="empty" hidden>No swatch matches that. Try a style, like “pixel” or “paper”.</p>
+</main>
+
+<footer class="foot">
+  <div class="stitch-line" aria-hidden="true"></div>
+  <p>Stitched by <a href="https://lelelilo.com/?ref=swatch-book">Lelelilo-Studios</a>.</p>
+  <p class="small">Every game here is original. Fonts under open licences.</p>
+  <p class="small"><a href="#" id="about-link">About this book</a> · <a href="https://lelelilo.com/?ref=swatch-book">lelelilo.com</a></p>
+</footer>
+
+<dialog id="tag" class="tag-dialog" aria-labelledby="tag-title">
+  <article class="tag">
+    <button type="button" class="close" aria-label="Close" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="law">Swatch <span id="tag-no"></span> · do not remove this tag</p>
+    <div class="tag-media" id="tag-media"></div>
+    <h2 id="tag-title"></h2>
+    <p class="tagline" id="tag-tagline"></p>
+    <div class="actions">
+      <a class="play" id="tag-play" href="#">Play <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></a>
+      <button type="button" class="ghost" id="tag-copy">Copy link</button>
+    </div>
+    <div class="phone" id="tag-phone" hidden>
+      <div class="qr" id="tag-qr" aria-hidden="true"></div>
+      <p>Best on a phone: point its camera here.</p>
+    </div>
+    <dl id="tag-facts"></dl>
+  </article>
+</dialog>
+
+<dialog id="about" class="tag-dialog" aria-labelledby="about-title">
+  <article class="tag about">
+    <button type="button" class="close" aria-label="Close" data-close><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="law">Care instructions</p>
+    <h2 id="about-title">The Swatch Book</h2>
+    <dl>
+      <dt>What</dt><dd>Thirty-seven small games, one for each of thirty-seven art styles. Each game's idea grows out of its style: watercolour bleeds, so its puzzle is bleeding; a vase turns, so its battle goes round it.</dd>
+      <dt>Plays on</dt><dd>Phones first (portrait, touch), and computers with a keyboard. Needs WebGPU: Chrome on Android and computers, Edge, Safari 26+ on iPhone, iPad and Mac.</dd>
+      <dt>Saves</dt><dd>Best scores stay in this browser. Mute once and every game stays quiet.</dd>
+      <dt>Care</dt><dd>Play in short bursts. Do not tumble dry. Return to Neri's Game Post on <a href="https://lelelilo.com/?ref=swatch-book">lelelilo.com</a> for more letters.</dd>
+    </dl>
+  </article>
+</dialog>
+
+<script src="lelelilo-intro/lelelilo-intro.js"></script>
+<script src="data/swatches.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

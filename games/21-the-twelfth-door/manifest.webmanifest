@@ -1,0 +1,16 @@
+{
+  "name": "The Twelfth Door · The Swatch Book",
+  "short_name": "The Twelfth Door",
+  "description": "Twelve doors, one candle: read every coarse pixel and get out before the wax runs out.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#060509",
+  "theme_color": "#060509",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

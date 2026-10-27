@@ -1,0 +1,16 @@
+{
+  "name": "Snails in the Margin · The Swatch Book",
+  "short_name": "Snails",
+  "description": "Draw ink walls and paint marginal guardians to keep snails off a gilded initial.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#241810",
+  "theme_color": "#241810",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

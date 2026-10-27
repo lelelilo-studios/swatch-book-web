@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#3f86e8">
+<meta name="color-scheme" content="dark">
+<title>Cloud Porter</title>
+<meta name="description" content="Cloud Porter: Pedal parcels between floating islands. Don't drop them, don't swing them into chimneys. Swatch 18 of The Swatch Book, a phone game in crowded pixel islands.">
+<meta name="author" content="Lelelilo-Studios">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Swatch Book · Lelelilo-Studios">
+<meta property="og:title" content="Cloud Porter · The Swatch Book">
+<meta property="og:description" content="Pedal parcels between floating islands. Don't drop them, don't swing them into chimneys.">
+<meta property="og:url" content="https://lelelilo-studios.github.io/swatch-book-web/games/18-cloud-porter/">
+<meta property="og:image" content="https://lelelilo-studios.github.io/swatch-book-web/thumbs/18-cloud-porter.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cloud Porter">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preload" href="pkg/game_bg.wasm?v=1e830ef-6adfb262" as="fetch" type="application/wasm" crossorigin>
+<style>
+  /* The kit's page. The game's own look comes from its theme (below), which sets these. */
+  :root { --bg: #111; --ink: #f2efe6; --muted: #a9a49a; --accent: #f0bd52; --danger: #e0624f; --panel: rgba(255,255,255,.06);
+    --font-display: Georgia, serif; --font-body: system-ui, sans-serif; --tag-ink: var(--ink); --tag-paper: color-mix(in srgb, var(--bg) 82%, transparent); --tag-line: color-mix(in srgb, var(--ink) 30%, transparent); }
+</style>
+<style>
+/* Cloud Porter: the page's look while the game loads, and on its fallback screens. A morning sky in hard
+   bands, Coral Pixels lettering (its colour layers flattened to one ink with font palettes) in cloud cream with a
+   plum edge, parcel-paper boxes and postal-red tags for buttons. */
+@font-face { font-family: "PorterCoral"; src: url("fonts/coral.ttf") format("truetype"); font-display: swap; }
+@font-palette-values --porter-cream { font-family: "PorterCoral"; override-colors: 0 #fffaf0, 1 #fffaf0, 2 #fffaf0, 3 #fffaf0, 4 #fffaf0, 5 #fffaf0, 6 #fffaf0, 7 #fffaf0, 8 #fffaf0, 9 #fffaf0, 10 #fffaf0, 11 #fffaf0, 12 #fffaf0, 13 #fffaf0, 14 #fffaf0, 15 #fffaf0, 16 #fffaf0, 17 #fffaf0, 18 #fffaf0, 19 #fffaf0, 20 #fffaf0, 21 #fffaf0, 22 #fffaf0, 23 #fffaf0, 24 #fffaf0, 25 #fffaf0, 26 #fffaf0, 27 #fffaf0, 28 #fffaf0, 29 #fffaf0, 30 #fffaf0, 31 #fffaf0; }
+@font-palette-values --porter-ink { font-family: "PorterCoral"; override-colors: 0 #2a1b2e, 1 #2a1b2e, 2 #2a1b2e, 3 #2a1b2e, 4 #2a1b2e, 5 #2a1b2e, 6 #2a1b2e, 7 #2a1b2e, 8 #2a1b2e, 9 #2a1b2e, 10 #2a1b2e, 11 #2a1b2e, 12 #2a1b2e, 13 #2a1b2e, 14 #2a1b2e, 15 #2a1b2e, 16 #2a1b2e, 17 #2a1b2e, 18 #2a1b2e, 19 #2a1b2e, 20 #2a1b2e, 21 #2a1b2e, 22 #2a1b2e, 23 #2a1b2e, 24 #2a1b2e, 25 #2a1b2e, 26 #2a1b2e, 27 #2a1b2e, 28 #2a1b2e, 29 #2a1b2e, 30 #2a1b2e, 31 #2a1b2e; }
+@font-palette-values --porter-gold { font-family: "PorterCoral"; override-colors: 0 #f6c040, 1 #f6c040, 2 #f6c040, 3 #f6c040, 4 #f6c040, 5 #f6c040, 6 #f6c040, 7 #f6c040, 8 #f6c040, 9 #f6c040, 10 #f6c040, 11 #f6c040, 12 #f6c040, 13 #f6c040, 14 #f6c040, 15 #f6c040, 16 #f6c040, 17 #f6c040, 18 #f6c040, 19 #f6c040, 20 #f6c040, 21 #f6c040, 22 #f6c040, 23 #f6c040, 24 #f6c040, 25 #f6c040, 26 #f6c040, 27 #f6c040, 28 #f6c040, 29 #f6c040, 30 #f6c040, 31 #f6c040; }
+:root {
+  --bg: #4f86d8;
+  --ink: #fffaf0;
+  --muted: #dde6f5;
+  --accent: #f6c040;
+  --danger: #ec6a5a;
+  --panel: #2a1b2e;
+  --font-display: "PorterCoral", "Courier New", monospace;
+  --font-body: "PorterCoral", "Courier New", monospace;
+  --tag-paper: #2a1b2e;
+  --tag-ink: #fffaf0;
+  --tag-line: color-mix(in srgb, #f6c040 55%, transparent);
+}
+/* the sky in bands, never a smooth gradient */
+html, body, body .screen {
+  background: linear-gradient(180deg,
+    #3f86e8 0 18%, #4f90ea 18% 30%, #64a0ee 30% 42%, #7cb4f2 42% 55%,
+    #9cc8f4 55% 68%, #bcdaf6 68% 80%, #dfeefb 80% 100%);
+}
+body { -webkit-font-smoothing: none; font-smooth: never; font-palette: --porter-cream; }
+body .screen h1 { font-size: 54px; line-height: 1; letter-spacing: 0; color: var(--ink); font-palette: --porter-cream;
+  text-shadow: 3px 0 0 #2a1b2e, -3px 0 0 #2a1b2e, 0 3px 0 #2a1b2e, 0 -3px 0 #2a1b2e, 3px 3px 0 #2a1b2e, 0 6px 0 #45304a; }
+body .kicker, body .status { font-size: 15px; letter-spacing: .04em; color: var(--ink); text-shadow: 2px 2px 0 #2a1b2e; }
+body .kicker b { color: var(--accent); font-palette: --porter-gold; }
+body .tagline, body .note { font-size: 15px; line-height: 1.35; max-width: 22em; color: #2a1b2e; font-palette: --porter-ink;
+  background: #f4e8c8; border: 3px solid #2a1b2e; padding: 6px 10px; box-shadow: 3px 3px 0 #2a1b2e88; }
+body .help { font-size: 14px; line-height: 1.35; border-radius: 0; border: 3px solid #2a1b2e; background: #f4e8c8; color: #2a1b2e;
+  font-palette: --porter-ink; }
+body .help code { font-palette: normal; }
+body .btn, body .browsers a { font: 16px "PorterCoral", monospace; border-radius: 0; border: 3px solid #2a1b2e;
+  background: #c0393a; color: #fffaf0; box-shadow: 0 4px 0 #7a1e2a; font-palette: --porter-cream; }
+body .btn:hover, body .browsers a:hover { background: #ec6a5a; }
+body .bar { height: 10px; border-radius: 0; background: #2a1b2e; border: 3px solid #2a1b2e; }
+body .bar i { background: var(--accent); }
+body .foot a { font-size: 15px; color: var(--ink); text-shadow: 2px 2px 0 #2a1b2e; }
+body #swatch-tag { border-radius: 0; border-style: solid; backdrop-filter: none; -webkit-backdrop-filter: none; }
+body .loader-art { image-rendering: pixelated; }
+
+</style>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden; overscroll-behavior: none; }
+  body { font: 500 16px/1.45 var(--font-body); -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-text-size-adjust: 100%; }
+  canvas#lelelilo, canvas#kit-mirror { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none; outline: none; }
+  canvas#kit-mirror { display: none; pointer-events: none; z-index: 1; }
+  #kit-safe { position: fixed; inset: 0; visibility: hidden; pointer-events: none;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+  #kit-fps { position: fixed; left: 8px; bottom: 8px; z-index: 9; display: none; font: 600 11px ui-monospace, monospace; color: #fff; background: rgba(0,0,0,.6); padding: 3px 6px; border-radius: 4px; pointer-events: none; }
+  .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; box-sizing: border-box;
+    padding: max(28px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+    background: var(--bg); text-align: center; transition: opacity .55s ease, visibility 0s; z-index: 5; }
+  .screen.gone { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .55s ease, visibility 0s .55s; }
+  .screen.hidden { display: none; }
+  .kicker { font: 700 11px/1 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .kicker b { color: var(--accent); font-weight: 800; }
+  h1 { margin: 0; font: 400 clamp(34px, 10vw, 64px)/1.02 var(--font-display); letter-spacing: .01em; color: var(--ink); text-wrap: balance; }
+  .tagline { margin: 0; max-width: 26em; color: var(--muted); font-size: 15px; text-wrap: balance; }
+  .bar { width: min(240px, 62vw); height: 2px; background: color-mix(in srgb, var(--ink) 16%, transparent); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+  .status { font: 700 11px var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); min-height: 1em; }
+  .loader-art { width: min(160px, 40vw); height: auto; }
+  .note { max-width: 30em; color: var(--muted); font-size: 14px; line-height: 1.55; user-select: text; -webkit-user-select: text; }
+  .browsers { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 30em; }
+  .browsers a, .btn { color: var(--ink); text-decoration: none; padding: 12px 16px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent); font: 700 14px var(--font-body); background: var(--panel); cursor: pointer; }
+  .browsers a:hover, .btn:hover, .browsers a:focus-visible, .btn:focus-visible { border-color: var(--accent); outline: none; }
+  .help { max-width: 30em; text-align: left; padding: 12px 16px; border: 1.5px dashed color-mix(in srgb, var(--ink) 30%, transparent); border-radius: 10px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+  .help.hidden { display: none; }
+  .help ol { margin: 6px 0 0; padding-left: 20px; }
+  .help b { color: var(--ink); }
+  code { font: 600 13px ui-monospace, monospace; }
+  .err { font: 500 12px/1.5 ui-monospace, monospace; color: var(--danger); white-space: pre-wrap; max-width: min(90vw, 760px); max-height: 32vh; overflow: auto; text-align: left; padding: 12px 14px; border: 1.5px dashed var(--danger); border-radius: 8px; user-select: text; -webkit-user-select: text; }
+  .foot { position: absolute; left: 0; right: 0; bottom: max(14px, env(safe-area-inset-bottom)); display: flex; justify-content: center; gap: 18px; font: 700 12px var(--font-body); letter-spacing: .08em; }
+  .foot a { color: var(--muted); text-decoration: none; padding: 10px 6px; }
+  .foot a:hover, .foot a:focus-visible { color: var(--ink); outline: none; }
+  .foot a span { color: var(--accent); }
+  /* The swatch tag: back to the collection. Games show it on menus and hide it in play. */
+  #swatch-tag { position: fixed; z-index: 4; display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px 0 10px; box-sizing: border-box;
+    font: 700 11px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--tag-ink); text-decoration: none;
+    background: var(--tag-paper); border: 1px dashed var(--tag-line); border-radius: 999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: opacity .3s ease, transform .3s ease; }
+  #swatch-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+  #swatch-tag[data-pos="tl"] { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="tr"] { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag[data-pos="bl"] { bottom: max(12px, env(safe-area-inset-bottom)); left: max(12px, env(safe-area-inset-left)); }
+  #swatch-tag[data-pos="br"] { bottom: max(12px, env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); }
+  #swatch-tag.off { opacity: 0; pointer-events: none; transform: translateY(-4px); }
+  #swatch-tag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .screen, .screen.gone, .bar i, #swatch-tag { transition: none; } }
+</style>
+</head>
+<body>
+<canvas id="lelelilo" tabindex="0" aria-label="Cloud Porter, a game. Pedal parcels between floating islands. Don't drop them, don't swing them into chimneys."></canvas>
+<canvas id="kit-mirror" aria-hidden="true"></canvas>
+<div id="kit-safe" aria-hidden="true"></div>
+<div id="kit-fps" aria-hidden="true"></div>
+<a id="swatch-tag" data-pos="tl" href="../../#18-cloud-porter" aria-label="Back to The Swatch Book, swatch 18 of 37">Swatch 18 · The Swatch Book</a>
+
+<div class="screen" id="loading" role="status" aria-live="polite">
+  <div class="loader-art" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 40" width="192" height="120" shape-rendering="crispEdges">
+  <!-- the Thistledown bobbing along with a parcel swinging on its rope, while the page loads -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -2;0 0" dur="1.6s" repeatCount="indefinite"/>
+    <rect x="18" y="3" width="24" height="1" fill="#bb8b56">
+      <animate attributeName="width" values="24;12;2;12;24" dur="0.3s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="18;24;29;24;18" dur="0.3s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="29" y="2" width="3" height="2" fill="#c39a3e"/>
+    <rect x="30" y="4" width="1" height="11" fill="#5a5768"/>
+    <rect x="22" y="7" width="5" height="5" fill="#e0ac84"/><rect x="22" y="6" width="5" height="2" fill="#74462c"/><rect x="25" y="7" width="1" height="1" fill="#2a1b2e"/>
+    <rect x="17" y="12" width="3" height="1" fill="#f6c040"><animate attributeName="x" values="17;16;17" dur="0.4s" repeatCount="indefinite"/></rect>
+    <rect x="21" y="12" width="6" height="3" fill="#2f5eaa"/>
+    <rect x="12" y="15" width="36" height="1" fill="#d5ad70"/>
+    <rect x="12" y="16" width="36" height="3" fill="#b3393b"/><rect x="48" y="12" width="2" height="5" fill="#7a2134"/>
+    <rect x="13" y="19" width="34" height="1" fill="#fbf0d8"/>
+    <rect x="15" y="20" width="30" height="2" fill="#87603f"/><rect x="19" y="22" width="22" height="1" fill="#5f3d31"/>
+    <rect x="13" y="8" width="1" height="7" fill="#6d4533"/><rect x="10" y="9" width="3" height="4" fill="#e0614a"/>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-14 30 23;14 30 23;-14 30 23" dur="1.6s" repeatCount="indefinite"/>
+      <rect x="30" y="23" width="1" height="9" fill="#c4a070"/>
+      <rect x="27" y="32" width="7" height="6" fill="#c0925c"/><rect x="30" y="32" width="1" height="6" fill="#fbf0d8"/><rect x="27" y="34" width="7" height="1" fill="#e3d4b6"/><rect x="30" y="34" width="1" height="1" fill="#c0393a"/>
+    </g>
+  </g>
+</svg>
+</div>
+  <div class="kicker">Swatch <b>18</b> · Crowded pixel islands</div>
+  <h1>Cloud Porter</h1>
+  <p class="tagline">Pedal parcels between floating islands. Don't drop them, don't swing them into chimneys.</p>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <div class="status" id="status">Threading the needle…</div>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="unsupported">
+  <div class="kicker">Swatch <b>18</b> · Crowded pixel islands</div>
+  <h1>Cloud Porter</h1>
+  <p class="note">This game draws with <b>WebGPU</b>, and this browser doesn't offer it yet. It plays in these:</p>
+  <div class="browsers">
+    <a href="https://www.google.com/chrome/" rel="noopener">Chrome · Android &amp; desktop</a>
+    <a href="https://www.apple.com/safari/" rel="noopener">Safari 26+ · iPhone, iPad, Mac</a>
+    <a href="https://www.microsoft.com/edge" rel="noopener">Edge</a>
+  </div>
+  <div class="help hidden" id="linux-help"></div>
+  <p class="note" id="why" style="font-size:12px"></p>
+  <div class="foot"><a href="../../">The Swatch Book</a><a href="https://lelelilo.com/?ref=swatch-book" target="_blank" rel="noopener">lelelilo<span>.com</span></a></div>
+</div>
+
+<div class="screen hidden" id="failed">
+  <div class="kicker">Swatch <b>18</b> · Crowded pixel islands</div>
+  <h1>A thread snapped</h1>
+  <p class="note">Cloud Porter couldn't start. Starting it again usually helps.</p>
+  <div class="browsers"><a href="." id="again" class="btn">Try again</a><a href="../../" class="btn">Back to the book</a></div>
+  <div class="err" id="errtext"></div>
+</div>
+
+<script type="module">
+  const BUILD = '1e830ef-6adfb262';
+  window.__lelelilo_build = BUILD;
+  const $ = id => document.getElementById(id);
+  const show = id => { for (const s of ['loading', 'unsupported', 'failed']) $(s).classList.toggle('hidden', s !== id); };
+  const setProgress = k => { $('bar').style.width = `${Math.max(0, Math.min(1, k)) * 100}%`; };
+  let failed = false;
+  const fail = e => { if (failed) return; failed = true; console.error(e); $('errtext').textContent = String(e && e.message || e); show('failed'); $('swatch-tag').classList.remove('off'); };
+  $('again').addEventListener('click', e => { e.preventDefault(); location.reload(); });
+  // Inside the collection's preview frames, the tag is the index's job
+  if (window.self !== window.top) $('swatch-tag').style.display = 'none';
+  // A tap that reveals the tag (a pause button, say) must not also click it: it wakes up a moment later
+  let tagTimer = 0;
+  window.__kitTag = on => {
+    const t = $('swatch-tag'), was = !t.classList.contains('off');
+    t.classList.toggle('off', !on);
+    if (on && !was) { t.style.pointerEvents = 'none'; clearTimeout(tagTimer); tagTimer = setTimeout(() => { t.style.pointerEvents = ''; }, 450); }
+  };
+  const LINUX = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
+  const linuxHelp = `<b>On Linux</b>, WebGPU is still switched off by default. In Chrome, Chromium, Brave or Edge:
+    <ol><li>open <code>chrome://flags</code>, set <b>Unsafe WebGPU Support</b> to Enabled,</li>
+    <li>set <b>Vulkan</b> to Enabled,</li><li>relaunch the browser.</li></ol>`;
+  async function hasWebGPU() {
+    if (!navigator.gpu) return 'This browser has no WebGPU.';
+    for (let i = 0; i < 3; i++) {
+      try { const a = await navigator.gpu.requestAdapter(); if (a) return null; }
+      catch (e) { if (i === 2) return 'WebGPU could not start: ' + e.message; }
+      await new Promise(r => setTimeout(r, 250 * (i + 1)));
+    }
+    return 'WebGPU is here but found no graphics adapter it can use.';
+  }
+  async function fetchWasm(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Could not download the game (${res.status})`);
+    const total = +res.headers.get('content-length') || 0, reader = res.body.getReader(), parts = [];
+    let got = 0;
+    for (;;) {
+      const { done, value } = await reader.read(); if (done) break;
+      parts.push(value); got += value.length;
+      setProgress(total ? got / total * 0.85 : Math.min(0.85, got / 2.5e6));
+    }
+    return new Response(new Blob(parts), { headers: { 'Content-Type': 'application/wasm' } });
+  }
+  (async () => {
+    const why = await hasWebGPU();
+    if (why) {
+      $('why').textContent = why;
+      if (LINUX) { $('linux-help').innerHTML = linuxHelp; $('linux-help').classList.remove('hidden'); }
+      show('unsupported'); return;
+    }
+    try {
+      addEventListener('lelelilo-error', e => fail(e.detail));
+      addEventListener('kit-progress', e => { setProgress(0.85 + 0.15 * e.detail); });
+      addEventListener('lelelilo-ready', () => {
+        setProgress(1); $('status').textContent = 'Ready';
+        setTimeout(() => $('loading').classList.add('gone'), 180);
+        $('lelelilo').focus({ preventScroll: true });
+      }, { once: true });
+      const [{ default: init }, wasm] = await Promise.all([import(`./pkg/game.js?v=${BUILD}`), fetchWasm(`./pkg/game_bg.wasm?v=${BUILD}`)]);
+      $('status').textContent = 'Stitching…';
+      await init({ module_or_path: wasm });
+    } catch (e) { fail(e); }
+  })();
+</script>
+</body>
+</html>

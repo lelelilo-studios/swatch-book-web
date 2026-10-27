@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="lump" cx="38%" cy="32%" r="70%">
+      <stop offset="0" stop-color="#f29a63"/>
+      <stop offset=".55" stop-color="#d0703f"/>
+      <stop offset="1" stop-color="#8f3e1e"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#3f7d74"/>
+  <circle cx="11" cy="12" r="2.4" fill="#6aa496"/>
+  <circle cx="53" cy="10" r="2.4" fill="#6aa496"/>
+  <circle cx="54" cy="31" r="2.4" fill="#6aa496"/>
+  <circle cx="9" cy="33" r="2.4" fill="#6aa496"/>
+  <ellipse cx="32" cy="52" rx="24" ry="6.5" fill="#e0a83c"/>
+  <ellipse cx="32" cy="50.5" rx="22" ry="5.5" fill="#efd9b0"/>
+  <path d="M15 47 C 12 35, 18 20, 31 18 C 44 16, 52 30, 49 45 C 47 52, 18 53, 15 47 Z" fill="url(#lump)"/>
+  <g fill="none" stroke="#9c4a25" stroke-width="1.1" stroke-linecap="round" opacity=".7">
+    <path d="M27 30 a5 6 0 1 1 9 3"/>
+    <path d="M25 31 a7.5 8.5 0 1 1 13 4"/>
+    <path d="M23.5 32.5 a10 11 0 1 1 17 4.5"/>
+  </g>
+  <ellipse cx="25" cy="25" rx="4" ry="2.4" fill="#fff" opacity=".28" transform="rotate(-30 25 25)"/>
+</svg>

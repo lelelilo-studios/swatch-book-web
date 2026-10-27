@@ -1,0 +1,16 @@
+{
+  "name": "Little Lockkeeper · The Swatch Book",
+  "short_name": "Lockkeeper",
+  "description": "Raise the water, lower the water: get every narrowboat up and down the flight.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#4a2f1e",
+  "theme_color": "#4a2f1e",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

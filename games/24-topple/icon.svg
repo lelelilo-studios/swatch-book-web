@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" rx="12" fill="#2a2622"/>
+  <rect x="0" y="0" width="64" height="40" rx="12" fill="#3a3a4a"/>
+  <rect x="0" y="24" width="64" height="16" fill="#d07a4a"/>
+  <rect x="0" y="34" width="64" height="6" fill="#f2a25a"/>
+  <!-- the street and its tape -->
+  <rect x="0" y="48" width="64" height="16" fill="#2a2622"/>
+  <g fill="#f2b632"><path d="M0 48h6l-6 8z"/><path d="M10 48h8l-8 8h-8z"/><path d="M26 48h8l-8 8h-8z"/><path d="M42 48h8l-8 8h-8z"/><path d="M58 48h6v2l-6 6h-8z"/></g>
+  <!-- the stub and a tower of blocks mid-topple -->
+  <rect x="10" y="40" width="10" height="8" fill="#93412e"/>
+  <g transform="rotate(32 20 40)">
+    <rect x="10" y="10" width="10" height="30" fill="#b4553b"/>
+    <rect x="10" y="10" width="4" height="4" fill="#c9714e"/><rect x="16" y="18" width="4" height="4" fill="#8f3f2d"/>
+    <rect x="10" y="26" width="4" height="4" fill="#c9714e"/><rect x="16" y="32" width="4" height="4" fill="#8f3f2d"/>
+    <rect x="13" y="16" width="4" height="6" fill="#ffc56a"/>
+    <rect x="8" y="6" width="14" height="4" fill="#515b69"/><rect x="11" y="2" width="8" height="4" fill="#3e4652"/>
+  </g>
+  <!-- loose blocks -->
+  <rect x="34" y="42" width="4" height="4" fill="#c9714e"/><rect x="40" y="36" width="3" height="3" fill="#b4553b"/>
+  <rect x="47" y="43" width="4" height="4" fill="#8f3f2d"/><rect x="28" y="30" width="3" height="3" fill="#f2b632"/>
+</svg>

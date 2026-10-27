@@ -1,0 +1,16 @@
+{
+  "name": "Wet on Wet · The Swatch Book",
+  "short_name": "Wet on Wet",
+  "description": "Wet a shape, drop in colour, let it bloom. Finish each sketch before the paper dries.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#cfd4d7",
+  "theme_color": "#cfd4d7",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
